@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SINGLES A LA CARTE</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/reset.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<header>
+
+
+    <nav class="mobile_nav">
+
+        <div class="mobile_nav_wrapper">
+            <ul>
+                <li><a href="home.html" >Home</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="sneak.html" class="mobile_active">Sneak Peek</a></li>
+            </ul>
+        </div>
+        <div class="mobile_nav_background">
+        </div>
+    </nav>
+
+
+    <div class="logo">
+        <h1 class="title">Singles a la carte</h1>
+        <h2 class="slogan">für Singles die wissen wo etwas passiert</h2>
+    </div>
+
+    <nav class="nav_desktop">
+        <span><a href="home.html" class="active">Home</a></span>
+        <span><a href="app.html">App</a></span>
+        <span><a href="signin.html">Sign In</a></span>
+        <span><a href="login.html">Login</a></span>
+    </nav>
+
+
+    <nav class="mobile_login">
+        <div class="mobile_login_wrapper">
+            <ul>
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+        <div class="mobile_login_background">
+        </div>
+    </nav>
+</header>
+
+
+
+<main class="map">
+<div id="map">
+
+</div>
+</main>
+
+
+
+
+<footer>
+    <p><a href="https://github.com/Thomas1981Lang" target="_blank">&copy; TL </a></p>
+    <p class="imnuda"><span><a href="#">Impressum</a></span><span><a href="#">Nutzungsbedingung</a></span><span><a
+            href="#">Datenschutz</a></span></p>
+</footer>
+
+<script>
+
+
+    var map;
+    function initMap() {
+        // Constructor creates a new map - only center and zoom are required.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 48.207715, lng: 16.375253},
+            zoom: 18
+        });
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfDcni1n3TXcLUUV164qDutKiaWwRDR0I&v=3&callback=initMap">
+</script>
+
+</body>
+</html>

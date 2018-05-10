@@ -1,0 +1,818 @@
+/************************************************
+************            *************************
+**********  COLOR IN USE START*******************
+************            *************************
+*************************************************
+
+
+dark:
+background-color: #141414;
+color: #ebebeb;
+text-shadow: red, black, gray;
+
+
+/************************************************
+************                *********************
+**********  COLOR IN USE END  *******************
+************                *********************
+*************************************************
+
+
+
+
+/************************************************
+****************           **********************
+**************  BASIC START  ********************
+****************           **********************
+************************************************/
+
+* {
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+html, body {
+    height: 100%; /* unlogisch */
+    min-height: 100vh;
+}
+
+body {
+    background-color: #ebebeb;
+    color: #141414;
+    font-family: 'Open Sans', sans-serif;
+
+    overflow-y: scroll;
+    width: 100%;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.7rem;
+}
+
+main {
+    min-height: calc(100vh - 60px);
+}
+
+
+@media only screen and (max-width: 580px) {
+
+    main {
+        min-height: calc(100vh - 150px);
+    }
+
+
+}
+/************************************************
+****************         ************************
+**************  BASIC END  **********************
+****************         ************************
+************************************************/
+
+/************************************************
+****************                      ***********
+**************  HEADER - SECTION START  *********
+****************                      ***********
+************************************************/
+
+header {
+    align-items: center;
+    background-color: black;
+    border-bottom: 1px solid #ebebeb;
+    color: #ebebeb;
+    display: flex;
+    height: 130px;
+    justify-content: space-between;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+}
+
+.mobile_nav,
+.mobile_login {
+    display: none;
+}
+
+.title {
+    font-family: 'Lobster', cursive;
+    font-size: 3.5em;
+    padding-bottom: 15px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, -2px 0 6px red, 0 0 6px red, 0 0 6px red, 0 -2px 6px red;
+}
+
+.slogan {
+    font-size: 1.5em;
+    padding-left: 20px;
+    text-shadow: 0 0 3px gray, 0 1px 1px gray, 1px 0 1px gray, 1px 1px gray;
+}
+
+.nav_desktop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav_desktop span a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: left;
+    text-decoration: none;
+    padding: 23px;
+    width: 135px;
+}
+
+.nav_desktop a {
+    align-self: center;
+    color: #ebebeb;
+    text-decoration: none;
+
+}
+
+.nav_desktop .active {
+    background-color: #ebebeb;
+    color: #141414;
+    padding: 51px 23px 51px;
+}
+
+.nav_desktop span a:hover {
+    background-color: #cbcbcb;
+    color: #141414;
+    padding: 51px 23px 51px;
+}
+
+@media only screen and (max-width: 1040px) {
+
+    header {
+        height: 130px;
+    }
+
+    .title {
+        padding-left: 20px;
+        font-size: 3em;
+    }
+
+    .slogan {
+        text-align: left;
+        font-size: 1.1em;
+        padding-left: 20px;
+    }
+
+    .nav_desktop span a {
+        font-size: 1.4rem;
+        text-align: left;
+        text-decoration: none;
+        padding: 19px;
+        width: 116px;
+    }
+
+    .nav_desktop .active {
+        padding: 54px 19px 54px;
+    }
+
+    .nav_desktop span a:hover {
+        padding: 54px 19px 54px;
+    }
+
+}
+
+@media only screen and (max-width: 840px) {
+
+    header {
+        height: 100px;
+    }
+
+    .title {
+        padding-left: 20px;
+        font-size: 2.5em;
+    }
+
+    .slogan {
+        text-align: left;
+        font-size: 1em;
+    }
+
+    .nav_desktop span a {
+        font-size: 1.1rem;
+        text-align: left;
+        text-decoration: none;
+        padding: 15px;
+        width: 92px;
+    }
+
+    .nav_desktop .active {
+        padding: 41px 15px 41px;
+    }
+
+    .nav_desktop span a:hover {
+        padding: 41px 15px 41px;
+    }
+
+}
+
+@media only screen and (max-width: 720px) {
+
+    header {
+        height: 100px;
+    }
+
+    .title {
+        padding: 0;
+    }
+
+    .slogan {
+        display: none;
+    }
+
+    .nav_desktop {
+        display: none;
+    }
+
+    /********* mobile nav background ****/
+    .mobile_nav_background {
+        top: 100px;
+        filter: opacity(80%);
+        position: absolute;
+        background-color: darkred;
+        height: calc(100vh - 100px);
+        margin-left: -10px;
+        width: 100%;
+        -webkit-transform: translate(-100vw, 0);
+        transform: translate(-100vw, 0);
+        /*transition: transform 0.3s ease;*/
+        display: none;
+    }
+
+    .mobile_nav_background.open {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+        display: flex;
+    }
+
+    .mobile_login_background {
+        top: 100px;
+        right: 0;
+        filter: opacity(80%);
+        position: absolute;
+        background-color: black;
+        height: calc(100vh - 100px);
+        /*margin-left: -10px;*/
+        width: 100%;
+        -webkit-transform: translate(100vw, 0);
+        transform: translate(100vw, 0);
+        /*transition: transform 0.3s ease;*/
+        display: none;
+    }
+
+    .mobile_login_background.open {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+        display: flex;
+    }
+
+    /********* mobile nav background ****/
+    /********* mobile nav außen ****/
+    .mobile_nav {
+        display: flex;
+        flex-direction: row;
+        margin: 0 10px;
+        min-width: 45px;
+        min-height: 45px;
+        background: #ebebeb url("../img/menu.svg") no-repeat;
+        border: none;
+    }
+
+    .mobile_login {
+        display: flex;
+        flex-direction: row;
+        margin: 0 10px;
+        min-width: 45px;
+        min-height: 45px;
+        background: #ebebeb url("../img/keyhole.svg") no-repeat;
+        border: none;
+    }
+
+    /********* mobile nav außen ****/
+    /********* mobile wrapper ebene ****/
+    .mobile_nav_wrapper {
+        z-index: 99;
+        top: 100px;
+        filter: opacity(100%);
+        width: 300px;
+        height: calc(100vh - 100px);
+        margin-left: -20px;
+        position: absolute;
+        background-color: #141414;
+        border-right: 1px solid #ebebeb;
+        -webkit-transform: translate(-300px, 0);
+        transform: translate(-300px, 0);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile_login_wrapper {
+        z-index: 99;
+        top: 100px;
+        right: 0;
+        filter: opacity(100%);
+        width: 300px;
+        height: calc(100vh - 100px);
+        margin-left: -20px;
+        position: absolute;
+        background-color: #550000;
+        border-left: 1px solid #ebebeb;
+        -webkit-transform: translate(300px, 0);
+        transform: translate(300px, 0);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile_login_wrapper.open,
+    .mobile_nav_wrapper.open {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    .mobile_login_wrapper ul,
+    .mobile_nav_wrapper ul {
+        padding-top: 20px;
+    }
+
+    .mobile_nav_wrapper ul li {
+        width: 300px;
+        height: 45px;
+        margin: 16px 0;
+        box-shadow: 0 2px 3px white, -1px -2px 3px white;
+    }
+
+    .mobile_login_wrapper ul li {
+        width: 300px;
+        height: 45px;
+        margin: 16px 0;
+        box-shadow: 1px 2px 3px white, 1px -2px 3px white;
+    }
+
+    .mobile_login_wrapper ul li a,
+    .mobile_nav_wrapper ul li a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        vertical-align: center;
+        width: 300px;
+        height: 45px;
+        font-weight: bolder;
+        color: #ebebeb;
+        text-decoration: none;
+    }
+
+    .mobile_login_wrapper ul li a:hover,
+    .mobile_nav_wrapper ul li a:hover {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        vertical-align: center;
+        width: 300px;
+        height: 45px;
+        font-weight: bolder;
+        text-decoration: none;
+        background-color: #ebebeb;
+        color: #141414;
+    }
+
+    ul li a.mobile_active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: left;
+        vertical-align: center;
+        height: 45px;
+        width: 300px;
+        font-weight: bolder;
+        background-color: #ebebeb;
+        color: #141414;
+        text-decoration: none;
+    }
+
+}
+
+/************************************************
+****************                    *************
+**************  HEADER - SECTION END  ***********
+****************                    *************
+************************************************/
+
+/************************************************
+****************                      ***********
+**************  FOOTER - SECTION START  *********
+****************                      ***********
+************************************************/
+
+footer {
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    background-color: black;
+    color: #ebebeb;
+
+    height: 60px;
+    border-top: 1px solid white;
+}
+
+footer p {
+    text-align: left;
+    padding: 20px 0 20px 20px;
+}
+
+footer p span {
+
+    padding: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #ebebeb;
+}
+
+@media only screen and (max-width: 580px) {
+
+    footer {
+        display: flex;
+        align-items: center;
+        height: 150px;
+    }
+
+    .imnuda {
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imnuda span {
+        padding: 10px;
+    }
+
+}
+
+/************************************************
+****************                    *************
+**************  FOOTER - SECTION END  ***********
+****************                    *************
+************************************************/
+
+/************************************************
+****************       MAIN        **************
+**************  HOME - SECTION START  ***********
+****************                    *************
+************************************************/
+
+.hero {
+    background-image: url("../img/andrew-welch-229148-unsplash_cr.jpg");
+    background-position: right center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 60px);
+    justify-content: center;
+    /*padding-top: 190px;*/
+    z-index: 0;
+    /*padding-bottom: 80px;*/
+}
+
+.hero_mobile {
+    display: none;
+}
+
+.hero_block {
+    margin-top: 160px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 20px 20% 30px 20%;
+    box-shadow: 10px 10px 10px #141414;
+    margin-left: 20px;
+    padding: 80px;
+    line-height: 2.5rem;
+    width: 572px;
+}
+
+.hero_block h2 {
+    padding-bottom: 30px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+
+    .hero {
+        background-image: url("../img/andrew-welch-229148-unsplash_cr.jpg");
+        display: flex;
+        min-height: calc(100vh - 60px);
+        justify-content: flex-start;
+        background-image: none;
+        width: 100%;
+    }
+
+    .hero_mobile {
+        display: flex;
+        height: auto;
+        margin-top: 129px;
+    }
+
+    .hero_mobile img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero_block {
+        margin: 0;
+        background-color: #ebebeb;
+        border-radius: 0;
+        box-shadow: none;
+        color: #141414;
+        padding: 90px;
+        line-height: 2.5rem;
+        width: 100%;
+
+    }
+
+    .hero_block h2 {
+        padding-bottom: 60px;
+    }
+
+}
+
+@media only screen and (max-width: 840px) {
+
+    .hero_mobile {
+        margin-top: 100px;
+    }
+
+}
+
+@media only screen and (max-width: 690px) {
+
+    .hero_block {
+        padding: 50px;
+        line-height: 2.5rem;
+    }
+
+}
+
+@media only screen and (max-width: 590px) {
+
+    .hero_block {
+
+        padding: 50px;
+        line-height: 2.5rem;
+    }
+
+    .hero_block h2 {
+        font-size: 1.3em;
+        padding-bottom: 40px;
+    }
+
+    .hero_block h3 {
+        font-size: 1em;
+    }
+
+}
+
+@media only screen and (max-width: 580px) {
+
+    .hero {
+        min-height: calc(100vh - 150px);
+    }
+
+}
+
+/************************************************
+****************       MAIN       ***************
+**************  HOME - SECTION END  *************
+****************                  **************
+************************************************/
+
+
+
+/************************************************
+****************       MAIN        **************
+**************  APP - SECTION START  ************
+****************                   **************
+************************************************/
+.app {
+    background-color: black;
+    padding-top: 190px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+.app h1,
+.app h2 {
+    color: #ebebeb;
+    padding-bottom: 30px;
+}
+
+.app video {
+    padding: 40px;
+}
+
+.app_pic {
+    padding-bottom: 40px;
+    width: 750px;
+}
+
+.app_text {
+    color: #ebebeb;
+    padding: 0 50px 50px 50px;
+}
+
+.app_symbole {
+    padding-bottom: 20px;
+    width: 40px;
+}
+
+
+@media only screen and (max-width: 750px) {
+
+    .app_pic {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 484px) {
+
+    .app video {
+        box-sizing: border-box;
+        padding: 40px;
+        width: 100%;
+    }
+
+}
+
+
+/************************************************
+****************       MAIN      ****************
+**************  APP - SECTION END  **************
+****************                 ****************
+************************************************/
+
+
+
+
+/************************************************
+****************       MAIN          ************
+**************  LOGIN - SECTION START  **********
+****************                     ************
+************************************************/
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #141414;
+}
+
+.login_form {
+    margin: 160px 0 40px;
+    display: flex;
+    flex-direction: column;
+ width: 500px;
+    background-color: #550000;
+    color: #ebebeb;
+    padding: 80px;
+    box-shadow: 5px 5px 3px gray;
+    border: 1px solid #ebebeb;
+    border-radius: 30px;
+}
+
+
+.login_form h2 {
+    font-size: 2.4rem;
+    padding-bottom: 40px;
+    text-shadow: 4px 4px 4px #141414;
+}
+
+.login_form label {
+    font-size: 1.5rem;
+    display: flex;
+    padding-bottom: 10px;
+
+}
+
+.login_form input {
+    margin-bottom: 30px;
+    background-color: #ebebeb;
+    padding: 10px;
+}
+
+.login_form button {
+    background-color: #ebebeb;
+    border-radius: 40px;
+    padding: 13px
+}
+
+
+@media only screen and (max-width: 530px) {
+    .login {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background-color: #141414;
+    }
+
+
+    .login_form {
+        margin-top: 100px;
+        width: 100%;
+        background-color: #550000;
+        color: #ebebeb;
+        padding: 30px 5px;
+
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+    }
+
+}
+/************************************************
+****************       MAIN        **************
+**************  LOGIN - SECTION END  ************
+****************                   **************
+************************************************/
+
+
+
+
+
+
+
+/************************************************
+****************       MAIN        **************
+**************  SIGN IN - SECTION START  ********
+****************                    *************
+************************************************/
+
+
+/************************************************
+****************       MAIN        **************
+**************  SIGN IN - SECTION END  **********
+****************                    *************
+************************************************/
+
+
+
+
+
+
+
+/************************************************
+****************       MAIN        **************
+**************  MAP PEEK - SECTION START  ************
+****************                    *************
+************************************************/
+ .map {
+    height: 100%;
+}
+
+#map {
+    height:100%;
+}
+/************************************************
+****************       MAIN        **************
+**************  MAP PEEK - SECTION END  *********
+****************                    *************
+************************************************/
+
+
+
+
+
+
+
+
+
+/************************************************
+****************       MAIN        **************
+**************  PROFIL - SECTION START  ***********
+****************                    *************
+************************************************/
+
+
+/************************************************
+****************       MAIN        **************
+**************  PROFIL - SECTION START  ***********
+****************                    *************
+************************************************/
+
+
+
