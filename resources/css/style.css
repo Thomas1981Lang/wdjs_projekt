@@ -283,6 +283,7 @@ header {
     /********* mobile nav background ****/
     /********* mobile nav außen ****/
     .mobile_nav {
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         margin: 0 10px;
@@ -293,6 +294,7 @@ header {
     }
 
     .mobile_login {
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         margin: 0 10px;
