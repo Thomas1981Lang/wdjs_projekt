@@ -17,13 +17,11 @@
 </head>
 <body>
 <header>
-
-
     <nav class="mobile_nav">
 
         <div class="mobile_nav_wrapper">
             <ul>
-                <li><a href="home.html" >Home</a></li>
+                <li><a href="home.html">Home</a></li>
                 <li><a href="app.html">App</a></li>
                 <li><a href="sneak.html">Sneak Peek</a></li>
             </ul>
@@ -39,9 +37,10 @@
     </div>
 
     <nav class="nav_desktop">
-        <span><a href="home.html" class="active">Home</a></span>
+        <span><a href="home.html">Home</a></span>
         <span><a href="app.html">App</a></span>
-        <span><a href="signin.html" class="mobile_active">Sign In</a></span>
+        <span><a href="sneak.html">Sneak Peek</a></span>
+        <span><a href="signin.html" class="active">Sign In</a></span>
         <span><a href="login.html">Login</a></span>
     </nav>
 
@@ -49,7 +48,7 @@
     <nav class="mobile_login">
         <div class="mobile_login_wrapper">
             <ul>
-                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="signin.html" class="mobile_active">Sign In</a></li>
                 <li><a href="login.html">Login</a></li>
             </ul>
         </div>
@@ -57,8 +56,6 @@
         </div>
     </nav>
 </header>
-
-
 
 
 <main class="login">
@@ -80,58 +77,56 @@
         <label for="geburtsdatum" class="">Geburtsdatum</label>
         <input type="date" id="geburtsdatum" name="geburtsdatum" class="" autofocus="">
 
-        <label class="">Geschlecht</label>
-        <div class="radio_button">
-            <label for="male">männlich</label>
-            <input type="radio" name="gender" id="male" value="male"><br>
-            <label for="female">weiblich</label>
-            <input type="radio" name="gender" id="female" value="female"><br>
-        </div>
+        <fieldset>
+            <legend>Geschlecht:</legend>
+            <div class="radio_button">
+                <label for="male" class="radio_label"><input type="radio" name="gender" id="male" value="male"> männlich</label>
+                <label for="female" class="radio_label"><input type="radio" name="gender" id="female" value="female"> weiblich</label>
+            </div>
+        </fieldset>
 
-        <label class="">Orientierung</label>
-        <div class="radio_button">
-            <label for="male">Männer</label>
-            <input type="radio" name="like_gender" id="like_male" value="male"><br>
-            <label for="female">Frauen</label>
-            <input type="radio" name="like_gender" id="like_female" value="female"><br>
-            <label for="like_bi">Bi</label>
-            <input type="radio" name="like_gender" id="like_bi" value="bi"><br><br>
-        </div>
-        <div class="radio_button">
-            <input type="radio" name="like_gender" value="male"> männlich
-            <input type="radio" name="like_gender" value="female"> weiblich
-            <input type="radio" name="like_gender" value="bi"> beides
-        </div>
+        <fieldset>
+            <legend>Orientierung</legend>
+            <div class="radio_button">
 
+                <label for="male"><input type="radio" name="like_gender" id="like_male" value="male"> Männer</label>
+                <br>
+                <label for="female"><input type="radio" name="like_gender" id="like_female" value="female"> Frauen</label>
+                <br><br>
+                <label for="like_bi"><input type="radio" name="like_gender" id="like_bi" value="bi">Bi</label>
+            </div>
+        </fieldset>
 
-        <label class="">Altersgruppe</label>
-        <div class="altergruppe">
-        <input type="number" id="von_alter" name="altersgruppe" class="" autofocus=""> -
-        <input type="number" id="bis_alter" name="altersgruppe" class="" autofocus="">
-        </div>
+            <label class="">Altersgruppe</label>
+            <div class="altergruppe">
+               <input type="number" id="von_alter" name="altersgruppe" class="" autofocus="" placeholder="von">-
 
-        <label for="prof_image" class="">Profilbild</label>
-        <input type="file" id="prof_image" name="prof_image" class="" autofocus="">
-        <p class="hinweis">kein Pflichtfeld / ohne Bild aber eingeschränkte Nutzung</p>
+                <input type="number" id="bis_alter" name="altersgruppe" class="" autofocus="" placeholder="bis">
+            </div>
 
+            <!--<div class="prof_image">-->
+            <label for="prof_image" class="">Profilbild</label>
+            <input type="file" id="prof_image" name="prof_image" class="" autofocus="" size="40">
+            <p class="hinweis">kein Pflichtfeld / ohne Bild aber eingeschränkte Nutzung</p>
+            <!--</div>-->
 
-
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="" placeholder="Password">
-        <button class="" type="submit">Login</button>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="" placeholder="Password">
+            <button class="" type="submit">Registrieren</button>
     </form>
 
 
 </main>
 
 
-
-
-
 <footer>
-    <p><a href="https://github.com/Thomas1981Lang" target="_blank">&copy; TL </a></p>
-    <p class="imnuda"><span><a href="#">Impressum</a></span><span><a href="#">Nutzungsbedingung</a></span><span><a
-            href="#">Datenschutz</a></span></p>
+    <p><a href="https://github.com/Thomas1981Lang" target="_blank">&copy; 2018
+        <script>new Date().getFullYear() > 2018 && document.write("-" + new Date().getFullYear());</script>
+        TL</a></p>
+    <p class="imnuda">
+        <span><a href="#">Impressum</a></span>
+        <span><a href="#">Nutzungsbedingung</a></span>
+        <span><a href="#">Datenschutz</a></span></p>
 </footer>
 
 

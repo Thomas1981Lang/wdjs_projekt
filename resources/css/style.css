@@ -63,7 +63,7 @@ main {
 }
 
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 600px) {
 
     main {
         min-height: calc(100vh - 150px);
@@ -136,26 +136,25 @@ header {
     align-self: center;
     color: #ebebeb;
     text-decoration: none;
-
 }
 
 .nav_desktop .active {
     background-color: #ebebeb;
     color: #141414;
-    padding: 51px 23px 51px;
+    display: flex;
+    height:130px;
+    padding: 0 23px;
 }
 
 .nav_desktop span a:hover {
+    display: flex;
+    height:130px;
     background-color: #cbcbcb;
     color: #141414;
-    padding: 51px 23px 51px;
+    padding: 0 23px;
 }
 
-@media only screen and (max-width: 1040px) {
-
-    header {
-        height: 130px;
-    }
+@media only screen and (max-width: 1200px) {
 
     .title {
         padding-left: 20px;
@@ -174,19 +173,22 @@ header {
         text-decoration: none;
         padding: 19px;
         width: 116px;
+
     }
 
     .nav_desktop .active {
-        padding: 54px 19px 54px;
+        padding: 0 19px;
+
     }
 
     .nav_desktop span a:hover {
-        padding: 54px 19px 54px;
+
+        padding: 0 19px;
     }
 
 }
 
-@media only screen and (max-width: 840px) {
+@media only screen and (max-width: 970px) {
 
     header {
         height: 100px;
@@ -208,22 +210,27 @@ header {
         text-decoration: none;
         padding: 15px;
         width: 92px;
+        height:100px;
     }
 
     .nav_desktop .active {
         padding: 41px 15px 41px;
+        height:100px;
+
     }
 
     .nav_desktop span a:hover {
         padding: 41px 15px 41px;
+        height:100px;
+
     }
 
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 830px) {
 
     header {
-        height: 100px;
+        height: 80px;
     }
 
     .title {
@@ -240,11 +247,11 @@ header {
 
     /********* mobile nav background ****/
     .mobile_nav_background {
-        top: 100px;
+        top: 80px;
         filter: opacity(80%);
         position: absolute;
         background-color: darkred;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         margin-left: -10px;
         width: 100%;
         -webkit-transform: translate(-100vw, 0);
@@ -260,12 +267,12 @@ header {
     }
 
     .mobile_login_background {
-        top: 100px;
+        top: 80px;
         right: 0;
         filter: opacity(80%);
         position: absolute;
         background-color: black;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         /*margin-left: -10px;*/
         width: 100%;
         -webkit-transform: translate(100vw, 0);
@@ -308,10 +315,10 @@ header {
     /********* mobile wrapper ebene ****/
     .mobile_nav_wrapper {
         z-index: 99;
-        top: 100px;
+        top: 80px;
         filter: opacity(100%);
         width: 300px;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         margin-left: -20px;
         position: absolute;
         background-color: #141414;
@@ -323,11 +330,11 @@ header {
 
     .mobile_login_wrapper {
         z-index: 99;
-        top: 100px;
+        top: 80px;
         right: 0;
         filter: opacity(100%);
         width: 300px;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         margin-left: -20px;
         position: absolute;
         background-color: #550000;
@@ -444,7 +451,7 @@ footer a {
     color: #ebebeb;
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 600px) {
 
     footer {
         display: flex;
@@ -477,7 +484,7 @@ footer a {
 ************************************************/
 
 .hero {
-    background-image: url("../img/andrew-welch-229148-unsplash_cr.jpg");
+    background-image: url("../img/andrew-welch-229148-unsplash.jpg");
     background-position: right center;
     background-size: cover;
     background-attachment: fixed;
@@ -516,7 +523,7 @@ footer a {
 @media only screen and (max-width: 1200px) {
 
     .hero {
-        background-image: url("../img/andrew-welch-229148-unsplash_cr.jpg");
+        background-image: url("../img/andrew-welch-229148-unsplash.jpg");
         display: flex;
         min-height: calc(100vh - 60px);
         justify-content: flex-start;
@@ -553,10 +560,18 @@ footer a {
 
 }
 
-@media only screen and (max-width: 840px) {
+@media only screen and (max-width: 970px) {
 
     .hero_mobile {
         margin-top: 100px;
+    }
+
+}
+
+@media only screen and (max-width: 970px) {
+
+    .hero_mobile {
+        margin-top: 80px;
     }
 
 }
@@ -589,7 +604,7 @@ footer a {
 
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 600px) {
 
     .hero {
         min-height: calc(100vh - 150px);
@@ -685,7 +700,7 @@ footer a {
 }
 
 .login_form {
-    margin: 160px 0 40px;
+    margin: 160px 0 0;
     display: flex;
     flex-direction: column;
  width: 500px;
@@ -700,7 +715,7 @@ footer a {
 
 .login_form h2 {
     font-size: 2.4rem;
-    padding-bottom: 40px;
+    padding-bottom: 70px;
     text-shadow: 4px 4px 4px #141414;
 }
 
@@ -720,9 +735,48 @@ footer a {
 .login_form button {
     background-color: #ebebeb;
     border-radius: 40px;
+    margin-top: 50px;
     padding: 13px
 }
 
+.radio_button {
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.radio_button label {
+    font-size: 1.2rem;
+}
+
+
+input[type="radio"]{
+    margin-top: 6px;
+    margin-right: 8px;
+}
+
+.altergruppe {
+    margin: 15px 0 30px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.altergruppe input {
+    width: 100px;
+    margin: 0 10px 0 10px;
+}
+
+
+.hinweis {
+    padding: 10px 0 20px;
+}
+
+#prof_image {
+    margin: 0;
+}
 
 @media only screen and (max-width: 530px) {
     .login {
@@ -734,11 +788,11 @@ footer a {
 
 
     .login_form {
-        margin-top: 100px;
+        margin-top: 80px;
         width: 100%;
         background-color: #550000;
         color: #ebebeb;
-        padding: 30px 5px;
+        padding: 30px 15px;
 
         box-shadow: none;
         border: none;
