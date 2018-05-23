@@ -53,9 +53,6 @@ $('.mobile_login').on('click', function (event) {
  ***************************************************/
 
 
-
-
-
 /****************************************************
  *
  *
@@ -63,7 +60,6 @@ $('.mobile_login').on('click', function (event) {
  *
  *
  ***************************************************/
-
 
 
 /****************************************************
@@ -76,7 +72,6 @@ var myself;
 var marker;
 var gps = 0;
 var infoWin = [];
-
 
 
 //Zoom-level der Google-Map
@@ -312,11 +307,9 @@ var styles = [
  ***************************************************/
 
 
-
 /****************************************************
  * Globale Variablen Google Maps - START
  ***************************************************/
-
 
 
 /**
@@ -332,7 +325,6 @@ var styles = [
 function getStartMap() {
     navigator.geolocation.getCurrentPosition(startPosition, defaultPosition);
 }
-
 
 
 /**
@@ -356,13 +348,14 @@ function startPosition(position) {
     myself = new google.maps.Marker({
         position: {lat: position.coords.latitude, lng: position.coords.longitude},
         title: 'wunderschön',
+        map: map,
         icon: {
             url: icons.myself.icon,
             scaledSize: new google.maps.Size(40, 40)
         },
         animation: google.maps.Animation.DROP
     });
-    myself.setMap(map);  // setzt den Marker auf die Karte
+    //myself.setMap(map);  // setzt den Marker auf die Karte
 
     gps = 1;
 }
@@ -398,15 +391,15 @@ function initMap() {
 
     // Dummy Daten bis Datenbank funktioniert.
     var locations = [
-        {title: 'Donauturm', location: {lat: 48.240236, lng: 16.410094}, type: 'eat'},
-        {title: 'Rathaus', location: {lat: 48.210272, lng: 16.358778}, type: 'drink'},
-        {title: 'Wifi Wien', location: {lat: 48.2266275, lng: 16.3467036}, type: 'party'},
-        {title: 'Wifi Wien', location: {lat: 48.2366275, lng: 16.3567036}, type: 'party'},
-        {title: 'Wifi Wien', location: {lat: 48.2466275, lng: 16.3667036}, type: 'party'},
-        {title: 'Wifi Wien', location: {lat: 48.2666275, lng: 16.3867036}, type: 'party'},
+        {title: 'Donauturm', location: {lat: 48.240236, lng: 16.410094}, type: 'eat', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
+        {title: 'Rathaus', location: {lat: 48.210272, lng: 16.358778}, type: 'drink', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
+        {title: 'Wifi Wien', location: {lat: 48.2266275, lng: 16.3467036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
+        {title: 'Wifi Wien', location: {lat: 48.2366275, lng: 16.3567036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
+        {title: 'Wifi Wien', location: {lat: 48.2466275, lng: 16.3667036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
+        {title: 'Wifi Wien', location: {lat: 48.2666275, lng: 16.3867036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'}
     ];
 
-    console.log('largeInfowindow', largeInfowindow);
+
     var largeInfowindow = new google.maps.InfoWindow();
 
     // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim initialiesieren zu erzeugen
@@ -414,19 +407,21 @@ function initMap() {
         // Bekommt die Position vom locations-Array.
         var position = locations[i].location;
         var title = locations[i].title;
-
+        var content = locations[i].content;
 
         // Erzeugt einen Marker pro Location.
         marker = new google.maps.Marker({
             position: position,
             title: title,
+            // map: map,
             icon: {
                 url: icons[locations[i].type].icon,
                 scaledSize: new google.maps.Size(40, 40)
             },
             animation: google.maps.Animation.DROP,
             id: i,
-            type: locations[i].type
+            type: locations[i].type,
+            content: content
         });
 
 
@@ -447,17 +442,13 @@ function initMap() {
         });
 
     }
-
-    /**
-     *  TODO: jquery on.click'
-     */
+    // /**
+    //  *  TODO: jquery on.click'
+    //  */
+    showListings();
     document.getElementById('show-listings').addEventListener('click', showListings);
-    document.getElementById('hide-listings').addEventListener('click', showEat);
+    // document.getElementById('hide-listings').addEventListener('click', showEat);
 }
-
-// function closeOtherIW(marker, infowindow) {
-//     infowindow.marker.close();
-// }
 
 
 /**
@@ -470,68 +461,97 @@ function initMap() {
 function populateInfoWindow(marker, infowindow) {
     // Überprüft ob das infowindow nicht bereits bei dem Marker geöffnet wurde.
     if (infowindow.marker != marker) {
-        console.log(infowindow.marker);
-        if (infowindow.marker > 0) {
-            infowindow.marker;
-        }
-// infoWin.push(infowindow);
-// console.log(infoWin, '1');
-// if (infoWin.length > 0) {
-// for (var x=0; x < infoWin.length; x++) {
-//
-//    infowindow.infoWin[x].close();
-// }
-// }
+
+        infowindow.setContent('');
         infowindow.marker = marker;
-        // infoWin.push(infowindow.marker);
-        // console.log(infoWin.length, 'push');
-        // console.log(marker, 'infowindow');
-        //
-        //  for (var c = 0; c <= infoWin; c++) {
-        //      console.log('ja');
-        //     infowindow.close(infoWin[c]);
-        //
-        //  }
-        infowindow.marker = null;
 
-        // if (infoWin.length > 0) {
-        //     console.log('if');
-        //     marker.setIcon(icons[marker.type].icon);
-        //     infowindow.marker = null;
-        //     // infoWin = null;
-        // }
-        //   infoWin.push(marker);
-        //console.log(infoWin);
-        infowindow.setContent('<div>' + marker.title + '</div>');
-        infowindow.open(map, marker);
-        console.log(map, 'marker');
 
-        marker.setIcon({
-            url: iconsh[[marker.type]].icon,
-            scaledSize: new google.maps.Size(40, 40)
-        });
-        console.log(marker.type);
+        // marker.setIcon({
+        //     url: iconsh[[marker.type]].icon,
+        //     scaledSize: new google.maps.Size(40, 40)
+        // });
+
         // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
         infowindow.addListener('closeclick', function () {
             console.log(infowindow.marker);
             infowindow.marker = null;
             marker.setIcon({
-                    url: icons[[marker.type]].icon,
-                    scaledSize: new google.maps.Size(40, 40)
-                }
-            )
-            ;
-
+                url: icons[[marker.type]].icon,
+                scaledSize: new google.maps.Size(40, 40)
+            });
         });
 
+        infowindow.addListener('closeclick', function () {
+            infowindow.marker = null;
+        });
+
+        var streetViewService = new google.maps.StreetViewService();
+        var radius = 50;
+        // In case the status is OK, which means the pano was found, compute the
+        // position of the streetview image, then calculate the heading, then get a
+        // panorama from that and set the options
+        function getStreetView(data, status) {
+            if (status == google.maps.StreetViewStatus.OK) {
+                var nearStreetViewLocation = data.location.latLng;
+                var heading = google.maps.geometry.spherical.computeHeading(
+                    nearStreetViewLocation, marker.position);
+                infowindow.setContent(
+                    `<div class="info_window">
+                        <h2 class="info_title">${marker.title}</h2>
+                        <div class="info_content">
+                            <div class="streetview">
+                            <div id="pano"></div>
+                            <div class="streetview_hinweis">
+                            Streetview zeigt ein Panorama im Umkreis von 150m der Koordinaten.
+                            Es kann durch fehlende Daten passieren, dass das gezeigte Bildmaterial nicht dem gewünschten Gebäude entspricht.  
+                            </div>
+                            </div>
+                            <div class="info_box">
+                                <h3 class="info_box-title">Info</h3>
+                                <p class="info_box_content">${marker.content}</p>
+                            </div>
+                        </div>
+                    </div>`);
+                var panoramaOptions = {
+                    position: nearStreetViewLocation,
+                    pov: {
+                        heading: heading,
+                        pitch: 30
+                    }
+                };
+                var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById('pano'), panoramaOptions);
+            } else {
+                infowindow.setContent('<div>' + marker.title + '</div>' +
+                    '<div>No Street View Found</div>');
+            }
+        }
+
+        // Use streetview service to get the closest streetview image within
+        // 50 meters of the markers position
+        streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+        // Open the infowindow on the correct marker.
+        infowindow.open(map, marker);
     }
 }
 
 
-console.log(markers);
+function showListings() {
 
-var showMark = 0;
+    for (var m = 0; m < markers.length; m++) {
+        console.log(markers, 'markers');
+        markers[m].setMap(map);
 
+
+    }
+
+}
+
+
+// console.log(markers);
+//
+// var showMark = 0;
+//
 // function showListings() {
 //     if (showMark === 1) {
 //         for (var i = 0; i < markers.length; i++) {
@@ -550,96 +570,75 @@ var showMark = 0;
 //     }
 //
 // }
+//
 
-
-function showListings() {
-    if (showMark === 1) {
-        showEat();
-        showParty();
-        showMark = 0;
-    }
-    else {
-        showEat();
-        showParty();
-    }
-    showMark = 1;
-}
-
-
-var showMarkEat = 0;
-
-function showEat() {
-    if (showMarkEat === 1) {
-        for (var i = 0; i < markers.length; i++) {
-            console.log('!');
-            if (markers[i].type == 'eat') {
-                console.log('eat');
-                markers[i].setMap(null);
-            }
-            showMarkEat = 0;
-        }
-    }
-    else {
-        for (var i = 0; i < markers.length; i++) {
-
-            if (markers[i].type == 'eat') {
-                console.log('eat');
-                markers[i].setMap(map);
-                console.log('else');
-            }
-            showMarkEat = 1;
-        }
-
-    }
-}
-
-
-var showMarkParty = 0;
-
-function showParty() {
-    if (showMarkParty === 1) {
-        for (var i = 0; i < markers.length; i++) {
-            console.log('!');
-            if (markers[i].type == 'party') {
-                console.log('eat');
-                markers[i].setMap(null);
-            }
-            showMarkParty = 0;
-        }
-    }
-    else {
-        for (var i = 0; i < markers.length; i++) {
-
-            if (markers[i].type == 'party') {
-                console.log('eat');
-                markers[i].setMap(map);
-                console.log('else');
-            }
-            showMarkParty = 1;
-        }
-
-    }
-}
-
-
-
-
-
-
-
+// function showListings() {
+//     if (showMark === 1) {
+//         showEat();
+//         showParty();
+//         showMark = 0;
+//     }
+//     else {
+//         showEat();
+//         showParty();
+//     }
+//     showMark = 1;
+// }
 //
 //
-// /****************************************************
-//  * Google Maps Init
-//  ***************************************************/
-// var map;
+// var showMarkEat = 0;
 //
-// function initMap() {
-//     // Constructor creates a new map - only center and zoom are required.
-//     map = new google.maps.Map(document.getElementById('map'), {
-//         center: {lat: 48.207715, lng: 16.375253},
-//         zoom: 18
-//     });
+// function showEat() {
+//     if (showMarkEat === 1) {
+//         for (var i = 0; i < markers.length; i++) {
+//             console.log('!');
+//             if (markers[i].type == 'eat') {
+//                 console.log('eat');
+//                 markers[i].setMap(null);
+//             }
+//             showMarkEat = 0;
+//         }
+//     }
+//     else {
+//         for (var i = 0; i < markers.length; i++) {
+//
+//             if (markers[i].type == 'eat') {
+//                 console.log('eat');
+//                 markers[i].setMap(map);
+//                 console.log('else');
+//             }
+//             showMarkEat = 1;
+//         }
+//
+//     }
+// }
+//
+//
+// var showMarkParty = 0;
+//
+// function showParty() {
+//     if (showMarkParty === 1) {
+//         for (var i = 0; i < markers.length; i++) {
+//             console.log('!');
+//             if (markers[i].type == 'party') {
+//                 console.log('eat');
+//                 markers[i].setMap(null);
+//             }
+//             showMarkParty = 0;
+//         }
+//     }
+//     else {
+//         for (var i = 0; i < markers.length; i++) {
+//
+//             if (markers[i].type == 'party') {
+//                 console.log('eat');
+//                 markers[i].setMap(map);
+//                 console.log('else');
+//             }
+//             showMarkParty = 1;
+//         }
+//
+//     }
 // }
 
 
