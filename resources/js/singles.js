@@ -486,7 +486,7 @@ function populateInfoWindow(marker, infowindow) {
         });
 
         var streetViewService = new google.maps.StreetViewService();
-        var radius = 50;
+        var radius = 150;
         // In case the status is OK, which means the pano was found, compute the
         // position of the streetview image, then calculate the heading, then get a
         // panorama from that and set the options
@@ -507,7 +507,7 @@ function populateInfoWindow(marker, infowindow) {
                             </div>
                             </div>
                             <div class="info_box">
-                                <h3 class="info_box-title">Info</h3>
+                                <h3 class="info_box-title">Information über ${marker.title}</h3>
                                 <p class="info_box_content">${marker.content}</p>
                             </div>
                         </div>

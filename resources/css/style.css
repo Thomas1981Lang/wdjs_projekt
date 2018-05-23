@@ -811,6 +811,15 @@ input[type="radio"] {
 **************  MAP PEEK - SECTION START  ************
 ****************                    *************
 ************************************************/
+.info_title {
+    padding: 10px;
+    text-align: center;
+}
+
+.info_box-title {
+    padding: 20px 0 10px;
+}
+
 #map_wrapper {
     height: calc(100vh - 190px);
     width: 100%;
@@ -831,8 +840,26 @@ input[type="radio"] {
 }
 
 #pano {
-    width: 250px;
+    width: 210px;
     height: 250px;
+}
+
+
+
+
+
+.info_window {
+    width: 210px;
+}
+
+.gm-style div a,
+.gm-style button,
+.gm-fullscreen-control,
+.gmnoprint div,
+.gm-compass,
+.gm-style-cc,
+.gm-iv-address {
+    display: none !important;
 }
 
 
