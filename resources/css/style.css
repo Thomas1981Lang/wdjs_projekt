@@ -61,13 +61,13 @@ main {
     min-height: calc(100vh - 60px);
 }
 
-@media only screen and (max-width: 600px) {
+/*@media only screen and (max-width: 600px) {*/
 
-    main {
-        min-height: calc(100vh - 150px);
-    }
+    /*main {*/
+        /*min-height: calc(100vh - 150px);*/
+    /*}*/
 
-}
+/*}*/
 
 /************************************************
 ****************         ************************
@@ -449,25 +449,25 @@ footer a {
     color: #ebebeb;
 }
 
-@media only screen and (max-width: 600px) {
+/*@media only screen and (max-width: 600px) {*/
 
-    footer {
-        display: flex;
-        align-items: center;
-        height: 150px;
-    }
+    /*footer {*/
+        /*display: flex;*/
+        /*align-items: center;*/
+        /*height: 150px;*/
+    /*}*/
 
-    .imnuda {
+    /*.imnuda {*/
 
-        display: flex;
-        flex-direction: column;
-    }
+        /*display: flex;*/
+        /*flex-direction: column;*/
+    /*}*/
 
-    .imnuda span {
-        padding: 10px;
-    }
+    /*.imnuda span {*/
+        /*padding: 10px;*/
+    /*}*/
 
-}
+/*}*/
 
 /************************************************
 ****************                    *************
@@ -602,9 +602,9 @@ footer a {
 
 @media only screen and (max-width: 600px) {
 
-    .hero {
-        min-height: calc(100vh - 150px);
-    }
+    /*.hero {*/
+        /*min-height: calc(100vh - 150px);*/
+    /*}*/
 
 }
 
