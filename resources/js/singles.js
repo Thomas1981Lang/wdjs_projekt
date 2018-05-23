@@ -340,6 +340,7 @@ function startPosition(position) {
         zoom: zoom,                 // Definiert den Zoom-Level der Karte
         minZoom: zoom,
         maxZoom:zoom,
+        gestureHandling: 'greedy',
         styles: styles,             // Definiert das Kartenstyling
         // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
         mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
@@ -376,6 +377,7 @@ function defaultPosition() {
         minZoom: zoom,
         maxZoom:zoom,
         styles: styles,
+        gestureHandling: 'greedy',
         mapTypeControl: false,
         disableDefaultUI: true
     });
@@ -470,10 +472,10 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
 
 
-        // marker.setIcon({
-        //     url: iconsh[[marker.type]].icon,
-        //     scaledSize: new google.maps.Size(40, 40)
-        // });
+        marker.setIcon({
+            url: iconsh[[marker.type]].icon,
+            scaledSize: new google.maps.Size(40, 40)
+        });
 
         // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
         infowindow.addListener('closeclick', function () {
