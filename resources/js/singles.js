@@ -339,7 +339,7 @@ function startPosition(position) {
         center: {lat: position.coords.latitude, lng: position.coords.longitude},
         zoom: zoom,                 // Definiert den Zoom-Level der Karte
         minZoom: zoom,
-        maxZoom:zoom,
+        maxZoom: zoom,
         gestureHandling: 'greedy',
         styles: styles,             // Definiert das Kartenstyling
         // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
@@ -375,7 +375,7 @@ function defaultPosition() {
         center: {lat: 48.210033, lng: 16.363449},
         zoom: zoom,
         minZoom: zoom,
-        maxZoom:zoom,
+        maxZoom: zoom,
         styles: styles,
         gestureHandling: 'greedy',
         mapTypeControl: false,
@@ -397,12 +397,42 @@ function initMap() {
 
     // Dummy Daten bis Datenbank funktioniert.
     var locations = [
-        {title: 'Donauturm', location: {lat: 48.240236, lng: 16.410094}, type: 'eat', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
-        {title: 'Rathaus', location: {lat: 48.210272, lng: 16.358778}, type: 'drink', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
-        {title: 'Wifi Wien', location: {lat: 48.2266275, lng: 16.3467036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
-        {title: 'Wifi Wien', location: {lat: 48.2366275, lng: 16.3567036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
-        {title: 'Wifi Wien', location: {lat: 48.2466275, lng: 16.3667036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'},
-        {title: 'Wifi Wien', location: {lat: 48.2666275, lng: 16.3867036}, type: 'party', content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'}
+        {
+            title: 'Donauturm',
+            location: {lat: 48.240236, lng: 16.410094},
+            type: 'eat',
+            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
+        },
+        {
+            title: 'Rathaus',
+            location: {lat: 48.210272, lng: 16.358778},
+            type: 'drink',
+            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
+        },
+        {
+            title: 'Wifi Wien',
+            location: {lat: 48.2266275, lng: 16.3467036},
+            type: 'party',
+            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
+        },
+        {
+            title: 'Wifi Wien',
+            location: {lat: 48.2366275, lng: 16.3567036},
+            type: 'party',
+            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
+        },
+        {
+            title: 'Wifi Wien',
+            location: {lat: 48.2466275, lng: 16.3667036},
+            type: 'party',
+            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
+        },
+        {
+            title: 'Wifi Wien',
+            location: {lat: 48.2666275, lng: 16.3867036},
+            type: 'party',
+            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
+        }
     ];
 
 
@@ -652,6 +682,128 @@ function showListings() {
  *
  *
  * GOOGLE MAPS - ENDE
+ *
+ *
+ ***************************************************/
+
+
+/****************************************************
+ *
+ *
+ * SIGN IN - START
+ *
+ *
+ ***************************************************/
+
+
+
+$(".signIn").click(function (event) {
+    event.preventDefault();
+    var username = $("#username").val();
+    var vorname = $("#vorname").val();
+    var nachname = $("#nachname").val();
+    var email = $("#email").val();
+    var geburtsdatum = $("#geburtsdatum").val();
+    var geschlecht = $('input[name=gender]:checked').val();
+    var orientierung = $('input[name=like_gender]:checked').val();
+    var vonalter = $("#von_alter").val();
+    var bisalter = $("#bis_alter").val();
+    var password = $("#vorname").val();
+
+
+
+
+
+
+    $.ajax({
+        url: 'signin.php',
+        method: 'POST',
+        data: {
+            username: username,
+            vorname: vorname,
+            nachname: nachname,
+            email: email,
+            geburtsdatum: geburtsdatum,
+            geschlecht: geschlecht,
+            orientierung: orientierung,
+            vonalter: vonalter,
+            bisalter: bisalter,
+            password: password
+        },
+        success: function (data) {
+            if (data !== "data inserted") {
+                console.log(geschlecht);
+                console.log(orientierung);
+                console.log(data);
+
+                $(".error").show();
+            } else {
+                console.log(data);
+                //window.location.href = "login.html";
+            }
+        }
+    });
+});
+
+
+
+/****************************************************
+ *
+ *
+ * SIGN IN - ENDE
+ *
+ *
+ ***************************************************/
+
+
+
+
+
+/****************************************************
+ *
+ *
+ * LOGIN - START
+ *
+ *
+ ***************************************************/
+
+
+
+$("#login").click(function (event) {
+    event.preventDefault();
+    var username = $("#username").val();
+    var password = $("#password").val();
+
+    console.log(username);
+    console.log(password);
+
+
+    $.ajax({
+        url: 'login.php',
+        method: 'POST',
+        data: {
+            username: username,
+            password: password
+        },
+        success: function (data) {
+            if (data !== "Error") {
+                console.log(data);
+                //window.location.href = "home.html";
+
+            } else {
+                $(".error").show();
+                console.log(data);
+            }
+        }
+    });
+});
+
+
+
+/****************************************************
+ *
+ *
+ * LOGIN - ENDE
  *
  *
  ***************************************************/
