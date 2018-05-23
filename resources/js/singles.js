@@ -75,7 +75,7 @@ var infoWin = [];
 
 
 //Zoom-level der Google-Map
-var zoom = 12;
+var zoom = 15;
 
 
 // Erzeugt mir einen leeren Array für die später aufgelisteten Marker.
@@ -338,6 +338,8 @@ function startPosition(position) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: position.coords.latitude, lng: position.coords.longitude},
         zoom: zoom,                 // Definiert den Zoom-Level der Karte
+        minZoom: zoom,
+        maxZoom:zoom,
         styles: styles,             // Definiert das Kartenstyling
         // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
         mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
@@ -371,6 +373,8 @@ function defaultPosition() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 48.210033, lng: 16.363449},
         zoom: zoom,
+        minZoom: zoom,
+        maxZoom:zoom,
         styles: styles,
         mapTypeControl: false,
         disableDefaultUI: true
