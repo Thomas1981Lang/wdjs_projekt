@@ -478,9 +478,7 @@ function initMap() {
         });
 
     }
-    // /**
-    //  *  TODO: jquery on.click'
-    //  */
+
     showListings();
     document.getElementById('show-listings').addEventListener('click', showListings);
     // document.getElementById('hide-listings').addEventListener('click', showEat);
@@ -575,12 +573,9 @@ function populateInfoWindow(marker, infowindow) {
 function showListings() {
 
     for (var m = 0; m < markers.length; m++) {
-        console.log(markers, 'markers');
+        console.log(markers[m], 'markers');
         markers[m].setMap(map);
-
-
     }
-
 }
 
 
@@ -738,8 +733,8 @@ $(".signIn").click(function (event) {
 
                 $(".error").show();
             } else {
-                console.log(data);
-                //window.location.href = "login.html";
+                //console.log(data);
+                window.location.href = "login.html";
             }
         }
     });
@@ -787,9 +782,15 @@ $("#login").click(function (event) {
         },
         success: function (data) {
             if (data !== "Error") {
-                console.log(data);
+                var parseData = JSON.parse(data);
+                console.log(parseData, 'hmm');
+                localStorage.setItem("id", parseData.id);
+                localStorage.setItem("vorname", parseData.vorname);
+                localStorage.setItem("geschlecht", parseData.geschlecht);
+                localStorage.setItem("orientierung", parseData.orientierung);
+                localStorage.setItem("session", "1");
                 //window.location.href = "home.html";
-
+                console.log(parseData.vorname);
             } else {
                 $(".error").show();
                 console.log(data);

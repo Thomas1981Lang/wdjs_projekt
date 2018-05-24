@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
     <style>
         html,
         body {
@@ -52,109 +56,58 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="options-box">
-        <h1>Test</h1>
+<main class="login">
 
-    </div>
-    <div id="map"></div>
-</div>
+    <form class="login_form" method="" action="">
+        <h2>Login</h2>
+        <label for="username" class="">Username</label>
+        <input type="text" id="username" name="username" class="" placeholder="Username" autofocus="">
+        <label for="password" class="sr-only">Passwort</label>
+        <input type="password" id="password" name="password" class="" placeholder="Passwort">
+        <button id="login" class="login" type="submit">Login</button>
+        <p class="error">Passwort und/oder Username falsch!</p>
+    </form>
+
+</main>
 
 <script >
-    var markers = [];
-    var locations = [
-        ['Title 1', 41.33847249573162, 19.78838835516433],
-        ['Title 2', 41.32992324524446, 19.816238906745866],
-    ];
 
 
-    var iconsBase = 'resources/img/icons/';
 
-    var icons = {
-        myself: {
-            icon: iconsBase + 'myself.png'
-        },
-        party: {
-            icon: iconsBase + 'red_party.png'
-        },
-        eat: {
-            icon: iconsBase + 'red_cutlery.png'
-        },
-        drink: {
-            icon: iconsBase + 'red_glass.png'
-        },
-        women: {
-            icon: iconsBase + 'red_woman.png'
-        },
-        men: {
-            icon: iconsBase + 'red_man.png'
-        }
-    };
+    $("#login").click(function (event) {
+        event.preventDefault();
+        var username = $("#username").val();
+        var password = $("#password").val();
 
-    var iconsh = {
-        party: {
-            icon: iconsBase + 'green_party.png'
-        },
-        eat: {
-            icon: iconsBase + 'green_cutlery.png'
-        },
-        drink: {
-            icon: iconsBase + 'green_glass.png'
-        },
-        women: {
-            icon: iconsBase + 'green_woman.png'
-        },
-        men: {
-            icon: iconsBase + 'green_man.png'
-        }
-    };
+        console.log(username);
+        console.log(password);
 
 
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: {lat: 41.327546, lng: 19.818698}
+        $.ajax({
+            url: 'login.php',
+            method: 'POST',
+            data: {
+                username: username,
+                password: password
+            },
+            success: function (data) {
+                if (data !== "Error") {
+                    console.log(data);
+                    //window.location.href = "home.html";
+
+                } else {
+                    $(".error").show();
+                    console.log(data);
+                }
+            }
         });
+    });
 
-        setMarkers(map);
-    }
 
-    function setMarkers(map) {
-        for (var i = 0; i < locations.length; i++) {
 
-            var location = locations[i];
-            var locationInfowindow = new google.maps.InfoWindow({
-                content: 'Test content',
-            });
 
-            var marker = new google.maps.Marker({
-                position: {lat: location[1], lng: location[2]},
-                map: map,
-                title: location[0],
-                infowindow: locationInfowindow
-            });
 
-            markers.push(marker);
 
-            google.maps.event.addListener(marker, 'click', function() {
-                hideAllInfoWindows(map);
-                this.infowindow.open(map, this);
-            });
-
-        }
-    }
-
-    function hideAllInfoWindows(map) {
-        console.log(map, 'map');
-        console.log(markers, 'markers');
-        markers.forEach(function(marker) {
-        console.log(marker, 'marker');
-            marker.infowindow.close(map, marker);
-        });
-    }
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfDcni1n3TXcLUUV164qDutKiaWwRDR0I&v=3&callback=initMap">
 </script>
 
 </body>
