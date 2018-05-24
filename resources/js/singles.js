@@ -327,6 +327,15 @@ function getStartMap() {
 }
 
 
+// function test() {
+// navigator.geolocation.watchPosition(watchGPSPosition);
+// }
+//
+// function watchGPSPosition(position) {
+//     myself.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
+// }
+
+
 /**
  * Erzeugt eine Google Map mit Geolocation-Daten des Users
  *
@@ -364,6 +373,15 @@ console.log('eigener marker');
 
     showListings();
 }
+
+
+
+// var getNewPosition = setInterval(function(){
+//     console.log('test');
+//     watchGPSPosition();
+// },5000);
+
+
 
 
 /**
