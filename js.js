@@ -25,7 +25,7 @@ function success(position)
 	var googleLatLng = new google.maps.LatLng(position.coords.latitude, 
 						position.coords.longitude);
 	var mapOtn={
-zoom:10,
+zoom:18,
 center:googleLatLng,
 mapTypeId:google.maps.MapTypeId.ROAD
 	};
