@@ -351,7 +351,7 @@ function startPosition(position) {
     myself = new google.maps.Marker({
         position: {lat: position.coords.latitude, lng: position.coords.longitude},
         title: 'wunderschön',
-        map: map,
+        map: map, // setzt den Marker auf die Karte
         icon: {
             url: icons.myself.icon,
             scaledSize: new google.maps.Size(40, 40)
@@ -359,8 +359,10 @@ function startPosition(position) {
         animation: google.maps.Animation.DROP
     });
     //myself.setMap(map);  // setzt den Marker auf die Karte
-
+console.log('eigener marker');
     gps = 1;
+
+    showListings();
 }
 
 
@@ -381,6 +383,8 @@ function defaultPosition() {
         mapTypeControl: false,
         disableDefaultUI: true
     });
+
+    showListings();
 }
 
 
@@ -392,7 +396,13 @@ function defaultPosition() {
  * @void
  */
 function initMap() {
-    getStartMap();
+    getStartMap(function showListings() {
+
+        for (var m = 0; m < markers.length; m++) {
+            console.log(markers[m], 'markers');
+            markers[m].setMap(map);
+        }
+    });
 
 
     // Dummy Daten bis Datenbank funktioniert.
@@ -479,9 +489,15 @@ function initMap() {
 
     }
 
+
+
     showListings();
     document.getElementById('show-listings').addEventListener('click', showListings);
     // document.getElementById('hide-listings').addEventListener('click', showEat);
+
+
+    buttoncheck();
+    buttonmark();
 }
 
 
@@ -672,6 +688,27 @@ function showListings() {
 //     }
 // }
 
+/****************************************************
+ *
+ * GOOGLE MAPS NAV BUTTON - START
+ *
+ ***************************************************/
+
+var buttoncheck = function () {
+console.log('buttoncheck');
+}
+
+var buttonmark = function () {
+    console.log('buttonmark');
+
+}
+
+/****************************************************
+ *
+ * GOOGLE MAPS NAV BUTTON - ENDE
+ *
+ ***************************************************/
+
 
 /****************************************************
  *
@@ -692,7 +729,7 @@ function showListings() {
 
 
 
-$(".signIn").click(function (event) {
+$(".signIn").on('click', function (event) {
     event.preventDefault();
     var username = $("#username").val();
     var vorname = $("#vorname").val();
@@ -764,7 +801,7 @@ $(".signIn").click(function (event) {
 
 
 
-$("#login").click(function (event) {
+$("#login").on('click',function (event) {
     event.preventDefault();
     var username = $("#username").val();
     var password = $("#password").val();
@@ -789,7 +826,7 @@ $("#login").click(function (event) {
                 localStorage.setItem("geschlecht", parseData.geschlecht);
                 localStorage.setItem("orientierung", parseData.orientierung);
                 localStorage.setItem("session", "1");
-                //window.location.href = "home.html";
+                window.location.href = "finden.html";
                 console.log(parseData.vorname);
             } else {
                 $(".error").show();
@@ -797,6 +834,36 @@ $("#login").click(function (event) {
             }
         }
     });
+});
+
+
+
+/****************************************************
+ *
+ *
+ * LOGIN - ENDE
+ *
+ *
+ ***************************************************/
+
+
+
+
+/****************************************************
+ *
+ *
+ * LOGIN - START
+ *
+ *
+ ***************************************************/
+
+
+
+$(".abmelden").on('click', function () {
+
+                localStorage.clear();
+                //window.location.href = "index.html";
+                console.log(localStorage, 'local');
 });
 
 

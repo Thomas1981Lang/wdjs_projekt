@@ -95,7 +95,6 @@ header {
     z-index: 10;
 }
 
-.mobile_nav,
 .mobile_login {
     display: none;
 }
@@ -159,6 +158,124 @@ header {
     height: 130px;
     padding: 0 23px;
 }
+
+
+/********* mobile nav background ****/
+.mobile_nav_background {
+    top: 130px;
+    filter: opacity(80%);
+    position: absolute;
+    background-color: darkred;
+    height: calc(100vh - 130px);
+    margin-left: -10px;
+    width: 100%;
+    -webkit-transform: translate(-100vw, 0);
+    transform: translate(-100vw, 0);
+    /*transition: transform 0.3s ease;*/
+    display: none;
+}
+
+.mobile_nav_background.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    display: flex;
+}
+
+.mobile_nav {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    margin: 0 10px;
+    min-width: 45px;
+    min-height: 45px;
+    background: #ffffff url("../img/loupe.svg") no-repeat;
+    border: none;
+}
+
+
+.mobile_nav_wrapper {
+    z-index: 99;
+    top: 130px;
+    filter: opacity(100%);
+    width: 300px;
+    height: calc(100vh - 130px);
+    margin-left: -20px;
+    position: absolute;
+    background-color: #141414;
+    border-right: 1px solid #ebebeb;
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+    transition: transform 0.3s ease;
+}
+
+
+.mobile_nav_wrapper.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.mobile_nav_wrapper ul {
+    padding-top: 20px;
+}
+
+.mobile_nav_wrapper ul li {
+    width: 300px;
+    height: 45px;
+    margin: 16px 0;
+    box-shadow: 0 2px 3px white, -1px -2px 3px white;
+}
+
+
+.mobile_nav_wrapper ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    width: 300px;
+    height: 45px;
+    font-weight: bolder;
+    color: #ebebeb;
+    text-decoration: none;
+}
+
+.mobile_nav_wrapper ul li a:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    width: 300px;
+    height: 45px;
+    font-weight: bolder;
+    text-decoration: none;
+    background-color: #ebebeb;
+    color: #141414;
+}
+
+ul li a.mobile_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    vertical-align: center;
+    height: 45px;
+    width: 300px;
+    font-weight: bolder;
+    background-color: #ebebeb;
+    color: #141414;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 1200px) {
 
@@ -231,6 +348,17 @@ header {
 
     }
 
+    .mobile_nav_background {
+        top: 100px;
+        height: calc(100vh - 100px);
+
+    }
+
+    .mobile_nav_wrapper {
+        top: 100px;
+        height: calc(100vh - 100px);
+    }
+
 }
 
 @media only screen and (max-width: 830px) {
@@ -251,26 +379,7 @@ header {
         display: none;
     }
 
-    /********* mobile nav background ****/
-    .mobile_nav_background {
-        top: 80px;
-        filter: opacity(80%);
-        position: absolute;
-        background-color: darkred;
-        height: calc(100vh - 80px);
-        margin-left: -10px;
-        width: 100%;
-        -webkit-transform: translate(-100vw, 0);
-        transform: translate(-100vw, 0);
-        /*transition: transform 0.3s ease;*/
-        display: none;
-    }
 
-    .mobile_nav_background.open {
-        -webkit-transform: translate(0, 0);
-        transform: translate(0, 0);
-        display: flex;
-    }
 
     .mobile_login_background {
         top: 80px;
@@ -295,16 +404,7 @@ header {
 
     /********* mobile nav background ****/
     /********* mobile nav außen ****/
-    .mobile_nav {
-        cursor: pointer;
-        display: flex;
-        flex-direction: row;
-        margin: 0 10px;
-        min-width: 45px;
-        min-height: 45px;
-        background: #ebebeb url("../img/menu.svg") no-repeat;
-        border: none;
-    }
+
 
     .mobile_login {
         cursor: pointer;
@@ -319,20 +419,7 @@ header {
 
     /********* mobile nav außen ****/
     /********* mobile wrapper ebene ****/
-    .mobile_nav_wrapper {
-        z-index: 99;
-        top: 80px;
-        filter: opacity(100%);
-        width: 300px;
-        height: calc(100vh - 80px);
-        margin-left: -20px;
-        position: absolute;
-        background-color: #141414;
-        border-right: 1px solid #ebebeb;
-        -webkit-transform: translate(-300px, 0);
-        transform: translate(-300px, 0);
-        transition: transform 0.3s ease;
-    }
+
 
     .mobile_login_wrapper {
         z-index: 99;
@@ -415,7 +502,16 @@ header {
         color: #141414;
         text-decoration: none;
     }
+    .mobile_nav_background {
+        top: 100px;
+        height: calc(80vh - 100px);
 
+    }
+
+    .mobile_nav_wrapper {
+        top: 100px;
+        height: calc(80vh - 100px);
+    }
 }
 
 /************************************************
