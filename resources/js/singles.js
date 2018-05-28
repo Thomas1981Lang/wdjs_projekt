@@ -368,20 +368,17 @@ function startPosition(position) {
         animation: google.maps.Animation.DROP
     });
     //myself.setMap(map);  // setzt den Marker auf die Karte
-console.log('eigener marker');
+    console.log('eigener marker');
     gps = 1;
 
     showListings();
 }
 
 
-
 // var getNewPosition = setInterval(function(){
 //     console.log('test');
 //     watchGPSPosition();
 // },5000);
-
-
 
 
 /**
@@ -506,7 +503,6 @@ function initMap() {
         });
 
     }
-
 
 
     showListings();
@@ -713,7 +709,7 @@ function showListings() {
  ***************************************************/
 
 var buttoncheck = function () {
-console.log('buttoncheck');
+    console.log('buttoncheck');
 }
 
 var buttonmark = function () {
@@ -761,10 +757,6 @@ $(".signIn").on('click', function (event) {
     var password = $("#vorname").val();
 
 
-
-
-
-
     $.ajax({
         url: 'signin.php',
         method: 'POST',
@@ -796,7 +788,6 @@ $(".signIn").on('click', function (event) {
 });
 
 
-
 /****************************************************
  *
  *
@@ -804,9 +795,6 @@ $(".signIn").on('click', function (event) {
  *
  *
  ***************************************************/
-
-
-
 
 
 /****************************************************
@@ -819,7 +807,7 @@ $(".signIn").on('click', function (event) {
 
 
 
-$("#login").on('click',function (event) {
+$("#login").on('click', function (event) {
     event.preventDefault();
     var username = $("#username").val();
     var password = $("#password").val();
@@ -855,7 +843,6 @@ $("#login").on('click',function (event) {
 });
 
 
-
 /****************************************************
  *
  *
@@ -863,8 +850,6 @@ $("#login").on('click',function (event) {
  *
  *
  ***************************************************/
-
-
 
 
 /****************************************************
@@ -879,17 +864,95 @@ $("#login").on('click',function (event) {
 
 $(".abmelden").on('click', function () {
 
-                localStorage.clear();
-                //window.location.href = "index.html";
-                console.log(localStorage, 'local');
+    localStorage.clear();
+    localStorage.setItem("accepted", 1);
+    window.location.href = "index.html";
+    console.log(localStorage, 'local');
 });
-
 
 
 /****************************************************
  *
  *
  * LOGIN - ENDE
+ *
+ *
+ ***************************************************/
+
+
+/****************************************************
+ *
+ *
+ * ACCEPT NOTE - START
+ *
+ *
+ ***************************************************/
+
+
+var accepted = function () {
+    var acceptNote = localStorage.accepted * 1;
+    console.log(acceptNote);
+    if (acceptNote !== 1) {
+
+        if (window.location.pathname !== '/WDJS/index.html') {
+           // if (window.location.pathname !== '/index.html') {
+            window.location.href = "index.html";
+        } else {
+            $('.accept').css("display", "flex")
+        }
+    } else {
+        console.log('ja');
+    }
+
+};
+accepted();
+
+$('.accept_button').on('click', function () {
+    localStorage.setItem("accepted", 1);
+    $('.accept').css("display", "none")
+});
+
+$('.deny_button').on('click', function () {
+    window.location.href = "https://google.at";
+});
+
+/****************************************************
+ *
+ *
+ * ACCEPT NOTE - ENDE
+ *
+ *
+ ***************************************************/
+
+
+
+
+
+
+/****************************************************
+ *
+ *
+ * PROTOCOL - START
+ *
+ *
+ ***************************************************/
+
+
+// var checkprotocol = function () {
+//     var protocol = window.location.protocol;
+//     console.log(window.location.protocol);
+//     if (protocol !== 'https:') {
+//         console.log(window.location.protocol);
+//         window.location.protocol = 'https:'
+//     }
+// };
+// checkprotocol();
+
+
+/****************************************************
+ *
+ *
+ * PROTOCOL - ENDE
  *
  *
  ***************************************************/

@@ -18,7 +18,7 @@
 
 
 <body>
-<header>
+<header class="header_nav">
     <nav class="mobile_nav">
 
         <div class="mobile_nav_wrapper">
@@ -41,7 +41,7 @@
     </div>
 
     <nav class="nav_desktop">
-        <span><a href="finden.html" >Finden</a></span>
+        <span><a href="finden.html">Finden</a></span>
         <span><a href="treffer.html">Treffer</a></span>
         <span><a href="profil.html" class="active">Profil</a></span>
         <span><a href="index.html" class="abmelden">Abmelden</a></span>
@@ -51,10 +51,10 @@
     <nav class="mobile_login">
         <div class="mobile_login_wrapper">
             <ul>
-                <li><a href="finden.html" >Finden</a></li>
+                <li><a href="finden.html">Finden</a></li>
                 <li><a href="treffer.html">Treffer</a></li>
                 <li><a href="profil.html" class="mobile_active">Profil</a></li>
-                <li><a class="index">Abmelden</a></li>
+                <li><a href="index.html" class="abmelden">Abmelden</a></li>
             </ul>
         </div>
         <div class="mobile_login_background">
@@ -63,9 +63,93 @@
 </header>
 
 
-<main class="">
+<main class="profil">
+    <div class="profil_wrapper">
+        <header class="profil_header">
+            <div class="profil_hero">
+                <div class="profil_image_wrapper">
+                    <div class="profil_image"></div>
+                </div>
+                <div class="profil_fullname">
+                    <p><span class="profil_vorname">Platzvorname</span></p>
+
+                    <p><span class="profil_nachname">Platzachname</span></p>
+                </div>
+            </div>
+        </header>
+        <div class="profil_form">
+            <form class="profil_form" method="post" action="">
+                <h2>Sign In</h2>
+                <label for="username" class="">Username</label>
+                <input type="text" id="username" name="username" class="" placeholder="Username" autofocus="">
+
+                <label for="vorname" class="">Vorname</label>
+                <input type="text" id="vorname" name="vorname" class="" placeholder="Vorname" autofocus="">
+
+                <label for="nachname" class="">Nachname</label>
+                <input type="text" id="nachname" name="nachname" class="" placeholder="Nachname" autofocus="">
+
+                <label for="email" class="">E-Mail</label>
+                <input type="text" id="email" name="email" class="" placeholder="E-Mail" autofocus="">
+
+                <label for="geburtsdatum" class="">Geburtsdatum</label>
+                <input type="date" id="geburtsdatum" name="geburtsdatum" class="" autofocus="">
+
+                <fieldset>
+                    <legend>Geschlecht:</legend>
+                    <div class="radio_button">
+                        <label for="male" class="radio_label"><input type="radio" name="gender" id="male" value="male">
+                            männlich</label>
+                        <label for="female" class="radio_label"><input type="radio" name="gender" id="female"
+                                                                       value="female"> weiblich</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Orientierung</legend>
+                    <div class="radio_button">
+
+                        <label for="male"><input type="radio" name="like_gender" id="like_male" value="male">
+                            Männer</label>
+                        <br>
+                        <label for="female"><input type="radio" name="like_gender" id="like_female" value="female">
+                            Frauen</label>
+                        <br><br>
+                        <label for="like_bi"><input type="radio" name="like_gender" id="like_bi" value="bi">Bi</label>
+                    </div>
+                </fieldset>
+
+                <label class="">Altersgruppe</label>
+                <div class="altergruppe">
+                    <input type="number" id="von_alter" name="altersgruppe" class="" autofocus="" placeholder="von">-
+
+                    <input type="number" id="bis_alter" name="altersgruppe" class="" autofocus="" placeholder="bis">
+                </div>
+
+                <!--<div class="prof_image">-->
+                <label for="prof_image" class="">Profilbild</label>
+                <input type="file" id="prof_image" name="prof_image" class="" autofocus="" size="40">
+                <p class="hinweis">kein Pflichtfeld / ohne Bild aber eingeschränkte Nutzung</p>
+                <!--</div>-->
+
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" class="" placeholder="Password">
 
 
+                <label for="agree_checkbox"><input type="checkbox" id="agree_checkbox" name="subscribe"
+                                                   value="newsletter">Ja,
+                    ich stimme den <br>
+                    <a href=""></a>Singles a la carte Nutzungsbedingungen zu.</label>
+
+
+                <button class="signIn" type="submit">Registrieren</button>
+
+                <p class="error">Leider ist ein Fehler aufgetreten!</p>
+            </form>
+
+
+        </div>
+    </div>
 
 </main>
 

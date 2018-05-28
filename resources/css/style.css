@@ -75,13 +75,88 @@ main {
 ****************         ************************
 ************************************************/
 
+
+
+
+
+/************************************************
+****************                 ****************
+**************  ACCEPT NOTE START  **************
+****************                 ****************
+************************************************/
+
+.accept {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 999;
+    background-color: rgba(85, 0, 0, 0.9);
+
+}
+
+.accept_note {
+    background-color: #ebebeb;
+    box-sizing: border-box;
+    width: 400px;
+    padding: 30px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.accept_note h2 {
+    padding-bottom: 30px;
+}
+
+.accept_note p {
+    padding-bottom: 20px;
+    line-height: 1.8rem;
+}
+
+.accept_note button {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.accept_button {
+    background-color: rgba(0, 184, 13, 0.31);
+    text-shadow: 2px 2px 2px #ebebeb;
+    box-shadow: 3px 2px 0px 0px rgba(0, 53, 10, 0.31);
+}
+
+.deny_button {
+    background-color: rgba(85, 0, 0, 0.31);
+    text-shadow: 2px 2px 2px #ebebeb;
+    box-shadow: 3px 2px 0px 0px rgba(85, 0, 0, 0.31);
+}
+
+
+@media only screen and (max-width: 400px) {
+    .accept_note {
+        width: 100%;
+    }
+}
+/************************************************
+****************               ******************
+**************  ACCEPT NOTE END  ****************
+****************               ******************
+************************************************/
+
+
+
+
+
 /************************************************
 ****************                      ***********
 **************  HEADER - SECTION START  *********
 ****************                      ***********
 ************************************************/
 
-header {
+.header_nav {
     align-items: center;
     background-color: black;
     border-bottom: 1px solid #ebebeb;
@@ -196,7 +271,7 @@ header {
 
 @media only screen and (max-width: 970px) {
 
-    header {
+    .header_nav {
         height: 100px;
     }
 
@@ -235,7 +310,7 @@ header {
 
 @media only screen and (max-width: 830px) {
 
-    header {
+    .header_nav {
         height: 80px;
     }
 
@@ -484,7 +559,7 @@ footer a {
 ************************************************/
 
 /************************************************
-****************       MAIN        **************
+****************       MAIN         *************
 **************  HOME - SECTION START  ***********
 ****************                    *************
 ************************************************/
@@ -899,6 +974,33 @@ input[type="radio"] {
 **************  PROFIL - SECTION START  ***********
 ****************                    *************
 ************************************************/
+
+.profil {
+    background-color: black;
+    padding-top: 190px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+
+.profil_header {
+    background-image: url("../img/andrew-welch-229148-unsplash.jpg");
+    background-color: black;
+    background-position: right center;
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+.profil_hero {
+
+}
+
+.profil_hero img {
+    width: 250px;
+}
+
+
 
 /************************************************
 ****************       MAIN        **************
