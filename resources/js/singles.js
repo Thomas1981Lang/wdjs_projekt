@@ -755,6 +755,8 @@ $(".signIn").on('click', function (event) {
     var password = $("#password").val();
     var picUser = 0;
     var picUserBackground = 0;
+    var lat = '48.210033';
+    var lng = '16.363449';
 
     $.ajax({
         url: 'signin.php',
@@ -769,13 +771,14 @@ $(".signIn").on('click', function (event) {
             orientierung: orientierung,
             password: password,
             picuser: picUser,
-            picuserbackground: picUserBackground
+            picuserbackground: picUserBackground,
+            lat: lat,
+            lng: lng
         },
         success: function (data) {
             if (data !== "data inserted") {
-                console.log(geschlecht);
-                console.log(orientierung);
                 console.log(data);
+
 
                 $(".error").show();
             } else {
@@ -831,7 +834,7 @@ $("#login").on('click', function (event) {
                 localStorage.setItem("orientierung", parseData.orientierung);
                 localStorage.setItem("session", "1");
 
-                if (parseData.picuser *1 === 0 || parseData.picuserbackground * 1 === 0) {
+                if (parseData.picuser * 1 === 0 || parseData.picuserbackground * 1 === 0) {
                     window.location.href = "profil.html"
                 } else {
                     window.location.href = "finden.html";
@@ -979,7 +982,19 @@ var fillProfilData = function () {
                 console.log(parseData);
                 $('.profil_vorname').html(parseData.vorname);
                 $('.profil_nachname').html(parseData.nachname);
+                $(".profil_image").css("background-image", "url('" + parseData.picuserpfad + "'");
 
+
+
+                if (parseData.fakeGPS * 1 === 0 ) {
+                $('.fakeGPS_button').on('click', function () {
+                    $('.fakeGPSCords').show();
+                    $('.fakeGPS_button').html('AKTIVIERT');
+
+
+                });
+
+                }
 
                 var datedb = parseData.geburtsdatum;
                 var j = datedb.slice(0, 4);
@@ -1039,7 +1054,7 @@ var fillProfilData = function () {
 /****************************************************
  *
  *
- * PROFIL DATEN ANZEIGEN - START
+ * PROFIL DATEN LÖSCHEN - START
  *
  *
  ***************************************************/
@@ -1078,7 +1093,7 @@ var deleteProfilData = function () {
 /****************************************************
  *
  *
- * PROFIL DATEN ANZEIGEN - ENDE
+ * PROFIL DATEN LÖSCHEN - ENDE
  *
  *
  ***************************************************/

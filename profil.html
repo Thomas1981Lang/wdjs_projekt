@@ -68,7 +68,15 @@
         <header class="profil_header">
             <div class="profil_hero">
                 <div class="profil_image_wrapper">
-                    <div class="profil_image"></div>
+                    <div class="profil_image">
+                        <form method="post" action="" enctype="multipart/form-data" id="profil_userpic_upload">
+                            <div >
+                                <input type="file" id="userpic" name="file" style="display: none;" />
+                                <input type="button" value="Browse..." onclick="document.getElementById('userpic').click();" />
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
                 <div class="profil_fullname">
                     <p><span class="profil_vorname"></span></p>
@@ -83,22 +91,17 @@
             <p><span class="profil_beschriftung">Geschlecht: </span><span id="gender"></span></p>
             <p><span class="profil_beschriftung">Sucht nach: </span><span id="like_gender"></span></p>
 
+
+            <p class="fakeGPS"><span class="profil_beschriftung">FakeGPS: </span><button class="fakeGPS_button">DEAKTIVIERT</button></p>
+            <p class="fakeGPSCords"><span class="profil_beschriftung">Lat: </span><input type="text" name="lat"> <span class="profil_beschriftung">Lng: </span><input type="text" name="lng"><button class="fakeGPS_save">Speichern</button></p>
             <p class="profil_delete_note"><span class="profil_beschriftung">Profil löschen? </span><button class="profil_delete_button">Ja, bitte!</button></p>
         </div>
     </div>
 
-    <div class="container">
 
-        <form method="post" action="" enctype="multipart/form-data" id="myform">
-            <div >
-                <img src="" id="upimg" width="100" height="100">
-            </div>
-            <div >
-                <input type="file" id="file" name="file" />
-                <input type="button" class="button" value="Upload" id="but_upload">
-            </div>
-        </form>
-    </div>
+
+
+
 
 </main>
 
@@ -129,21 +132,22 @@
 
     $(document).ready(function(){
 
-        $("#but_upload").click(function(){
+        $("#userpic").on('change', function(){
 
             var fd = new FormData();
-            var files = $('#file')[0].files[0];
+            var files = $('#userpic')[0].files[0];
             fd.append('file',files);
 
             $.ajax({
-                url: 'upload.php',
+                url: 'profil_upload.php',
                 type: 'post',
                 data: fd,
                 contentType: false,
                 processData: false,
                 success: function(response){
                     if(response != 0){
-                        $("#upimg").attr("src",response);
+                        $(".profil_image").css("background-image", "url('" + response +"'" );
+
                     }else{
                         alert('file not uploaded');
                     }

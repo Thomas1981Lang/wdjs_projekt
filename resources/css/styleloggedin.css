@@ -1033,7 +1033,8 @@ input[type="radio"] {
 }
 
 .profil_image {
-    background-image: url("../img/user/profil_dummy.jpg");
+    background-color: #ebebeb;
+    /*background-image: url("");*/
     width: 300px;
     height: 300px;
     background-position: center center;
@@ -1069,6 +1070,16 @@ input[type="radio"] {
     font-weight: normal;
 }
 
+
+.fakeGPS {
+    padding-top: 120px;
+}
+
+.fakeGPSCords {
+    display: none;
+}
+
+
 .profil_delete_note {
     display: flex;
     justify-content: center;
@@ -1086,9 +1097,12 @@ input[type="radio"] {
 .profil_delete_button {
     padding: 20px;
 }
+
+
+
 /************************************************
 ****************       MAIN        **************
-**************  PROFIL - SECTION START  ***********
+**************  PROFIL - SECTION START  *********
 ****************                    *************
 ************************************************/
 

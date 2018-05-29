@@ -1,4 +1,7 @@
 <?php
+$conn = new mysqli('localhost', 'root', '', 'insert');
+//$conn = new mysqli('mysqlsvr39.world4you.com', 'sql9679214', 'c9+@*nx', '4698418db6');
+
 
 /* Getting file name */
 $filename = $_FILES['file']['name'];
@@ -6,7 +9,7 @@ $filename = $_FILES['file']['name'];
 /* Location */
 $temp = explode(".", $_FILES["file"]["name"]);
 $newfilename = round(microtime(true)) . '.' . end($temp);
-$location = "upload/" . $newfilename;
+$location = "resources/upload/" . $newfilename;
 $uploadOk = 1;
 $imageFileType = pathinfo($location, PATHINFO_EXTENSION);
 
@@ -19,6 +22,17 @@ if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpe
 if ($uploadOk == 0) {
     echo 0;
 } else {
+
+
+    $sql = "UPDATE data SET picuserpfad = '$location', picuser = 1";
+    $conn->query($sql);
+
+    //    if ($conn->query($sql) === TRUE) {
+    //        echo "data inserted";
+    //    } else {
+    //        echo "Error";
+    //    }
+
     /* Upload file */
 
     if (move_uploaded_file($_FILES['file']['tmp_name'], $location)) {

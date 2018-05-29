@@ -12,7 +12,7 @@ $conn = new mysqli('localhost', 'root', '', 'insert');
 $id = $_POST['id'];
 
 
-$sql = "SELECT id, vorname, nachname, geburtsdatum, geschlecht, orientierung FROM data WHERE id = '" . $id ."'";
+$sql = "SELECT id, vorname, nachname, geburtsdatum, geschlecht, orientierung, picuser, picuserbackground, picuserpfad, picuserbackgroundpfad, fakeGPS, lat, lng FROM data WHERE id = '" . $id ."'";
 
 $result = $conn->query($sql);
 
