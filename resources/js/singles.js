@@ -752,10 +752,9 @@ $(".signIn").on('click', function (event) {
     var geburtsdatum = $("#geburtsdatum").val();
     var geschlecht = $('input[name=gender]:checked').val();
     var orientierung = $('input[name=like_gender]:checked').val();
-    var vonalter = $("#von_alter").val();
-    var bisalter = $("#bis_alter").val();
-    var password = $("#vorname").val();
-
+    var password = $("#password").val();
+    var picUser = 0;
+    var picUserBackground = 0;
 
     $.ajax({
         url: 'signin.php',
@@ -768,9 +767,9 @@ $(".signIn").on('click', function (event) {
             geburtsdatum: geburtsdatum,
             geschlecht: geschlecht,
             orientierung: orientierung,
-            vonalter: vonalter,
-            bisalter: bisalter,
-            password: password
+            password: password,
+            picuser: picUser,
+            picuserbackground: picUserBackground
         },
         success: function (data) {
             if (data !== "data inserted") {
@@ -815,7 +814,6 @@ $("#login").on('click', function (event) {
     console.log(username);
     console.log(password);
 
-
     $.ajax({
         url: 'login.php',
         method: 'POST',
@@ -826,17 +824,21 @@ $("#login").on('click', function (event) {
         success: function (data) {
             if (data !== "Error") {
                 var parseData = JSON.parse(data);
-                console.log(parseData, 'hmm');
+                console.log(data);
                 localStorage.setItem("id", parseData.id);
                 localStorage.setItem("vorname", parseData.vorname);
                 localStorage.setItem("geschlecht", parseData.geschlecht);
                 localStorage.setItem("orientierung", parseData.orientierung);
                 localStorage.setItem("session", "1");
-                window.location.href = "finden.html";
-                console.log(parseData.vorname);
+
+                if (parseData.picuser *1 === 0 || parseData.picuserbackground * 1 === 0) {
+                    window.location.href = "profil.html"
+                } else {
+                    window.location.href = "finden.html";
+                }
             } else {
-                $(".error").show();
                 console.log(data);
+                $(".error").show();
             }
         }
     });
@@ -855,7 +857,7 @@ $("#login").on('click', function (event) {
 /****************************************************
  *
  *
- * LOGIN - START
+ * LOGOUT - START
  *
  *
  ***************************************************/
@@ -874,7 +876,7 @@ $(".abmelden").on('click', function () {
 /****************************************************
  *
  *
- * LOGIN - ENDE
+ * LOGOUT - ENDE
  *
  *
  ***************************************************/
@@ -895,7 +897,7 @@ var accepted = function () {
     if (acceptNote !== 1) {
 
         if (window.location.pathname !== '/WDJS/index.html') {
-           // if (window.location.pathname !== '/index.html') {
+            //      if (window.location.pathname !== '/index.html') {
             window.location.href = "index.html";
         } else {
             $('.accept').css("display", "flex")
@@ -925,10 +927,6 @@ $('.deny_button').on('click', function () {
  ***************************************************/
 
 
-
-
-
-
 /****************************************************
  *
  *
@@ -953,6 +951,134 @@ $('.deny_button').on('click', function () {
  *
  *
  * PROTOCOL - ENDE
+ *
+ *
+ ***************************************************/
+
+
+/****************************************************
+ *
+ *
+ * PROFIL DATEN ANZEIGEN - START
+ *
+ *
+ ***************************************************/
+
+var fillProfilData = function () {
+
+    $.ajax({
+        url: 'profil_show.php',
+        method: 'POST',
+        data: {
+            id: localStorage.getItem('id'),
+        },
+        success: function (data) {
+            if (data !== "Error") {
+                var parseData = JSON.parse(data);
+                console.log(data);
+                console.log(parseData);
+                $('.profil_vorname').html(parseData.vorname);
+                $('.profil_nachname').html(parseData.nachname);
+
+
+                var datedb = parseData.geburtsdatum;
+                var j = datedb.slice(0, 4);
+                console.log(j);
+                var m = datedb.slice(5, 7);
+                console.log(m);
+                var d = datedb.slice(8, 10);
+                console.log(d);
+                var dateconv = (d + '.' + m + '.' + j);
+
+
+                $('#geburtsdatum').html(dateconv);
+
+
+                switch (parseData.geschlecht) {
+                    case 'female':
+                        $('#gender').html('Frau');
+                        break;
+                    case 'male':
+                        $('#gender').html('Mann');
+                        break;
+                }
+
+
+                switch (parseData.orientierung) {
+                    case 'female':
+                        $('#like_gender').html('Frauen');
+                        break;
+                    case 'male':
+                        $('#like_gender').html('Männer');
+                        break;
+                    case 'bi':
+                        $('#like_gender').html('Männer');
+                        break;
+                }
+
+            } else {
+                /* TODO: profil_error erstellen*/
+                $(".profil_error").show();
+                console.log(data);
+            }
+        }
+    });
+
+
+};
+
+/****************************************************
+ *
+ *
+ * PROFIL DATEN ANZEIGEN - ENDE
+ *
+ *
+ ***************************************************/
+
+
+/****************************************************
+ *
+ *
+ * PROFIL DATEN ANZEIGEN - START
+ *
+ *
+ ***************************************************/
+
+var deleteProfilData = function () {
+
+
+    $('.profil_delete_button').on('click', function () {
+
+        $.ajax({
+            url: 'profil_delete.php',
+            method: 'POST',
+            data: {
+                id: localStorage.getItem('id'),
+            },
+            success: function (data) {
+                if (data !== "data deleted") {
+
+                    console.log(data);
+
+                    $(".error").show();
+                } else {
+                    localStorage.clear();
+                    localStorage.setItem("accepted", 1);
+                    window.location.href = "index.html";
+                    console.log(localStorage, 'local');
+                }
+            }
+        });
+
+
+    });
+
+};
+
+/****************************************************
+ *
+ *
+ * PROFIL DATEN ANZEIGEN - ENDE
  *
  *
  ***************************************************/
