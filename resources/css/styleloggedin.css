@@ -1051,8 +1051,41 @@ input[type="radio"] {
     font-weight: bold;
 }
 
+.profil_data_wrapper{
+    background-color: #ebebeb;
+    padding: 60px 30px 120px 30px;
+    text-align: left;
+}
+
+.profil_data_wrapper p {
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.profil_beschriftung {
+    display: inline-block;
+    width: 250px;
+    font-weight: normal;
+}
+
+.profil_delete_note {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.profil_delete_note .profil_beschriftung{
+    font-weight: normal;
+    padding-top: 150px;
+    font-size: 1.5rem;
+    width: 180px;
+}
 
 
+.profil_delete_button {
+    padding: 20px;
+}
 /************************************************
 ****************       MAIN        **************
 **************  PROFIL - SECTION START  ***********

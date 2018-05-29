@@ -77,77 +77,13 @@
                 </div>
             </div>
         </header>
-        <div class="profil_form">
-            <form class="profil_form" method="post" action="">
-                <h2>Sign In</h2>
-                <label for="username" class="">Username</label>
-                <input type="text" id="username" name="username" class="" placeholder="Username" autofocus="">
+        <div class="profil_data_wrapper">
 
-                <label for="vorname" class="">Vorname</label>
-                <input type="text" id="vorname" name="vorname" class="" placeholder="Vorname" autofocus="">
+            <p><span class="profil_beschriftung">Geburtsdatum: </span><span id="geburtsdatum">Platzhalter</span></p>
+            <p><span class="profil_beschriftung">Geschlecht: </span><span id="gender">Platzhalter</span></p>
+            <p><span class="profil_beschriftung">Sucht nach: </span><span id="like_gender">Platzhalter</span></p>
 
-                <label for="nachname" class="">Nachname</label>
-                <input type="text" id="nachname" name="nachname" class="" placeholder="Nachname" autofocus="">
-
-                <label for="email" class="">E-Mail</label>
-                <input type="text" id="email" name="email" class="" placeholder="E-Mail" autofocus="">
-
-                <label for="geburtsdatum" class="">Geburtsdatum</label>
-                <input type="date" id="geburtsdatum" name="geburtsdatum" class="" autofocus="">
-
-                <fieldset>
-                    <legend>Geschlecht:</legend>
-                    <div class="radio_button">
-                        <label for="male" class="radio_label"><input type="radio" name="gender" id="male" value="male">
-                            männlich</label>
-                        <label for="female" class="radio_label"><input type="radio" name="gender" id="female"
-                                                                       value="female"> weiblich</label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Orientierung</legend>
-                    <div class="radio_button">
-
-                        <label for="male"><input type="radio" name="like_gender" id="like_male" value="male">
-                            Männer</label>
-                        <br>
-                        <label for="female"><input type="radio" name="like_gender" id="like_female" value="female">
-                            Frauen</label>
-                        <br><br>
-                        <label for="like_bi"><input type="radio" name="like_gender" id="like_bi" value="bi">Bi</label>
-                    </div>
-                </fieldset>
-
-                <label class="">Altersgruppe</label>
-                <div class="altergruppe">
-                    <input type="number" id="von_alter" name="altersgruppe" class="" autofocus="" placeholder="von">-
-
-                    <input type="number" id="bis_alter" name="altersgruppe" class="" autofocus="" placeholder="bis">
-                </div>
-
-                <!--<div class="prof_image">-->
-                <label for="prof_image" class="">Profilbild</label>
-                <input type="file" id="prof_image" name="prof_image" class="" autofocus="" size="40">
-                <p class="hinweis">kein Pflichtfeld / ohne Bild aber eingeschränkte Nutzung</p>
-                <!--</div>-->
-
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" id="password" name="password" class="" placeholder="Password">
-
-
-                <label for="agree_checkbox"><input type="checkbox" id="agree_checkbox" name="subscribe"
-                                                   value="newsletter">Ja,
-                    ich stimme den <br>
-                    <a href=""></a>Singles a la carte Nutzungsbedingungen zu.</label>
-
-
-                <button class="signIn" type="submit">Registrieren</button>
-
-                <p class="error">Leider ist ein Fehler aufgetreten!</p>
-            </form>
-
-
+            <p class="profil_delete_note"><span class="profil_beschriftung">Profil löschen? </span><button class="profil_delete_button">Ja, bitte!</button></p>
         </div>
     </div>
 
