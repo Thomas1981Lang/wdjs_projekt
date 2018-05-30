@@ -39,7 +39,7 @@ body {
     background-color: #ebebeb;
     color: #141414;
     font-family: 'Open Sans', sans-serif;
-
+    overscroll-behavior: none;
     overflow-y: scroll;
     width: 100%;
 }

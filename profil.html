@@ -70,9 +70,10 @@
                 <div class="profil_image_wrapper">
                     <div class="profil_image">
                         <form method="post" action="" enctype="multipart/form-data" id="profil_userpic_upload">
-                            <div >
-                                <input type="file" id="userpic" name="file" style="display: none;" />
-                                <input type="button" value="Browse..." onclick="document.getElementById('userpic').click();" />
+                            <div>
+                                <input type="file" id="userpic" name="file" style="display: none;"/>
+                                <input type="button" value="Browse..."
+                                       onclick="document.getElementById('userpic').click();"/>
                             </div>
                         </form>
                     </div>
@@ -87,20 +88,44 @@
         </header>
         <div class="profil_data_wrapper">
 
-            <p><span class="profil_beschriftung">Geburtsdatum: </span><span id="geburtsdatum"></span></p>
-            <p><span class="profil_beschriftung">Geschlecht: </span><span id="gender"></span></p>
-            <p><span class="profil_beschriftung">Sucht nach: </span><span id="like_gender"></span></p>
+            <p>
+                <span class="profil_beschriftung">Geburtsdatum: </span>
+                <span id="geburtsdatum"></span>
+            </p>
 
+            <p>
+                <span class="profil_beschriftung">Geschlecht: </span>
+                <span id="gender"></span>
+            </p>
 
-            <p class="fakeGPS"><span class="profil_beschriftung">FakeGPS: </span><button class="fakeGPS_button">DEAKTIVIERT</button></p>
-            <p class="fakeGPSCords"><span class="profil_beschriftung">Lat: </span><input type="text" name="lat"> <span class="profil_beschriftung">Lng: </span><input type="text" name="lng"><button class="fakeGPS_save">Speichern</button></p>
-            <p class="profil_delete_note"><span class="profil_beschriftung">Profil löschen? </span><button class="profil_delete_button">Ja, bitte!</button></p>
+            <p>
+                <span class="profil_beschriftung">Sucht nach: </span>
+                <span id="like_gender"></span>
+            </p>
+
+            <div class="fakeGPS">
+                <span class="profil_beschriftung">FakeGPS: </span>
+                <button class="fakeGPS_button" disabled>DEAKTIVIERT</button>
+            </div>
+
+            <div class="fakeGPSCords">
+                <p>
+                    <span class="fakeGPS_beschriftung">Lat: </span>
+                    <input type="text" name="lat">
+                </p>
+                <p>
+                    <span class="fakeGPS_beschriftung">Lng: </span>
+                    <input type="text" name="lng">
+                </p>
+                <button class="fakeGPS_save">Speichern</button>
+            </div>
+
+            <p class="profil_delete_note">
+                <span class="profil_beschriftung">Profil löschen? </span>
+                <button class="profil_delete_button">Ja, bitte!</button>
+            </p>
         </div>
     </div>
-
-
-
-
 
 
 </main>
@@ -125,18 +150,16 @@
     deleteProfilData();
 
 
-
-
 </script>
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $("#userpic").on('change', function(){
+        $("#userpic").on('change', function () {
 
             var fd = new FormData();
             var files = $('#userpic')[0].files[0];
-            fd.append('file',files);
+            fd.append('file', files);
 
             $.ajax({
                 url: 'profil_upload.php',
@@ -144,11 +167,11 @@
                 data: fd,
                 contentType: false,
                 processData: false,
-                success: function(response){
-                    if(response != 0){
-                        $(".profil_image").css("background-image", "url('" + response +"'" );
+                success: function (response) {
+                    if (response != 0) {
+                        $(".profil_image").css("background-image", "url('" + response + "'");
 
-                    }else{
+                    } else {
                         alert('file not uploaded');
                     }
                 },

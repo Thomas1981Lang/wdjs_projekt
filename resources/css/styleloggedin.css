@@ -39,7 +39,7 @@ body {
     background-color: #ebebeb;
     color: #141414;
     font-family: 'Open Sans', sans-serif;
-
+    overscroll-behavior: none;
     overflow-y: scroll;
     width: 100%;
 }
@@ -1079,6 +1079,26 @@ input[type="radio"] {
     display: none;
 }
 
+.fakeGPSCords p {
+    padding-bottom: 10px;
+    display: flex;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+.fakeGPSCords p span {
+    width: 100px;
+}
+
+.fakeGPS span {
+    width: 96px;
+    padding-bottom: 10px;
+}
+
+.fakeGPS button {
+    padding: 0;
+    margin: 0;
+}
 
 .profil_delete_note {
     display: flex;

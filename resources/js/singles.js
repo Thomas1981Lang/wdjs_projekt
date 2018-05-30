@@ -969,77 +969,163 @@ $('.deny_button').on('click', function () {
 
 var fillProfilData = function () {
 
+        $.ajax({
+                url: 'profil_show.php',
+                method: 'POST',
+                data: {
+                    id: localStorage.getItem('id'),
+                },
+                success: function (data) {
+                    if (data !== "Error") {
+                        var parseData = JSON.parse(data);
+                        console.log(data);
+                        console.log(parseData);
+                        $('.profil_vorname').html(parseData.vorname);
+                        $('.profil_nachname').html(parseData.nachname);
+                        $(".profil_image").css("background-image", "url('" + parseData.picuserpfad + "'");
+
+
+                        localStorage.setItem('fakeGPS', parseData.fakeGPS);
+
+
+                        if (parseData.fakeGPS * 1 === 0) {
+                            $('.fakeGPSCords').hide();
+                            $('.fakeGPS_button').html('DEAKTIVIERT');
+                        }
+                        else {
+                            $('.fakeGPSCords').show();
+                            $('.fakeGPS_button').html('AKTIVIERT');
+                            $('input[name="lat"]').val(parseData.lat);
+                            $('input[name="lng"]').val(parseData.lng);
+                        }
+                        $('.fakeGPS_button').prop('disabled', false);
+
+                        $('.fakeGPS_button').on('click', function () {
+                            $('.fakeGPS_button').prop('disabled', true);
+                            var fakeGPSStatus = localStorage.getItem('fakeGPS') * 1;
+                            console.log(localStorage, 'local');
+                            if (fakeGPSStatus === 1) {
+                                setFakeGPSOff()
+                            } else {
+                                setFakeGPSOn()
+                            }
+                        });
+
+                        $('.fakeGPS_save').on('click', function () {
+
+                            saveFakeGPS();
+
+                        });
+
+                    }
+
+                    var datedb = parseData.geburtsdatum;
+                    var j = datedb.slice(0, 4);
+                    console.log(j);
+                    var m = datedb.slice(5, 7);
+                    console.log(m);
+                    var d = datedb.slice(8, 10);
+                    console.log(d);
+                    var dateconv = (d + '.' + m + '.' + j);
+
+
+                    $('#geburtsdatum').html(dateconv);
+
+
+                    switch (parseData.geschlecht) {
+                        case 'female':
+                            $('#gender').html('Frau');
+                            break;
+                        case 'male':
+                            $('#gender').html('Mann');
+                            break;
+                    }
+
+
+                    switch (parseData.orientierung) {
+                        case 'female':
+                            $('#like_gender').html('Frauen');
+                            break;
+                        case 'male':
+                            $('#like_gender').html('Männer');
+                            break;
+                        case 'bi':
+                            $('#like_gender').html('Männer');
+                            break;
+                    }
+
+
+                }
+            }
+        )
+        ;
+
+
+    }
+;
+
+var setFakeGPSOn = function () {
     $.ajax({
-        url: 'profil_show.php',
+        url: 'profil_fakeGPSstart.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id'),
         },
-        success: function (data) {
-            if (data !== "Error") {
-                var parseData = JSON.parse(data);
-                console.log(data);
-                console.log(parseData);
-                $('.profil_vorname').html(parseData.vorname);
-                $('.profil_nachname').html(parseData.nachname);
-                $(".profil_image").css("background-image", "url('" + parseData.picuserpfad + "'");
-
-
-
-                if (parseData.fakeGPS * 1 === 0 ) {
-                $('.fakeGPS_button').on('click', function () {
-                    $('.fakeGPSCords').show();
-                    $('.fakeGPS_button').html('AKTIVIERT');
-
-
-                });
-
-                }
-
-                var datedb = parseData.geburtsdatum;
-                var j = datedb.slice(0, 4);
-                console.log(j);
-                var m = datedb.slice(5, 7);
-                console.log(m);
-                var d = datedb.slice(8, 10);
-                console.log(d);
-                var dateconv = (d + '.' + m + '.' + j);
-
-
-                $('#geburtsdatum').html(dateconv);
-
-
-                switch (parseData.geschlecht) {
-                    case 'female':
-                        $('#gender').html('Frau');
-                        break;
-                    case 'male':
-                        $('#gender').html('Mann');
-                        break;
-                }
-
-
-                switch (parseData.orientierung) {
-                    case 'female':
-                        $('#like_gender').html('Frauen');
-                        break;
-                    case 'male':
-                        $('#like_gender').html('Männer');
-                        break;
-                    case 'bi':
-                        $('#like_gender').html('Männer');
-                        break;
-                }
-
+        success: function (response) {
+            if (response !== "Error") {
+                localStorage.setItem('fakeGPS', 1);
+                console.log(response, 'setonnoterror');
+                $('.fakeGPSCords').show();
+                $('.fakeGPS_button').html('AKTIVIERT');
+                $('.fakeGPS_button').prop('disabled', false);
             } else {
-                /* TODO: profil_error erstellen*/
-                $(".profil_error").show();
-                console.log(data);
+                console.log(response, 'setonerror');
             }
         }
     });
+};
+
+var setFakeGPSOff = function () {
+    $.ajax({
+        url: 'profil_fakeGPSend.php',
+        method: 'POST',
+        data: {
+            id: localStorage.getItem('id'),
+        },
+        success: function (response) {
+            if (response !== "Error") {
+                localStorage.setItem('fakeGPS', 0);
+                console.log(response, 'setoffnoterror');
+                $('.fakeGPSCords').hide();
+                $('.fakeGPS_button').html('DEAKTIVIERT');
+                $('.fakeGPS_button').prop('disabled', false);
+            } else {
+                console.log(response, 'setoffnoterror');
+
+            }
+        }
+    });
+};
 
 
+var saveFakeGPS = function () {
+    $.ajax({
+        url: 'profil_fakeGPSsave.php',
+        method: 'POST',
+        data: {
+            id: localStorage.getItem('id'),
+            lat: $('input[name="lat"]').val(),
+            lng: $('input[name="lng"]').val()
+        },
+        success: function (response) {
+            if (response !== "Error") {
+                console.log(response, 'saveNOerror');
+            } else {
+                console.log(response, 'saveerror');
+            }
+        }
+    })
+    ;
 };
 
 /****************************************************
