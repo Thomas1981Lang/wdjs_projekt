@@ -344,17 +344,25 @@ function getStartMap() {
  */
 function startPosition(position) {
     // Konstruktor erzeugt eine neue Map
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: position.coords.latitude, lng: position.coords.longitude},
-        zoom: zoom,                 // Definiert den Zoom-Level der Karte
-        minZoom: zoom,
-        maxZoom: zoom,
-        gestureHandling: 'greedy',
-        styles: styles,             // Definiert das Kartenstyling
-        // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
-        mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
-        disableDefaultUI: true      // Deaktiviert die Steuerelemente z.B. Zoom
-    });
+    var fakeGPS = localStorage.getItem('fakeGPS') * 1;
+    var fakeGPSlat = localStorage.getItem('lat') * 1;
+    var fakeGPSlng = localStorage.getItem('lng') * 1;
+    console.log(fakeGPS);
+    console.log(fakeGPSlat);
+    console.log(fakeGPSlng);
+
+    if (fakeGPS === 0) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: position.coords.latitude, lng: position.coords.longitude},
+            zoom: zoom,                 // Definiert den Zoom-Level der Karte
+            minZoom: zoom,
+            maxZoom: zoom,
+            gestureHandling: 'greedy',
+            styles: styles,             // Definiert das Kartenstyling
+            // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
+            mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
+            disableDefaultUI: true      // Deaktiviert die Steuerelemente z.B. Zoom
+        });
 
     //Erzeugt ein Marker Objekt für den Standort des Users
     myself = new google.maps.Marker({
@@ -367,7 +375,35 @@ function startPosition(position) {
         },
         animation: google.maps.Animation.DROP
     });
-    //myself.setMap(map);  // setzt den Marker auf die Karte
+
+
+    } else {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: fakeGPSlat, lng: fakeGPSlng},
+            zoom: zoom,                 // Definiert den Zoom-Level der Karte
+            minZoom: zoom,
+            maxZoom: zoom,
+            gestureHandling: 'greedy',
+            styles: styles,             // Definiert das Kartenstyling
+            // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
+            mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
+            disableDefaultUI: true      // Deaktiviert die Steuerelemente z.B. Zoom
+        });
+
+        //Erzeugt ein Marker Objekt für den Standort des Users
+        myself = new google.maps.Marker({
+            position: {lat: fakeGPSlat, lng: fakeGPSlng},
+            title: 'wunderschön',
+            map: map, // setzt den Marker auf die Karte
+            icon: {
+                url: icons.myself.icon,
+                scaledSize: new google.maps.Size(40, 40)
+            },
+            animation: google.maps.Animation.DROP
+        });
+        //myself.setMap(map);  // setzt den Marker auf die Karte
+
+    }
     console.log('eigener marker');
     gps = 1;
 
@@ -500,7 +536,10 @@ function initMap() {
 
 
             populateInfoWindow(this, largeInfowindow);
+
+
         });
+
 
     }
 
@@ -544,6 +583,11 @@ function populateInfoWindow(marker, infowindow) {
                 scaledSize: new google.maps.Size(40, 40)
             });
         });
+
+        // google.maps.event.addListener(map, "click", function(event) {
+        //     infowindow.close();
+        //     infowindow.marker = null;
+        // });
 
         infowindow.addListener('closeclick', function () {
             infowindow.marker = null;
@@ -828,11 +872,23 @@ $("#login").on('click', function (event) {
             if (data !== "Error") {
                 var parseData = JSON.parse(data);
                 console.log(data);
+                var sum = [];
+                sum.push(parseData);
+                sum.push(parseData);
+                console.log(sum, 'testextend');
                 localStorage.setItem("id", parseData.id);
                 localStorage.setItem("vorname", parseData.vorname);
                 localStorage.setItem("geschlecht", parseData.geschlecht);
                 localStorage.setItem("orientierung", parseData.orientierung);
+                localStorage.setItem("fakeGPS", parseData.fakeGPS);
+                localStorage.setItem("lat", parseData.lat);
+                localStorage.setItem("lng", parseData.lng);
+                localStorage.setItem("eat", parseData.eat);
+                localStorage.setItem("drink", parseData.drink);
+                localStorage.setItem("party", parseData.party);
+                localStorage.setItem("singles", parseData.singles);
                 localStorage.setItem("session", "1");
+
 
                 if (parseData.picuser * 1 === 0 || parseData.picuserbackground * 1 === 0) {
                     window.location.href = "profil.html"
@@ -979,7 +1035,7 @@ var fillProfilData = function () {
                     if (data !== "Error") {
                         var parseData = JSON.parse(data);
                         console.log(data);
-                        console.log(parseData);
+                        console.log(parseData, 'parse');
                         $('.profil_vorname').html(parseData.vorname);
                         $('.profil_nachname').html(parseData.nachname);
                         $(".profil_image").css("background-image", "url('" + parseData.picuserpfad + "'");
@@ -1078,6 +1134,8 @@ var setFakeGPSOn = function () {
                 $('.fakeGPSCords').show();
                 $('.fakeGPS_button').html('AKTIVIERT');
                 $('.fakeGPS_button').prop('disabled', false);
+                $('input[name="lat"]').val(localStorage.getItem('lat'));
+                $('input[name="lng"]').val(localStorage.getItem('lng'));
             } else {
                 console.log(response, 'setonerror');
             }

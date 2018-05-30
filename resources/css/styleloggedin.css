@@ -238,7 +238,7 @@ main {
     text-decoration: none;
 }
 
-.mobile_nav_wrapper ul li a:hover {
+.mobile_nav_wrapper ul li a:not(.no):hover {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -264,6 +264,8 @@ ul li a.mobile_active {
     color: #141414;
     text-decoration: none;
 }
+
+
 
 
 

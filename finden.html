@@ -23,11 +23,11 @@
 
         <div class="mobile_nav_wrapper">
             <ul>
-                <li><a>Gutes Essen</a></li>
-                <li><a>Tolle Partys</a></li>
-                <li><a>Gute Drinks</a></li>
-                <li><a>Single-Magnet</a></li>
-                <li><a>Singles</a></li>
+                <li><a class="no eat mobile_active">Gutes Essen</a></li>
+                <li><a class="no drink mobile_active">Gute Drinks</a></li>
+                <li><a class="no party mobile_active">Tolle Partys</a></li>
+                <!--<li><a>Single-Magnet</a></li>-->
+                <li><a class="no singles mobile_active">Singles</a></li>
             </ul>
         </div>
         <div class="mobile_nav_background">
@@ -85,10 +85,15 @@
 
 
 <script src="resources/js/singles.js"></script>
+<script src="resources/js/setsidenav.js"></script>
 <script async defer
         src=
                 "https://maps.googleapis.com/maps/api/js?key=AIzaSyDfDcni1n3TXcLUUV164qDutKiaWwRDR0I&libraries=geometry&v=3&callback=initMap">
 </script>
+<script>
 
+    setMenuPoints();
+
+</script>
 </body>
 </html>
