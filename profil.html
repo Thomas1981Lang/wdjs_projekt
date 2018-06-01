@@ -156,21 +156,25 @@
     $(document).ready(function () {
 
         $("#userpic").on('change', function () {
-
+            var id = localStorage.getItem('id');
+            console.log('Line 160: id', id );
             var fd = new FormData();
             var files = $('#userpic')[0].files[0];
+            fd.append('idvalue', id);
             fd.append('file', files);
 
+            console.log('Line 166: fd', fd );
+            
             $.ajax({
                 url: 'profil_upload.php',
-                type: 'post',
+                type: 'POST',
                 data: fd,
                 contentType: false,
                 processData: false,
                 success: function (response) {
                     if (response != 0) {
                         $(".profil_image").css("background-image", "url('" + response + "'");
-
+console.log('Line 175: response', response );
                     } else {
                         alert('file not uploaded');
                     }

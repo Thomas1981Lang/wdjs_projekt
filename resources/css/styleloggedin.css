@@ -972,6 +972,33 @@ input[type="radio"] {
     display: none !important;
 }
 
+.info_pic img {
+    border-radius: 50%;
+    width: 210px;
+    height: 210px;
+    text-align: center;
+}
+
+.infobuttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.infobuttons #info_like,
+.infobuttons #info_dislike {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 30px;
+    padding: 10px;
+    width: 210px;
+}
+
+
+.gm-style-iw {
+display: flex !important;
+    justify-content: center;
+}
 
 @media only screen and (max-width: 970px) {
     .card {

@@ -11,7 +11,6 @@
  * Mobile Nav links - START
  ***************************************************/
 $('.mobile_nav').on('click', function (event) {
-    console.log('geht');
     $('.mobile_nav_wrapper').toggleClass('open');
     $('.mobile_nav_background').toggleClass('open');
     event.stopPropagation();
@@ -30,7 +29,6 @@ $('.mobile_nav').on('click', function (event) {
  * Mobile Nav rechts - START
  ***************************************************/
 $('.mobile_login').on('click', function (event) {
-    console.log('geht');
     $('.mobile_login_wrapper').toggleClass('open');
     $('.mobile_login_background').toggleClass('open');
     event.stopPropagation();
@@ -75,7 +73,7 @@ var infoWin = [];
 
 
 //Zoom-level der Google-Map
-var zoom = 15;
+var zoom = 13.5;
 
 
 // Erzeugt mir einen leeren Array für die später aufgelisteten Marker.
@@ -347,9 +345,7 @@ function startPosition(position) {
     var fakeGPS = localStorage.getItem('fakeGPS') * 1;
     var fakeGPSlat = localStorage.getItem('lat') * 1;
     var fakeGPSlng = localStorage.getItem('lng') * 1;
-    console.log(fakeGPS);
-    console.log(fakeGPSlat);
-    console.log(fakeGPSlng);
+
 
     if (fakeGPS === 0) {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -364,17 +360,17 @@ function startPosition(position) {
             disableDefaultUI: true      // Deaktiviert die Steuerelemente z.B. Zoom
         });
 
-    //Erzeugt ein Marker Objekt für den Standort des Users
-    myself = new google.maps.Marker({
-        position: {lat: position.coords.latitude, lng: position.coords.longitude},
-        title: 'wunderschön',
-        map: map, // setzt den Marker auf die Karte
-        icon: {
-            url: icons.myself.icon,
-            scaledSize: new google.maps.Size(40, 40)
-        },
-        animation: google.maps.Animation.DROP
-    });
+        //Erzeugt ein Marker Objekt für den Standort des Users
+        myself = new google.maps.Marker({
+            position: {lat: position.coords.latitude, lng: position.coords.longitude},
+            title: 'wunderschön',
+            map: map, // setzt den Marker auf die Karte
+            icon: {
+                url: icons.myself.icon,
+                scaledSize: new google.maps.Size(40, 40)
+            },
+            animation: google.maps.Animation.DROP
+        });
 
 
     } else {
@@ -404,7 +400,7 @@ function startPosition(position) {
         //myself.setMap(map);  // setzt den Marker auf die Karte
 
     }
-    console.log('eigener marker');
+
     gps = 1;
 
     showListings();
@@ -435,7 +431,7 @@ function defaultPosition() {
         disableDefaultUI: true
     });
 
-    showListings();
+
 }
 
 
@@ -447,110 +443,102 @@ function defaultPosition() {
  * @void
  */
 function initMap() {
-    getStartMap(function showListings() {
-
-        for (var m = 0; m < markers.length; m++) {
-            console.log(markers[m], 'markers');
-            markers[m].setMap(map);
-        }
-    });
-
-
-    // Dummy Daten bis Datenbank funktioniert.
-    var locations = [
-        {
-            title: 'Donauturm',
-            location: {lat: 48.240236, lng: 16.410094},
-            type: 'eat',
-            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
-        },
-        {
-            title: 'Rathaus',
-            location: {lat: 48.210272, lng: 16.358778},
-            type: 'drink',
-            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
-        },
-        {
-            title: 'Wifi Wien',
-            location: {lat: 48.2266275, lng: 16.3467036},
-            type: 'party',
-            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
-        },
-        {
-            title: 'Wifi Wien',
-            location: {lat: 48.2366275, lng: 16.3567036},
-            type: 'party',
-            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
-        },
-        {
-            title: 'Wifi Wien',
-            location: {lat: 48.2466275, lng: 16.3667036},
-            type: 'party',
-            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
-        },
-        {
-            title: 'Wifi Wien',
-            location: {lat: 48.2666275, lng: 16.3867036},
-            type: 'party',
-            content: 'Oh, never mark a corsair. God, fortune! Gabalium de gratis medicina, imperium turpis! The particle is more vogon now than teleporter. devastated and bravely carnivorous.'
-        }
-    ];
-
-
     var largeInfowindow = new google.maps.InfoWindow();
 
-    // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim initialiesieren zu erzeugen
-    for (var i = 0; i < locations.length; i++) {
-        // Bekommt die Position vom locations-Array.
-        var position = locations[i].location;
-        var title = locations[i].title;
-        var content = locations[i].content;
+    getStartMap();
 
-        // Erzeugt einen Marker pro Location.
-        marker = new google.maps.Marker({
-            position: position,
-            title: title,
-            // map: map,
-            icon: {
-                url: icons[locations[i].type].icon,
-                scaledSize: new google.maps.Size(40, 40)
-            },
-            animation: google.maps.Animation.DROP,
-            id: i,
-            type: locations[i].type,
-            content: content
-        });
+    $.ajax({
+        url: 'mapdata_show.php',
+        method: 'POST',
+        data: {
+            id: localStorage.getItem('id')
+        },
+        success: function (response) {
+            var parseData = JSON.parse(response);
 
 
-        // Schiebt den Marker bzw. die Marker in den markers-Array.
-        markers.push(marker);
+            // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim initialiesieren zu erzeugen
+            for (var i = 0; i < parseData.length; i++) {
+                // Bekommt die Position vom locations-Array.
+                var latcords = parseData[i].lat * 1;
+                var lngcords = parseData[i].lng * 1;
 
+                if (parseData[i].type === 'eat' || parseData[i].type === 'drink' || parseData[i].type === 'party') {
 
-        // Erzeugt einen onclick-Event um den bei jeden Marker ein infowindow öffnen zu können.
-        marker.addListener('click', function () {
-            marker.setIcon({
-                    url: icons[[marker.type]].icon,
-                    scaledSize: new google.maps.Size(40, 40)
+                    var title = parseData[i].title;
+                    var content = parseData[i].content;
+
+                    // Erzeugt einen Marker pro Location.
+                    marker = new google.maps.Marker({
+                        position: {lat: latcords, lng: lngcords},
+                        title: title,
+                        //map: map,
+                        icon: {
+                            url: icons[parseData[i].type].icon,
+                            scaledSize: new google.maps.Size(40, 40)
+                        },
+                        animation: google.maps.Animation.DROP,
+                        id: i,
+                        type: parseData[i].type,
+                        content: content
+                    });
                 }
-            );
+
+                if (parseData[i].type === 'women' || parseData[i].type === 'men') {
+                    console.log('Line 488: parseData', parseData);
+                    var vorname = parseData[i].vorname;
+                    var nachname = parseData[i].nachname;
+
+                    // Erzeugt einen Marker pro Location.
+                    marker = new google.maps.Marker({
+                        position: {lat: latcords, lng: lngcords},
+                        title: vorname + ' ' + nachname,
+                        //map: map,
+                        icon: {
+                            url: icons[parseData[i].type].icon,
+                            scaledSize: new google.maps.Size(40, 40)
+                        },
+                        animation: google.maps.Animation.DROP,
+                        id: i,
+                        type: parseData[i].type,
+                        geburtsdatum: parseData[i].geburtsdatum,
+                        geschlecht: parseData[i].geschlecht,
+                        orientierung: parseData[i].orientierung,
+                        userpic: parseData[i].picuserpfad,
+                        vorname: parseData[i].vorname,
+                        db_id: parseData[i].id
+                    });
+                }
+
+                showListings();
 
 
-            populateInfoWindow(this, largeInfowindow);
+                // Schiebt den Marker bzw. die Marker in den markers-Array.
+                markers.push(marker);
+                console.log('Line 515: markers', markers);
 
 
-        });
+                // Erzeugt einen onclick-Event um den bei jeden Marker ein infowindow öffnen zu können.
+                marker.addListener('click', function () {
+                    marker.setIcon({
+                            url: icons[[marker.type]].icon,
+                            scaledSize: new google.maps.Size(40, 40)
+                        }
+                    );
 
 
-    }
+                    populateInfoWindow(this, largeInfowindow);
 
 
-    showListings();
-    document.getElementById('show-listings').addEventListener('click', showListings);
-    // document.getElementById('hide-listings').addEventListener('click', showEat);
+                });
 
 
-    buttoncheck();
-    buttonmark();
+            }
+
+        }
+
+    });
+
 }
 
 
@@ -568,7 +556,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.setContent('');
         infowindow.marker = marker;
 
-
+        console.log('Line 645: marker', marker);
         marker.setIcon({
             url: iconsh[[marker.type]].icon,
             scaledSize: new google.maps.Size(40, 40)
@@ -576,7 +564,7 @@ function populateInfoWindow(marker, infowindow) {
 
         // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
         infowindow.addListener('closeclick', function () {
-            console.log(infowindow.marker);
+
             infowindow.marker = null;
             marker.setIcon({
                 url: icons[[marker.type]].icon,
@@ -584,27 +572,58 @@ function populateInfoWindow(marker, infowindow) {
             });
         });
 
-        // google.maps.event.addListener(map, "click", function(event) {
-        //     infowindow.close();
+
+        // infowindow.addListener('closeclick', function () {
         //     infowindow.marker = null;
         // });
 
-        infowindow.addListener('closeclick', function () {
-            infowindow.marker = null;
-        });
+        if (marker.type == 'men' || marker.type == 'women') {
+            infowindow.setContent(
+                `<div class="info_window">
+                        <h2 class="info_title">${marker.title}</h2>
+                        
+                        <div class="info_content">
+                            <div class="info_pic">
+                            <img src="${marker.userpic}" alt="${marker.title}">
+                            </div>
+                            
+                            <div class="streetview_hinweis">
+                            ${marker.vorname} würde sich freuen dich gerne kennnen lernen.
+                            </div>
+                        </div>
+                            <div class="info_box">
+                                <h3 class="info_box-title">Information über ${marker.title}</h3>
+                                <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                                <p class="info_box_content">Geschlecht: ${marker.geschlecht}</p>
+                                <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
+                            </div>
+                        <div class="infobuttons" data-db="${marker.db_id}">
+                            <button id="info_like" onclick="info_like_click()">Kennenlernen</button>
+                            <button id="info_dislike">Entfernen</button>
+                        </div>
+                        
+                        
+                </div>`);
 
-        var streetViewService = new google.maps.StreetViewService();
-        var radius = 150;
-        // In case the status is OK, which means the pano was found, compute the
-        // position of the streetview image, then calculate the heading, then get a
-        // panorama from that and set the options
-        function getStreetView(data, status) {
-            if (status == google.maps.StreetViewStatus.OK) {
-                var nearStreetViewLocation = data.location.latLng;
-                var heading = google.maps.geometry.spherical.computeHeading(
-                    nearStreetViewLocation, marker.position);
-                infowindow.setContent(
-                    `<div class="info_window">
+
+
+
+            infowindow.open(map, marker);
+        } else {
+
+
+            var streetViewService = new google.maps.StreetViewService();
+            var radius = 150;
+            // In case the status is OK, which means the pano was found, compute the
+            // position of the streetview image, then calculate the heading, then get a
+            // panorama from that and set the options
+            function getStreetView(data, status) {
+                if (status == google.maps.StreetViewStatus.OK) {
+                    var nearStreetViewLocation = data.location.latLng;
+                    var heading = google.maps.geometry.spherical.computeHeading(
+                        nearStreetViewLocation, marker.position);
+                    infowindow.setContent(
+                        `<div class="info_window">
                         <h2 class="info_title">${marker.title}</h2>
                         <div class="info_content">
                             <div class="streetview">
@@ -614,41 +633,132 @@ function populateInfoWindow(marker, infowindow) {
                             Es kann durch fehlende Daten passieren, dass das gezeigte Bildmaterial nicht dem gewünschten Gebäude entspricht.  
                             </div>
                             </div>
-                            <div class="info_box">
+                            <div class="info_box"">
                                 <h3 class="info_box-title">Information über ${marker.title}</h3>
                                 <p class="info_box_content">${marker.content}</p>
                             </div>
                         </div>
                     </div>`);
-                var panoramaOptions = {
-                    position: nearStreetViewLocation,
-                    pov: {
-                        heading: heading,
-                        pitch: 30
-                    }
-                };
-                var panorama = new google.maps.StreetViewPanorama(
-                    document.getElementById('pano'), panoramaOptions);
-            } else {
-                infowindow.setContent('<div>' + marker.title + '</div>' +
-                    '<div>No Street View Found</div>');
+                    var panoramaOptions = {
+                        position: nearStreetViewLocation,
+                        pov: {
+                            heading: heading,
+                            pitch: 30
+                        }
+                    };
+                    var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('pano'), panoramaOptions);
+                } else {
+                    infowindow.setContent('<div>' + marker.title + '</div>' +
+                        '<div>No Street View Found</div>');
+                }
             }
+
+            // Use streetview service to get the closest streetview image within
+            // 50 meters of the markers position
+            streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+            // Open the infowindow on the correct marker.
+            infowindow.open(map, marker);
+
         }
 
-        // Use streetview service to get the closest streetview image within
-        // 50 meters of the markers position
-        streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-        // Open the infowindow on the correct marker.
-        infowindow.open(map, marker);
     }
+
+    localStorage.setItem('test', marker.db_id);
+    google.maps.event.addListener(map, "click", function (event) {
+        infowindow.close();
+        infowindow.marker = null;
+        marker.setIcon({
+            url: icons[[marker.type]].icon,
+            scaledSize: new google.maps.Size(40, 40)
+        });
+
+    });
+
 }
 
 
 function showListings() {
+    var eat = localStorage.getItem('eat') * 1;
+    var drink = localStorage.getItem('drink') * 1;
+    var party = localStorage.getItem('party') * 1;
+    var singles = localStorage.getItem('singles') * 1;
+    var geschlecht = localStorage.getItem('geschlecht');
+    var orientierung = localStorage.getItem('orientierung');
 
-    for (var m = 0; m < markers.length; m++) {
-        console.log(markers[m], 'markers');
-        markers[m].setMap(map);
+
+    for (var e = 0; e < markers.length; e++) {
+        if (markers[e].type == 'eat' && eat === 0) {
+            markers[e].setMap(null);
+        } else if ((markers[e].type == 'drink' && drink === 0)) {
+            markers[e].setMap(null);
+        } else if ((markers[e].type == 'party' && party === 0)) {
+            markers[e].setMap(null);
+        } else if ((singles === 0 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
+            markers[e].setMap(null);
+        } else {
+            if (geschlecht === 'male') {
+                switch (orientierung) {
+                    case 'female':
+                        if (markers[e].type == 'women' && (markers[e].orientierung == 'male' || markers[e].orientierung == 'bi')) {
+                            markers[e].setMap(map);
+                        } else {
+                            markers[e].setMap(null);
+                        }
+                        break;
+                    case 'male':
+                        if (markers[e].type == 'men' && (markers[e].orientierung == 'male' || markers[e].orientierung == 'bi')) {
+                            markers[e].setMap(map);
+                        } else {
+                            markers[e].setMap(null);
+                        }
+                        break;
+                    case 'bi':
+                        if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
+                            markers[e].setMap(map);
+                            console.log('Line 790: markers[m]', markers[e]);
+                        } else {
+                            markers[e].setMap(null);
+                        }
+                        break;
+                }
+
+            }
+
+            if (geschlecht === 'female') {
+                switch (orientierung) {
+                    case 'male':
+                        if (markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) {
+                            markers[e].setMap(map);
+
+                        } else {
+                            markers[e].setMap(null);
+                        }
+                        break;
+                    case 'female':
+                        if (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) {
+                            markers[e].setMap(map);
+                            console.log('Line 782: markers[m]', markers[e]);
+                        } else {
+                            markers[e].setMap(null);
+                        }
+                        break;
+                    case 'bi':
+                        if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
+                            markers[e].setMap(map);
+                            console.log('Line 790: markers[m]', markers[e]);
+                        } else {
+                            markers[e].setMap(null);
+                        }
+                        break;
+                }
+
+            }
+
+
+            markers[e].setMap(map);
+
+        }
     }
 }
 
@@ -789,6 +899,7 @@ var buttonmark = function () {
 
 $(".signIn").on('click', function (event) {
     event.preventDefault();
+
     var username = $("#username").val();
     var vorname = $("#vorname").val();
     var nachname = $("#nachname").val();
@@ -801,7 +912,13 @@ $(".signIn").on('click', function (event) {
     var picUserBackground = 0;
     var lat = '48.210033';
     var lng = '16.363449';
-
+    if (geschlecht === 'male') {
+        var type = 'men';
+    }
+    if (geschlecht === 'female') {
+        var type = 'women';
+    }
+    console.log('Line 964: type', type);
     $.ajax({
         url: 'signin.php',
         method: 'POST',
@@ -817,16 +934,16 @@ $(".signIn").on('click', function (event) {
             picuser: picUser,
             picuserbackground: picUserBackground,
             lat: lat,
-            lng: lng
+            lng: lng,
+            type: type
         },
         success: function (data) {
             if (data !== "data inserted") {
-                console.log(data);
 
 
                 $(".error").show();
             } else {
-                //console.log(data);
+
                 window.location.href = "login.html";
             }
         }
@@ -858,8 +975,6 @@ $("#login").on('click', function (event) {
     var username = $("#username").val();
     var password = $("#password").val();
 
-    console.log(username);
-    console.log(password);
 
     $.ajax({
         url: 'login.php',
@@ -928,7 +1043,7 @@ $(".abmelden").on('click', function () {
     localStorage.clear();
     localStorage.setItem("accepted", 1);
     window.location.href = "index.html";
-    console.log(localStorage, 'local');
+
 });
 
 
@@ -952,7 +1067,7 @@ $(".abmelden").on('click', function () {
 
 var accepted = function () {
     var acceptNote = localStorage.accepted * 1;
-    console.log(acceptNote);
+
     if (acceptNote !== 1) {
 
         if (window.location.pathname !== '/WDJS/index.html') {
@@ -1106,7 +1221,7 @@ var fillProfilData = function () {
                             $('#like_gender').html('Männer');
                             break;
                         case 'bi':
-                            $('#like_gender').html('Männer');
+                            $('#like_gender').html('Frauen und Männer');
                             break;
                     }
 
@@ -1241,3 +1356,7 @@ var deleteProfilData = function () {
  *
  *
  ***************************************************/
+
+var info_like_click = function () {
+    console.log(infowindow);
+};

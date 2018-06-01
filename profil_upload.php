@@ -5,6 +5,8 @@ $conn = new mysqli('localhost', 'root', '', 'insert');
 
 /* Getting file name */
 $filename = $_FILES['file']['name'];
+$id = $_POST['idvalue'];
+
 
 /* Location */
 $temp = explode(".", $_FILES["file"]["name"]);
@@ -24,7 +26,7 @@ if ($uploadOk == 0) {
 } else {
 
 
-    $sql = "UPDATE data SET picuserpfad = '$location', picuser = 1";
+    $sql = "UPDATE data SET picuserpfad = '$location', picuser = 1 WHERE id = '".$id."'";
     $conn->query($sql);
 
     //    if ($conn->query($sql) === TRUE) {
