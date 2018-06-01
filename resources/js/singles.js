@@ -1,7 +1,7 @@
 /****************************************************
  *
  *
- * MOBILE NAV - START
+ * MOBILE NAV und FINDEN NAV- START
  *
  *
  ***************************************************/
@@ -11,14 +11,13 @@
  * Mobile Nav links - START
  ***************************************************/
 $('.mobile_nav').on('click', function (event) {
+    event.stopPropagation();
     $('.mobile_nav_wrapper').toggleClass('open');
     $('.mobile_nav_background').toggleClass('open');
-    event.stopPropagation();
     if ($('.mobile_login_wrapper').hasClass('open')) {
         $('.mobile_login_wrapper').toggleClass('open');
         $('.mobile_login_background').toggleClass('open');
     }
-
 });
 /****************************************************
  * Mobile Nav links - ENDE
@@ -29,9 +28,9 @@ $('.mobile_nav').on('click', function (event) {
  * Mobile Nav rechts - START
  ***************************************************/
 $('.mobile_login').on('click', function (event) {
+    event.stopPropagation();
     $('.mobile_login_wrapper').toggleClass('open');
     $('.mobile_login_background').toggleClass('open');
-    event.stopPropagation();
     if ($('.mobile_nav_wrapper').hasClass('open')) {
         $('.mobile_nav_wrapper').toggleClass('open');
         $('.mobile_nav_background').toggleClass('open');
@@ -39,6 +38,228 @@ $('.mobile_login').on('click', function (event) {
 });
 /****************************************************
  * Mobile Nav rechts - ENDE
+ ***************************************************/
+
+/****************************************************
+ * Finden Nav  - START
+ ***************************************************/
+
+/**
+ *
+ */
+var setMenuPoints = function () {
+
+    var eat = localStorage.getItem('eat') * 1;
+    var drink = localStorage.getItem('drink') * 1;
+    var party = localStorage.getItem('party') * 1;
+    var singles = localStorage.getItem('singles') * 1;
+    var geschlecht = localStorage.getItem('geschlecht');
+    var orientierung = localStorage.getItem('orientierung');
+
+
+    /*
+    *   EAT
+    */
+    if (eat !== 1) {
+        $('.eat').removeClass('mobile_active');
+    } else {
+        $('.eat').addClass('mobile_active');
+    }
+
+    $('.eat').on('click', function (event) {
+        event.stopPropagation();
+        eat = localStorage.getItem('eat') * 1;
+        if (eat === 1) {
+            setNavOff('eat');
+            for (var q = 0; q < markers.length; q++) {
+                if (markers[q].type == 'eat') {
+                    markers[q].setMap(null);
+                }
+            }
+
+
+        } else {
+            setNavOn('eat');
+            for (var q = 0; q < markers.length; q++) {
+                console.log('!');
+                if (markers[q].type == 'eat') {
+                    markers[q].setMap(map);
+                }
+            }
+        }
+    });
+
+
+    /*
+    *   DRINK
+    */
+    if (drink !== 1) {
+        $('.drink').removeClass('mobile_active');
+    } else {
+        $('.drink').addClass('mobile_active');
+    }
+
+    $('.drink').on('click', function (event) {
+        event.stopPropagation();
+        drink = localStorage.getItem('drink') * 1;
+        if (drink === 1) {
+            setNavOff('drink');
+            for (var q = 0; q < markers.length; q++) {
+                if (markers[q].type == 'drink') {
+                    markers[q].setMap(null);
+                }
+            }
+        } else {
+            setNavOn('drink');
+            for (var q = 0; q < markers.length; q++) {
+                if (markers[q].type == 'drink') {
+                    markers[q].setMap(map);
+                }
+            }
+        }
+    });
+
+
+    /*
+    *   PARTY
+    */
+    if (party !== 1) {
+        $('.party').removeClass('mobile_active');
+    } else {
+        $('.party').addClass('mobile_active');
+    }
+
+    $('.party').on('click', function (event) {
+        event.stopPropagation();
+        party = localStorage.getItem('party') * 1;
+        if (party === 1) {
+            setNavOff('party');
+            for (var q = 0; q < markers.length; q++) {
+                if (markers[q].type == 'party') {
+                    markers[q].setMap(null);
+                }
+            }
+        } else {
+            setNavOn('party');
+            for (var q = 0; q < markers.length; q++) {
+                if (markers[q].type == 'party') {
+                    markers[q].setMap(map);
+                }
+            }
+        }
+    });
+
+    /*
+    *   SINGLES
+    */
+    if (singles !== 1) {
+        $('.singles').removeClass('mobile_active');
+    } else {
+        $('.singles').addClass('mobile_active');
+    }
+
+    $('.singles').on('click', function (event) {
+        event.stopPropagation();
+        singles = localStorage.getItem('singles') * 1;
+        if (singles === 1) {
+            setNavOff('singles');
+            for (var q = 0; q < markers.length; q++) {
+                if (markers[q].type == 'men' || markers[q].type == 'women') {
+                    markers[q].setMap(null);
+                }
+            }
+        } else {
+            setNavOn('singles');
+            for (var q = 0; q < markers.length; q++) {
+                if (geschlecht === 'male') {
+                    switch (orientierung) {
+                        case 'female':
+                            if (markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) {
+                                markers[q].setMap(map);
+                            }
+                            break;
+                        case 'male':
+                            if (markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) {
+                                markers[q].setMap(map);
+                            }
+                            break;
+                        case 'bi':
+                            if ((markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) || (markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi'))) {
+                                markers[q].setMap(map);
+                            }
+                            break;
+                    }
+
+                }
+
+                if (geschlecht === 'female') {
+                    switch (orientierung) {
+                        case 'male':
+                            if (markers[q].type == 'men' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')) {
+                                markers[q].setMap(map);
+                            }
+                            break;
+                        case 'female':
+                            if (markers[q].type == 'women' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')) {
+                                markers[q].setMap(map);
+                            }
+                            break;
+                        case 'bi':
+                            if ((markers[q].type == 'men' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')) || (markers[q].type == 'women' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi'))) {
+                                markers[q].setMap(map);
+                            }
+                            break;
+                    }
+
+                }
+            }
+        }
+    });
+};
+
+
+var setNavOn = function (nav) {
+    $('.' + nav).addClass('mobile_active');
+    $.ajax({
+        url: 'resources/php/sideNav_start.php',
+        method: 'POST',
+        data: {
+            id: localStorage.getItem('id'),
+            setnav: nav,
+        },
+        success: function (response) {
+            if (response !== "Error") {
+                localStorage.setItem(nav, 1);
+            } else {
+                console.log(response, 'setoffnoterror');
+
+            }
+        }
+    });
+};
+
+var setNavOff = function (nav) {
+    $('.' + nav).removeClass('mobile_active');
+    $.ajax({
+        url: 'resources/php/sideNav_end.php',
+        method: 'POST',
+        data: {
+            id: localStorage.getItem('id'),
+            setnav: nav,
+        },
+        success: function (response) {
+
+            if (response !== "Error") {
+                localStorage.setItem(nav, 0);
+            } else {
+                console.log(response, 'setoffnoterror');
+            }
+        }
+    });
+};
+
+/****************************************************
+ * Finden Nav - ENDE
  ***************************************************/
 
 
@@ -325,15 +546,6 @@ function getStartMap() {
 }
 
 
-// function test() {
-// navigator.geolocation.watchPosition(watchGPSPosition);
-// }
-//
-// function watchGPSPosition(position) {
-//     myself.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
-// }
-
-
 /**
  * Erzeugt eine Google Map mit Geolocation-Daten des Users
  *
@@ -448,7 +660,7 @@ function initMap() {
     getStartMap();
 
     $.ajax({
-        url: 'mapdata_show.php',
+        url: 'resources/php/mapdata_show.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id')
@@ -485,7 +697,6 @@ function initMap() {
                 }
 
                 if (parseData[i].type === 'women' || parseData[i].type === 'men') {
-                    console.log('Line 488: parseData', parseData);
                     var vorname = parseData[i].vorname;
                     var nachname = parseData[i].nachname;
 
@@ -510,12 +721,9 @@ function initMap() {
                     });
                 }
 
-                showListings();
-
 
                 // Schiebt den Marker bzw. die Marker in den markers-Array.
                 markers.push(marker);
-                console.log('Line 515: markers', markers);
 
 
                 // Erzeugt einen onclick-Event um den bei jeden Marker ein infowindow öffnen zu können.
@@ -534,6 +742,7 @@ function initMap() {
 
 
             }
+            showListings();
 
         }
 
@@ -556,7 +765,6 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.setContent('');
         infowindow.marker = marker;
 
-        console.log('Line 645: marker', marker);
         marker.setIcon({
             url: iconsh[[marker.type]].icon,
             scaledSize: new google.maps.Size(40, 40)
@@ -598,14 +806,12 @@ function populateInfoWindow(marker, infowindow) {
                                 <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
                             </div>
                         <div class="infobuttons" data-db="${marker.db_id}">
-                            <button id="info_like" onclick="info_like_click()">Kennenlernen</button>
+                            <button id="info_like" >Kennenlernen</button>
                             <button id="info_dislike">Entfernen</button>
                         </div>
                         
                         
                 </div>`);
-
-
 
 
             infowindow.open(map, marker);
@@ -686,7 +892,6 @@ function showListings() {
     var geschlecht = localStorage.getItem('geschlecht');
     var orientierung = localStorage.getItem('orientierung');
 
-
     for (var e = 0; e < markers.length; e++) {
         if (markers[e].type == 'eat' && eat === 0) {
             markers[e].setMap(null);
@@ -716,7 +921,6 @@ function showListings() {
                     case 'bi':
                         if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
                             markers[e].setMap(map);
-                            console.log('Line 790: markers[m]', markers[e]);
                         } else {
                             markers[e].setMap(null);
                         }
@@ -738,7 +942,6 @@ function showListings() {
                     case 'female':
                         if (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) {
                             markers[e].setMap(map);
-                            console.log('Line 782: markers[m]', markers[e]);
                         } else {
                             markers[e].setMap(null);
                         }
@@ -746,7 +949,6 @@ function showListings() {
                     case 'bi':
                         if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
                             markers[e].setMap(map);
-                            console.log('Line 790: markers[m]', markers[e]);
                         } else {
                             markers[e].setMap(null);
                         }
@@ -761,121 +963,6 @@ function showListings() {
         }
     }
 }
-
-
-// console.log(markers);
-//
-// var showMark = 0;
-//
-// function showListings() {
-//     if (showMark === 1) {
-//         for (var i = 0; i < markers.length; i++) {
-//             console.log('!');
-//             markers[i].setMap(null);
-//         }
-//         showMark = 0;
-//     }
-//     else {
-//         for (var i = 0; i < markers.length; i++) {
-//
-//             markers[i].setMap(map);
-//             console.log('else');
-//         }
-//         showMark = 1;
-//     }
-//
-// }
-//
-
-// function showListings() {
-//     if (showMark === 1) {
-//         showEat();
-//         showParty();
-//         showMark = 0;
-//     }
-//     else {
-//         showEat();
-//         showParty();
-//     }
-//     showMark = 1;
-// }
-//
-//
-// var showMarkEat = 0;
-//
-// function showEat() {
-//     if (showMarkEat === 1) {
-//         for (var i = 0; i < markers.length; i++) {
-//             console.log('!');
-//             if (markers[i].type == 'eat') {
-//                 console.log('eat');
-//                 markers[i].setMap(null);
-//             }
-//             showMarkEat = 0;
-//         }
-//     }
-//     else {
-//         for (var i = 0; i < markers.length; i++) {
-//
-//             if (markers[i].type == 'eat') {
-//                 console.log('eat');
-//                 markers[i].setMap(map);
-//                 console.log('else');
-//             }
-//             showMarkEat = 1;
-//         }
-//
-//     }
-// }
-//
-//
-// var showMarkParty = 0;
-//
-// function showParty() {
-//     if (showMarkParty === 1) {
-//         for (var i = 0; i < markers.length; i++) {
-//             console.log('!');
-//             if (markers[i].type == 'party') {
-//                 console.log('eat');
-//                 markers[i].setMap(null);
-//             }
-//             showMarkParty = 0;
-//         }
-//     }
-//     else {
-//         for (var i = 0; i < markers.length; i++) {
-//
-//             if (markers[i].type == 'party') {
-//                 console.log('eat');
-//                 markers[i].setMap(map);
-//                 console.log('else');
-//             }
-//             showMarkParty = 1;
-//         }
-//
-//     }
-// }
-
-/****************************************************
- *
- * GOOGLE MAPS NAV BUTTON - START
- *
- ***************************************************/
-
-var buttoncheck = function () {
-    console.log('buttoncheck');
-}
-
-var buttonmark = function () {
-    console.log('buttonmark');
-
-}
-
-/****************************************************
- *
- * GOOGLE MAPS NAV BUTTON - ENDE
- *
- ***************************************************/
 
 
 /****************************************************
@@ -918,9 +1005,8 @@ $(".signIn").on('click', function (event) {
     if (geschlecht === 'female') {
         var type = 'women';
     }
-    console.log('Line 964: type', type);
     $.ajax({
-        url: 'signin.php',
+        url: 'resources/php/signin.php',
         method: 'POST',
         data: {
             username: username,
@@ -977,7 +1063,7 @@ $("#login").on('click', function (event) {
 
 
     $.ajax({
-        url: 'login.php',
+        url: 'resources/php/login.php',
         method: 'POST',
         data: {
             username: username,
@@ -986,11 +1072,7 @@ $("#login").on('click', function (event) {
         success: function (data) {
             if (data !== "Error") {
                 var parseData = JSON.parse(data);
-                console.log(data);
-                var sum = [];
-                sum.push(parseData);
-                sum.push(parseData);
-                console.log(sum, 'testextend');
+
                 localStorage.setItem("id", parseData.id);
                 localStorage.setItem("vorname", parseData.vorname);
                 localStorage.setItem("geschlecht", parseData.geschlecht);
@@ -1006,9 +1088,9 @@ $("#login").on('click', function (event) {
 
 
                 if (parseData.picuser * 1 === 0 || parseData.picuserbackground * 1 === 0) {
-                    window.location.href = "profil.html"
+                     window.location.href = "profil.html"
                 } else {
-                    window.location.href = "finden.html";
+                     window.location.href = "finden.html";
                 }
             } else {
                 console.log(data);
@@ -1072,12 +1154,12 @@ var accepted = function () {
 
         if (window.location.pathname !== '/WDJS/index.html') {
             //      if (window.location.pathname !== '/index.html') {
-            window.location.href = "index.html";
+             window.location.href = "index.html";
         } else {
             $('.accept').css("display", "flex")
         }
     } else {
-        console.log('ja');
+        console.log('ja - akzeptiert');
     }
 
 };
@@ -1141,7 +1223,7 @@ $('.deny_button').on('click', function () {
 var fillProfilData = function () {
 
         $.ajax({
-                url: 'profil_show.php',
+                url: 'resources/php/profil_show.php',
                 method: 'POST',
                 data: {
                     id: localStorage.getItem('id'),
@@ -1237,7 +1319,7 @@ var fillProfilData = function () {
 
 var setFakeGPSOn = function () {
     $.ajax({
-        url: 'profil_fakeGPSstart.php',
+        url: 'resources/php/profil_fakeGPSstart.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id'),
@@ -1260,7 +1342,7 @@ var setFakeGPSOn = function () {
 
 var setFakeGPSOff = function () {
     $.ajax({
-        url: 'profil_fakeGPSend.php',
+        url: 'resources/php/profil_fakeGPSend.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id'),
@@ -1283,7 +1365,7 @@ var setFakeGPSOff = function () {
 
 var saveFakeGPS = function () {
     $.ajax({
-        url: 'profil_fakeGPSsave.php',
+        url: 'resources/php/profil_fakeGPSsave.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id'),
@@ -1324,7 +1406,7 @@ var deleteProfilData = function () {
     $('.profil_delete_button').on('click', function () {
 
         $.ajax({
-            url: 'profil_delete.php',
+            url: 'resources/php/profil_delete.php',
             method: 'POST',
             data: {
                 id: localStorage.getItem('id'),
@@ -1357,6 +1439,11 @@ var deleteProfilData = function () {
  *
  ***************************************************/
 
+
 var info_like_click = function () {
-    console.log(infowindow);
+    console.log('Line 1360: this', this);
+    console.log('Line 1361: marker', marker);
+    console.log('Line 1362: markers', markers);
 };
+
+$(document).on('click', '#info_like', info_like_click);

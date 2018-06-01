@@ -1,13 +1,8 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
+include 'mysql_local.php';
+include 'mysql_remote.php';
 
-header('Access-Control-Allow-Methods: GET, POST');
-
-header("Access-Control-Allow-Headers: X-Requested-With");
-
-$conn = new mysqli('localhost', 'root', '', 'insert');
-////$conn = new mysqli('mysqlsvr39.world4you.com', 'sql9679214', 'c9+@*nx', '4698418db6');
 
 $id = $_POST['id'];
 
