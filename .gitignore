@@ -1,7 +1,2 @@
 .idea/
-login.php
-signin.php
-ajax-test.html.html
-test.html
-test.php
-testlistener.html
+mysql_remote.php
