@@ -5,10 +5,8 @@
  *
  *
  ***************************************************/
-
-
-
-
+var that = 0;
+console.log('Line 9: that', that );
 
 /****************************************************
  * SITE: finden.html - START
@@ -233,9 +231,6 @@ var setNavOff = function (nav) {
  ***************************************************/
 
 
-
-
-
 /****************************************************
  *
  *
@@ -243,9 +238,6 @@ var setNavOff = function (nav) {
  *
  *
  ***************************************************/
-
-
-
 
 
 /****************************************************
@@ -266,7 +258,6 @@ var map;
 var myself;
 var marker;
 var gps = 0;
-
 
 
 //Zoom-level der Google-Map
@@ -718,6 +709,7 @@ function initMap() {
 
 
             }
+
             showListings();
 
         }
@@ -737,7 +729,22 @@ function initMap() {
 function populateInfoWindow(marker, infowindow) {
     // Überprüft ob das infowindow nicht bereits bei dem Marker geöffnet wurde.
     if (infowindow.marker != marker) {
+        if (that != 0 ) {
+            that.close();
+            that.marker.setIcon({
+                url: icons[[that.marker.type]].icon,
+                scaledSize: new google.maps.Size(40, 40)
+            });
 
+        } else {
+            that = 0;
+        console.log('Line 738: else' );
+        }
+        that = infowindow;
+
+
+
+        console.log('Line 832: that', that );
         infowindow.setContent('');
         infowindow.marker = marker;
 
@@ -754,6 +761,7 @@ function populateInfoWindow(marker, infowindow) {
                 url: icons[[marker.type]].icon,
                 scaledSize: new google.maps.Size(40, 40)
             });
+            that = 0;
         });
 
 
@@ -781,9 +789,10 @@ function populateInfoWindow(marker, infowindow) {
                                 <p class="info_box_content">Geschlecht: ${marker.geschlecht}</p>
                                 <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
                             </div>
-                        <div class="infobuttons" data-db="${marker.db_id}">
-                            <button id="info_like" >Kennenlernen</button>
-                            <button id="info_dislike">Entfernen</button>
+                        <div class="infobuttons">
+                            <button id="info_like" data-db="${marker.db_id}">Kennenlernen</button>
+                            <button id="info_dislike" data-db="${marker.db_id}">Entfernen</button>
+                            <button id="abschicken">Ja</button>
                         </div>
                         
                         
@@ -836,6 +845,7 @@ function populateInfoWindow(marker, infowindow) {
                 }
             }
 
+
             // Use streetview service to get the closest streetview image within
             // 50 meters of the markers position
             streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
@@ -854,7 +864,7 @@ function populateInfoWindow(marker, infowindow) {
             url: icons[[marker.type]].icon,
             scaledSize: new google.maps.Size(40, 40)
         });
-
+        that = 0;
     });
 
 }
@@ -867,38 +877,57 @@ function showListings() {
     var singles = localStorage.getItem('singles') * 1;
     var geschlecht = localStorage.getItem('geschlecht');
     var orientierung = localStorage.getItem('orientierung');
-
+    console.log('Line 871: markers', markers);
     for (var e = 0; e < markers.length; e++) {
+
+
         if (markers[e].type == 'eat' && eat === 0) {
             markers[e].setMap(null);
-        } else if ((markers[e].type == 'drink' && drink === 0)) {
+        }
+        if (markers[e].type == 'eat' && eat === 1) {
+            markers[e].setMap(map);
+        }
+
+
+        if ((markers[e].type == 'drink' && drink === 0)) {
             markers[e].setMap(null);
-        } else if ((markers[e].type == 'party' && party === 0)) {
+        }
+        if ((markers[e].type == 'drink' && drink === 1)) {
+            markers[e].setMap(map);
+        }
+
+
+        if ((markers[e].type == 'party' && party === 0)) {
             markers[e].setMap(null);
-        } else if ((singles === 0 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
+        }
+        if ((markers[e].type == 'party' && party === 1)) {
             markers[e].setMap(null);
-        } else {
+        }
+
+
+        if ((singles === 0 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
+            markers[e].setMap(null);
+        }
+
+        if ((singles === 1 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
+
             if (geschlecht === 'male') {
                 switch (orientierung) {
                     case 'female':
                         if (markers[e].type == 'women' && (markers[e].orientierung == 'male' || markers[e].orientierung == 'bi')) {
                             markers[e].setMap(map);
-                        } else {
-                            markers[e].setMap(null);
                         }
                         break;
+
                     case 'male':
                         if (markers[e].type == 'men' && (markers[e].orientierung == 'male' || markers[e].orientierung == 'bi')) {
                             markers[e].setMap(map);
-                        } else {
-                            markers[e].setMap(null);
                         }
                         break;
+
                     case 'bi':
                         if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
                             markers[e].setMap(map);
-                        } else {
-                            markers[e].setMap(null);
                         }
                         break;
                 }
@@ -934,22 +963,81 @@ function showListings() {
             }
 
 
-            markers[e].setMap(map);
-
         }
+
+
     }
+
 }
 
+/****************************************************
+ *
+ *
+ * GOOGLE MAPS - ENDE
+ *
+ *
+ ***************************************************/
 
-var info_like_click = function () {
-    console.log('Line 1360: this', this);
-    console.log('Line 1361: marker', marker);
-    console.log('Line 1362: markers', markers);
-};
+/****************************************************
+ *
+ *
+ * GOOGLE MAPS - START
+ *
+ *
+ ***************************************************/
+var like = 0;
+var dislike = 0;
 
-$(document).on('click', '#info_like', info_like_click);
+var infowindowMatch = function () {
 
 
+        var info_like_click = function () {
+            if (dislike === 1) {
+                console.log('Line 989: this', this);
+                $('#info_dislike')
+                    .removeClass('info_dislike_choose');
+            }
+            $('#info_like')
+                .addClass('info_like_choose');
+            like = 1;
+            dislike = 0;
+        };
+
+
+        var info_dislike_click = function () {
+
+            if (like === 1) {
+                console.log('Line 989: this', this);
+                $('#info_like')
+                    .removeClass('info_like_choose');
+            }
+            $('#info_dislike')
+                .addClass('info_dislike_choose');
+            like = 0;
+            dislike = 1;
+
+        };
+
+
+        var info_abschicken = function () {
+            that.close();
+            that.marker.setIcon({
+                url: icons[[that.marker.type]].icon,
+                scaledSize: new google.maps.Size(40, 40)
+            });
+            // that = 0;
+        }
+
+
+
+        $(document).on('click', '#info_like', info_like_click);
+        $(document).on('click', '#info_dislike', info_dislike_click);
+        $(document).on('click', '#abschicken', info_abschicken);
+
+    };
+
+
+infowindowMatch();
 /****************************************************
  *
  *

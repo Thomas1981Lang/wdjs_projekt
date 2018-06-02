@@ -985,6 +985,7 @@ input[type="radio"] {
     flex-wrap: wrap;
 }
 
+.infobuttons #abschicken,
 .infobuttons #info_like,
 .infobuttons #info_dislike {
     display: flex !important;
@@ -993,6 +994,14 @@ input[type="radio"] {
     padding: 10px;
     width: 210px;
 }
+
+.info_like_choose {
+    background-color: green;
+}
+.info_dislike_choose {
+    background-color: red;
+}
+
 
 
 .gm-style-iw {
