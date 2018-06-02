@@ -1,7 +1,7 @@
 <?php
 
-include 'mysql_local.php';
 include 'mysql_remote.php';
+include 'mysql_local.php';
 
 
 $id = $_POST['id'];

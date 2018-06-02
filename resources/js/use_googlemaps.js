@@ -1,47 +1,17 @@
 /****************************************************
  *
  *
- * MOBILE NAV und FINDEN NAV- START
+ * NAV DISPLAY SELECT ITEMS  - START
  *
  *
  ***************************************************/
 
 
-/****************************************************
- * Mobile Nav links - START
- ***************************************************/
-$('.mobile_nav').on('click', function (event) {
-    event.stopPropagation();
-    $('.mobile_nav_wrapper').toggleClass('open');
-    $('.mobile_nav_background').toggleClass('open');
-    if ($('.mobile_login_wrapper').hasClass('open')) {
-        $('.mobile_login_wrapper').toggleClass('open');
-        $('.mobile_login_background').toggleClass('open');
-    }
-});
-/****************************************************
- * Mobile Nav links - ENDE
- ***************************************************/
+
 
 
 /****************************************************
- * Mobile Nav rechts - START
- ***************************************************/
-$('.mobile_login').on('click', function (event) {
-    event.stopPropagation();
-    $('.mobile_login_wrapper').toggleClass('open');
-    $('.mobile_login_background').toggleClass('open');
-    if ($('.mobile_nav_wrapper').hasClass('open')) {
-        $('.mobile_nav_wrapper').toggleClass('open');
-        $('.mobile_nav_background').toggleClass('open');
-    }
-});
-/****************************************************
- * Mobile Nav rechts - ENDE
- ***************************************************/
-
-/****************************************************
- * Finden Nav  - START
+ * SITE: finden.html - START
  ***************************************************/
 
 /**
@@ -221,7 +191,7 @@ var setMenuPoints = function () {
 var setNavOn = function (nav) {
     $('.' + nav).addClass('mobile_active');
     $.ajax({
-        url: 'resources/php/sideNav_start.php',
+        url: 'https://www.lang-thomas.at/resources/php/sideNav_start.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id'),
@@ -241,7 +211,7 @@ var setNavOn = function (nav) {
 var setNavOff = function (nav) {
     $('.' + nav).removeClass('mobile_active');
     $.ajax({
-        url: 'resources/php/sideNav_end.php',
+        url: 'https://www.lang-thomas.at/resources/php/sideNav_end.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id'),
@@ -259,17 +229,23 @@ var setNavOff = function (nav) {
 };
 
 /****************************************************
- * Finden Nav - ENDE
+ * SITE: finden.html - ENDE
  ***************************************************/
+
+
+
 
 
 /****************************************************
  *
  *
- * MOBILE NAV - ENDE
+ * NAV DISPLAY SELECT ITEMS - ENDE
  *
  *
  ***************************************************/
+
+
+
 
 
 /****************************************************
@@ -290,7 +266,7 @@ var map;
 var myself;
 var marker;
 var gps = 0;
-var infoWin = [];
+
 
 
 //Zoom-level der Google-Map
@@ -565,7 +541,7 @@ function startPosition(position) {
             zoom: zoom,                 // Definiert den Zoom-Level der Karte
             minZoom: zoom,
             maxZoom: zoom,
-            gestureHandling: 'greedy',
+            // gestureHandling: 'cooperative',
             styles: styles,             // Definiert das Kartenstyling
             // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
             mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
@@ -660,7 +636,7 @@ function initMap() {
     getStartMap();
 
     $.ajax({
-        url: 'resources/php/mapdata_show.php',
+        url: 'https://www.lang-thomas.at/resources/php/mapdata_show.php',
         method: 'POST',
         data: {
             id: localStorage.getItem('id')
@@ -965,6 +941,15 @@ function showListings() {
 }
 
 
+var info_like_click = function () {
+    console.log('Line 1360: this', this);
+    console.log('Line 1361: marker', marker);
+    console.log('Line 1362: markers', markers);
+};
+
+$(document).on('click', '#info_like', info_like_click);
+
+
 /****************************************************
  *
  *
@@ -974,476 +959,3 @@ function showListings() {
  ***************************************************/
 
 
-/****************************************************
- *
- *
- * SIGN IN - START
- *
- *
- ***************************************************/
-
-
-
-$(".signIn").on('click', function (event) {
-    event.preventDefault();
-
-    var username = $("#username").val();
-    var vorname = $("#vorname").val();
-    var nachname = $("#nachname").val();
-    var email = $("#email").val();
-    var geburtsdatum = $("#geburtsdatum").val();
-    var geschlecht = $('input[name=gender]:checked').val();
-    var orientierung = $('input[name=like_gender]:checked').val();
-    var password = $("#password").val();
-    var picUser = 0;
-    var picUserBackground = 0;
-    var lat = '48.210033';
-    var lng = '16.363449';
-    if (geschlecht === 'male') {
-        var type = 'men';
-    }
-    if (geschlecht === 'female') {
-        var type = 'women';
-    }
-    $.ajax({
-        url: 'resources/php/signin.php',
-        method: 'POST',
-        data: {
-            username: username,
-            vorname: vorname,
-            nachname: nachname,
-            email: email,
-            geburtsdatum: geburtsdatum,
-            geschlecht: geschlecht,
-            orientierung: orientierung,
-            password: password,
-            picuser: picUser,
-            picuserbackground: picUserBackground,
-            lat: lat,
-            lng: lng,
-            type: type
-        },
-        success: function (data) {
-            if (data !== "data inserted") {
-
-
-                $(".error").show();
-            } else {
-
-                window.location.href = "login.html";
-            }
-        }
-    });
-});
-
-
-/****************************************************
- *
- *
- * SIGN IN - ENDE
- *
- *
- ***************************************************/
-
-
-/****************************************************
- *
- *
- * LOGIN - START
- *
- *
- ***************************************************/
-
-
-
-$("#login").on('click', function (event) {
-    event.preventDefault();
-    var username = $("#username").val();
-    var password = $("#password").val();
-
-
-    $.ajax({
-        url: 'resources/php/login.php',
-        method: 'POST',
-        data: {
-            username: username,
-            password: password
-        },
-        success: function (data) {
-            if (data !== "Error") {
-                var parseData = JSON.parse(data);
-
-                localStorage.setItem("id", parseData.id);
-                localStorage.setItem("vorname", parseData.vorname);
-                localStorage.setItem("geschlecht", parseData.geschlecht);
-                localStorage.setItem("orientierung", parseData.orientierung);
-                localStorage.setItem("fakeGPS", parseData.fakeGPS);
-                localStorage.setItem("lat", parseData.lat);
-                localStorage.setItem("lng", parseData.lng);
-                localStorage.setItem("eat", parseData.eat);
-                localStorage.setItem("drink", parseData.drink);
-                localStorage.setItem("party", parseData.party);
-                localStorage.setItem("singles", parseData.singles);
-                localStorage.setItem("session", "1");
-
-
-                if (parseData.picuser * 1 === 0 || parseData.picuserbackground * 1 === 0) {
-                     window.location.href = "profil.html"
-                } else {
-                     window.location.href = "finden.html";
-                }
-            } else {
-                console.log(data);
-                $(".error").show();
-            }
-        }
-    });
-});
-
-
-/****************************************************
- *
- *
- * LOGIN - ENDE
- *
- *
- ***************************************************/
-
-
-/****************************************************
- *
- *
- * LOGOUT - START
- *
- *
- ***************************************************/
-
-
-
-$(".abmelden").on('click', function () {
-
-    localStorage.clear();
-    localStorage.setItem("accepted", 1);
-    window.location.href = "index.html";
-
-});
-
-
-/****************************************************
- *
- *
- * LOGOUT - ENDE
- *
- *
- ***************************************************/
-
-
-/****************************************************
- *
- *
- * ACCEPT NOTE - START
- *
- *
- ***************************************************/
-
-
-var accepted = function () {
-    var acceptNote = localStorage.accepted * 1;
-
-    if (acceptNote !== 1) {
-
-        if (window.location.pathname !== '/WDJS/index.html') {
-            //      if (window.location.pathname !== '/index.html') {
-             window.location.href = "index.html";
-        } else {
-            $('.accept').css("display", "flex")
-        }
-    } else {
-        console.log('ja - akzeptiert');
-    }
-
-};
-accepted();
-
-$('.accept_button').on('click', function () {
-    localStorage.setItem("accepted", 1);
-    $('.accept').css("display", "none")
-});
-
-$('.deny_button').on('click', function () {
-    window.location.href = "https://google.at";
-});
-
-/****************************************************
- *
- *
- * ACCEPT NOTE - ENDE
- *
- *
- ***************************************************/
-
-
-/****************************************************
- *
- *
- * PROTOCOL - START
- *
- *
- ***************************************************/
-
-
-// var checkprotocol = function () {
-//     var protocol = window.location.protocol;
-//     console.log(window.location.protocol);
-//     if (protocol !== 'https:') {
-//         console.log(window.location.protocol);
-//         window.location.protocol = 'https:'
-//     }
-// };
-// checkprotocol();
-
-
-/****************************************************
- *
- *
- * PROTOCOL - ENDE
- *
- *
- ***************************************************/
-
-
-/****************************************************
- *
- *
- * PROFIL DATEN ANZEIGEN - START
- *
- *
- ***************************************************/
-
-var fillProfilData = function () {
-
-        $.ajax({
-                url: 'resources/php/profil_show.php',
-                method: 'POST',
-                data: {
-                    id: localStorage.getItem('id'),
-                },
-                success: function (data) {
-                    if (data !== "Error") {
-                        var parseData = JSON.parse(data);
-                        console.log(data);
-                        console.log(parseData, 'parse');
-                        $('.profil_vorname').html(parseData.vorname);
-                        $('.profil_nachname').html(parseData.nachname);
-                        $(".profil_image").css("background-image", "url('" + parseData.picuserpfad + "'");
-
-
-                        localStorage.setItem('fakeGPS', parseData.fakeGPS);
-
-
-                        if (parseData.fakeGPS * 1 === 0) {
-                            $('.fakeGPSCords').hide();
-                            $('.fakeGPS_button').html('DEAKTIVIERT');
-                        }
-                        else {
-                            $('.fakeGPSCords').show();
-                            $('.fakeGPS_button').html('AKTIVIERT');
-                            $('input[name="lat"]').val(parseData.lat);
-                            $('input[name="lng"]').val(parseData.lng);
-                        }
-                        $('.fakeGPS_button').prop('disabled', false);
-
-                        $('.fakeGPS_button').on('click', function () {
-                            $('.fakeGPS_button').prop('disabled', true);
-                            var fakeGPSStatus = localStorage.getItem('fakeGPS') * 1;
-                            console.log(localStorage, 'local');
-                            if (fakeGPSStatus === 1) {
-                                setFakeGPSOff()
-                            } else {
-                                setFakeGPSOn()
-                            }
-                        });
-
-                        $('.fakeGPS_save').on('click', function () {
-
-                            saveFakeGPS();
-
-                        });
-
-                    }
-
-                    var datedb = parseData.geburtsdatum;
-                    var j = datedb.slice(0, 4);
-                    console.log(j);
-                    var m = datedb.slice(5, 7);
-                    console.log(m);
-                    var d = datedb.slice(8, 10);
-                    console.log(d);
-                    var dateconv = (d + '.' + m + '.' + j);
-
-
-                    $('#geburtsdatum').html(dateconv);
-
-
-                    switch (parseData.geschlecht) {
-                        case 'female':
-                            $('#gender').html('Frau');
-                            break;
-                        case 'male':
-                            $('#gender').html('Mann');
-                            break;
-                    }
-
-
-                    switch (parseData.orientierung) {
-                        case 'female':
-                            $('#like_gender').html('Frauen');
-                            break;
-                        case 'male':
-                            $('#like_gender').html('Männer');
-                            break;
-                        case 'bi':
-                            $('#like_gender').html('Frauen und Männer');
-                            break;
-                    }
-
-
-                }
-            }
-        )
-        ;
-
-
-    }
-;
-
-var setFakeGPSOn = function () {
-    $.ajax({
-        url: 'resources/php/profil_fakeGPSstart.php',
-        method: 'POST',
-        data: {
-            id: localStorage.getItem('id'),
-        },
-        success: function (response) {
-            if (response !== "Error") {
-                localStorage.setItem('fakeGPS', 1);
-                console.log(response, 'setonnoterror');
-                $('.fakeGPSCords').show();
-                $('.fakeGPS_button').html('AKTIVIERT');
-                $('.fakeGPS_button').prop('disabled', false);
-                $('input[name="lat"]').val(localStorage.getItem('lat'));
-                $('input[name="lng"]').val(localStorage.getItem('lng'));
-            } else {
-                console.log(response, 'setonerror');
-            }
-        }
-    });
-};
-
-var setFakeGPSOff = function () {
-    $.ajax({
-        url: 'resources/php/profil_fakeGPSend.php',
-        method: 'POST',
-        data: {
-            id: localStorage.getItem('id'),
-        },
-        success: function (response) {
-            if (response !== "Error") {
-                localStorage.setItem('fakeGPS', 0);
-                console.log(response, 'setoffnoterror');
-                $('.fakeGPSCords').hide();
-                $('.fakeGPS_button').html('DEAKTIVIERT');
-                $('.fakeGPS_button').prop('disabled', false);
-            } else {
-                console.log(response, 'setoffnoterror');
-
-            }
-        }
-    });
-};
-
-
-var saveFakeGPS = function () {
-    $.ajax({
-        url: 'resources/php/profil_fakeGPSsave.php',
-        method: 'POST',
-        data: {
-            id: localStorage.getItem('id'),
-            lat: $('input[name="lat"]').val(),
-            lng: $('input[name="lng"]').val()
-        },
-        success: function (response) {
-            if (response !== "Error") {
-                console.log(response, 'saveNOerror');
-            } else {
-                console.log(response, 'saveerror');
-            }
-        }
-    })
-    ;
-};
-
-/****************************************************
- *
- *
- * PROFIL DATEN ANZEIGEN - ENDE
- *
- *
- ***************************************************/
-
-
-/****************************************************
- *
- *
- * PROFIL DATEN LÖSCHEN - START
- *
- *
- ***************************************************/
-
-var deleteProfilData = function () {
-
-
-    $('.profil_delete_button').on('click', function () {
-
-        $.ajax({
-            url: 'resources/php/profil_delete.php',
-            method: 'POST',
-            data: {
-                id: localStorage.getItem('id'),
-            },
-            success: function (data) {
-                if (data !== "data deleted") {
-
-                    console.log(data);
-
-                    $(".error").show();
-                } else {
-                    localStorage.clear();
-                    localStorage.setItem("accepted", 1);
-                    window.location.href = "index.html";
-                    console.log(localStorage, 'local');
-                }
-            }
-        });
-
-
-    });
-
-};
-
-/****************************************************
- *
- *
- * PROFIL DATEN LÖSCHEN - ENDE
- *
- *
- ***************************************************/
-
-
-var info_like_click = function () {
-    console.log('Line 1360: this', this);
-    console.log('Line 1361: marker', marker);
-    console.log('Line 1362: markers', markers);
-};
-
-$(document).on('click', '#info_like', info_like_click);

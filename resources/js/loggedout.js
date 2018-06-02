@@ -1,4 +1,4 @@
-var signedout = function () {
+var loggedout = function () {
     var storSession = localStorage.session * 1;
     console.log(storSession);
     if (storSession !== 1) {
@@ -9,4 +9,4 @@ var signedout = function () {
 };
 
 
-signedout();
+loggedout();

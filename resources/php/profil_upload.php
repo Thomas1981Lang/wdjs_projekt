@@ -1,7 +1,7 @@
 <?php
 
-include 'mysql_local.php';
 include 'mysql_remote.php';
+include 'mysql_local.php';
 
 
 /* Getting file name */
@@ -12,7 +12,7 @@ $id = $_POST['idvalue'];
 /* Location */
 $temp = explode(".", $_FILES["file"]["name"]);
 $newfilename = round(microtime(true)) . '.' . end($temp);
-$location = "resources/upload/" . $newfilename;
+$location = "../upload/" . $newfilename;
 $uploadOk = 1;
 $imageFileType = pathinfo($location, PATHINFO_EXTENSION);
 
@@ -26,8 +26,8 @@ if ($uploadOk == 0) {
     echo 0;
 } else {
 
-
-    $sql = "UPDATE data SET picuserpfad = '$location', picuser = 1 WHERE id = '".$id."'";
+    $jslocation = "resources/upload/" . $newfilename;
+    $sql = "UPDATE data SET picuserpfad = '$jslocation', picuser = 1 WHERE id = '".$id."'";
     $conn->query($sql);
 
     //    if ($conn->query($sql) === TRUE) {
@@ -39,7 +39,7 @@ if ($uploadOk == 0) {
     /* Upload file */
 
     if (move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
-        echo $location;
+        echo "resources/upload/" . $newfilename;
     } else {
         echo 0;
     }

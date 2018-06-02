@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/reset.css">
     <link rel="stylesheet" href="resources/css/styleloggedin.css">
-    <script src="resources/js/signedout.js"></script>
+    <script src="resources/js/loggedout.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -143,7 +143,9 @@
 </footer>
 
 
-<script src="resources/js/singles.js"></script>
+<script src="resources/js/use_general.js"></script>
+<script src="resources/js/use_profil.js"></script>
+<script src="resources/js/loggedout.js"></script>
 <script>
 
     fillProfilData();
@@ -151,39 +153,7 @@
 
 
 </script>
-<script>
 
-    $(document).ready(function () {
-
-        $("#userpic").on('change', function () {
-            var id = localStorage.getItem('id');
-            console.log('Line 160: id', id );
-            var fd = new FormData();
-            var files = $('#userpic')[0].files[0];
-            fd.append('idvalue', id);
-            fd.append('file', files);
-
-            console.log('Line 166: fd', fd );
-            
-            $.ajax({
-                url: 'profil_upload.php',
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response != 0) {
-                        $(".profil_image").css("background-image", "url('" + response + "'");
-console.log('Line 175: response', response );
-                    } else {
-                        alert('file not uploaded');
-                    }
-                },
-            });
-        });
-    });
-
-</script>
 
 </body>
 </html>

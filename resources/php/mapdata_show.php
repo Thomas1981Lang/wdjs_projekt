@@ -19,7 +19,6 @@ if ($locations = $conn->query($sqlLocation)) {
 //    echo json_encode($locationsArray);
 }
 
-$conndata = new mysqli('localhost', 'root', '', 'insert');
 $peopleArray = [];
 $sqlPeople = "SELECT id, vorname, nachname, geburtsdatum, geschlecht, orientierung, picuserpfad, lat, lng, type FROM data WHERE NOT id = '" . $id . "'";
 if ($people = $conndata->query($sqlPeople)) {
