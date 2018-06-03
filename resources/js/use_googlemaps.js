@@ -35,7 +35,7 @@ var setMenuPoints = function () {
     }
 
     $('.eat').on('click', function (event) {
-        event.stopPropagation();
+        //event.stopPropagation();
         eat = localStorage.getItem('eat') * 1;
         if (eat === 1) {
             setNavOff('eat');
@@ -68,7 +68,7 @@ var setMenuPoints = function () {
     }
 
     $('.drink').on('click', function (event) {
-        event.stopPropagation();
+        // event.stopPropagation();
         drink = localStorage.getItem('drink') * 1;
         if (drink === 1) {
             setNavOff('drink');
@@ -98,7 +98,7 @@ var setMenuPoints = function () {
     }
 
     $('.party').on('click', function (event) {
-        event.stopPropagation();
+        // event.stopPropagation();
         party = localStorage.getItem('party') * 1;
         if (party === 1) {
             setNavOff('party');
@@ -127,7 +127,7 @@ var setMenuPoints = function () {
     }
 
     $('.singles').on('click', function (event) {
-        event.stopPropagation();
+        // event.stopPropagation();
         singles = localStorage.getItem('singles') * 1;
         if (singles === 1) {
             setNavOff('singles');
@@ -565,7 +565,7 @@ function startPosition(position) {
             zoom: zoom,                 // Definiert den Zoom-Level der Karte
             minZoom: zoom,
             maxZoom: zoom,
-            gestureHandling: 'greedy',
+            // gestureHandling: 'cooperative',
             styles: styles,             // Definiert das Kartenstyling
             // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
             mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
@@ -612,7 +612,7 @@ function defaultPosition() {
         minZoom: zoom,
         maxZoom: zoom,
         styles: styles,
-        gestureHandling: 'greedy',
+        // gestureHandling: 'cooperative',
         mapTypeControl: false,
         disableDefaultUI: true
     });
@@ -639,90 +639,160 @@ function initMap() {
         data: {
             id: localStorage.getItem('id')
         },
-        success: function (response) {
-            var parseData = JSON.parse(response);
+        success: function (responseall) {
+            var parseData = JSON.parse(responseall);
 
 
-            // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim initialiesieren zu erzeugen
-            for (var i = 0; i < parseData.length; i++) {
-                // Bekommt die Position vom locations-Array.
-                var latcords = parseData[i].lat * 1;
-                var lngcords = parseData[i].lng * 1;
+            $.ajax({
+                url: 'https://www.lang-thomas.at/resources/php/mapdata_likefromdb.php',
+                method: 'POST',
+                data: {
+                    id: localStorage.getItem('id')
+                },
+                success: function (responsematch) {
+                    var parseDataMatch = JSON.parse(responsematch);
 
-                if (parseData[i].type === 'eat' || parseData[i].type === 'drink' || parseData[i].type === 'party') {
+                    // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim initialiesieren zu erzeugen
+                    for (var i = 0; i < parseData.length; i++) {
+                        // Bekommt die Position vom locations-Array.
+                        var latcords = parseData[i].lat * 1;
+                        var lngcords = parseData[i].lng * 1;
+                        var vorname = parseData[i].vorname;
+                        var nachname = parseData[i].nachname;
 
-                    var title = parseData[i].title;
-                    var content = parseData[i].content;
-                    console.log('Line 649: marker', marker);
-                    // Erzeugt einen Marker pro Location.
-                    marker = new google.maps.Marker({
-                        position: {lat: latcords, lng: lngcords},
-                        title: title,
-                        //map: map,
-                        icon: {
-                            url: icons[parseData[i].type].icon,
-                            scaledSize: new google.maps.Size(40, 40)
-                        },
-                        animation: google.maps.Animation.DROP,
-                        id: i,
-                        type: parseData[i].type,
-                        content: content
-                    });
-                }
+                        if (parseData[i].type === 'eat' || parseData[i].type === 'drink' || parseData[i].type === 'party') {
 
-                if (parseData[i].type === 'women' || parseData[i].type === 'men') {
-                    var vorname = parseData[i].vorname;
-                    var nachname = parseData[i].nachname;
+                            var title = parseData[i].title;
+                            var content = parseData[i].content;
 
-                    // Erzeugt einen Marker pro Location.
-                    marker = new google.maps.Marker({
-                        position: {lat: latcords, lng: lngcords},
-                        title: vorname + ' ' + nachname,
-                        //map: map,
-                        icon: {
-                            url: icons[parseData[i].type].icon,
-                            scaledSize: new google.maps.Size(40, 40)
-                        },
-                        animation: google.maps.Animation.DROP,
-                        id: i,
-                        type: parseData[i].type,
-                        geburtsdatum: parseData[i].geburtsdatum,
-                        geschlecht: parseData[i].geschlecht,
-                        orientierung: parseData[i].orientierung,
-                        userpic: parseData[i].picuserpfad,
-                        vorname: parseData[i].vorname,
-                        db_id: parseData[i].id
-                    });
-                }
-
-
-                // Schiebt den Marker bzw. die Marker in den markers-Array.
-                markers.push(marker);
-
-
-                // Erzeugt einen onclick-Event um den bei jeden Marker ein infowindow öffnen zu können.
-                marker.addListener('click', function () {
-                    console.log('Line 698: this', this);
-                    marker.setIcon({
-                            url: icons[[marker.type]].icon,
-                            scaledSize: new google.maps.Size(40, 40)
+                            // Erzeugt einen Marker pro Location.
+                            marker = new google.maps.Marker({
+                                position: {lat: latcords, lng: lngcords},
+                                title: title,
+                                //map: map,
+                                icon: {
+                                    url: icons[parseData[i].type].icon,
+                                    scaledSize: new google.maps.Size(40, 40)
+                                },
+                                animation: google.maps.Animation.DROP,
+                                id: i,
+                                type: parseData[i].type,
+                                content: content
+                            });
                         }
-                    );
+
+                        if (parseData[i].type === 'women' || parseData[i].type === 'men') {
+
+                            marker = new google.maps.Marker({
+                                position: {lat: latcords, lng: lngcords},
+                                title: vorname + ' ' + nachname,
+                                //map: map,
+                                icon: {
+                                    url: icons[parseData[i].type].icon,
+                                    scaledSize: new google.maps.Size(40, 40)
+                                },
+                                animation: google.maps.Animation.DROP,
+                                id: i,
+                                type: parseData[i].type,
+                                geburtsdatum: parseData[i].geburtsdatum,
+                                geschlecht: parseData[i].geschlecht,
+                                orientierung: parseData[i].orientierung,
+                                userpic: parseData[i].picuserpfad,
+                                vorname: parseData[i].vorname,
+                                db_id: parseData[i].id
+                            });
 
 
-                    populateInfoWindow(this, largeInfowindow);
+                        }
 
 
-                });
+                        // Schiebt den Marker bzw. die Marker in den markers-Array.
+                        markers.push(marker);
 
 
-            }
+                        // Erzeugt einen Marker pro Location.
 
-            showListings();
+                        for (var j = 0; j < parseDataMatch.length; j++) {
 
-        }
+                            //Ich like
+                            if (markers[i].db_id === parseDataMatch[j].user2_id && parseDataMatch[j].user1_choose * 1 === 1 && parseDataMatch[j].user2_choose * 1 !== 1) {
+                                markers[i].icon.url = icons[parseData[i].type].like.icon;
+                                markers[i].setLike = 1;
+                                markers[i].setMatch = 0;
+                                markers[i].setGetLike = 0;
+                                markers[i].setDislike = 0;
+                            }
 
-    });
+                            //Ich like und gegenüber liked zurück
+                            if (markers[i].db_id === parseDataMatch[j].user2_id && parseDataMatch[j].user1_choose * 1 === 1 && parseDataMatch[j].user2_choose * 1 === 1) {
+                                markers[i].icon.url = icons[parseData[i].type].match.icon;
+                                markers[i].setLike = 0;
+                                markers[i].setMatch = 1;
+                                markers[i].setGetLike = 0;
+                                markers[i].setDislike = 0;
+
+                            }
+
+                            //gegenüber hat geliked und ich like zurück
+                            if (markers[i].db_id === parseDataMatch[j].user1_id && parseDataMatch[j].user1_choose * 1 === 1 && parseDataMatch[j].user2_choose * 1 === 1) {
+                                markers[i].icon.url = icons[parseData[i].type].match.icon;
+                                markers[i].setLike = 0;
+                                markers[i].setMatch = 1;
+                                markers[i].setGetLike = 0;
+                                markers[i].setDislike = 0;
+
+                            }
+
+                            //gegenüber hat geliked
+                            if (markers[i].db_id === parseDataMatch[j].user1_id && parseDataMatch[j].user1_choose * 1 === 1 && parseDataMatch[j].user2_choose * 1 !== 1) {
+                                markers[i].icon.url = icons[parseData[i].type].getLike.icon;
+                                markers[i].setLike = 0;
+                                markers[i].setMatch = 0;
+                                markers[i].setGetLike = 1;
+                                markers[i].setDislike = 0;
+
+                            }
+
+
+                            // einer von beiden hat bereits disliked
+                            if ((markers[i].db_id === parseDataMatch[j].user1_id || markers[i].db_id === parseDataMatch[j].user2_id) &&
+                                (parseDataMatch[j].user1_choose * 1 === 2 || parseDataMatch[j].user2_choose * 1 == 2)) {
+                                markers[i].visible = false;
+                                console.log('Line 761: parseDataMatch[j].user2_choose * 1 ', parseDataMatch[j].user2_choose);
+                                markers[i].setLike = 0;
+                                markers[i].setMatch = 0;
+                                markers[i].setGetLike = 0;
+                                markers[i].setDislike = 1;
+
+                            }
+
+
+                        }
+
+
+                        // Erzeugt einen onclick-Event um den bei jeden Marker ein infowindow öffnen zu können.
+                        marker.addListener('click', function () {
+                            console.log('Line 698: this', this);
+                            // marker.setIcon({
+                            //     url: icons[[marker.type]].icon,
+                            //     scaledSize: new google.maps.Size(40, 40)
+                            // });
+
+
+                            populateInfoWindow(this, largeInfowindow);
+
+
+                        });
+
+
+                    }
+
+                    showListings();
+
+                }  // success match daten
+            }); //ajax success match daten
+        }  // success komplette daten
+    }); // ajax komplette daten
 
 }
 
@@ -754,12 +824,14 @@ function populateInfoWindow(marker, infowindow) {
         console.log('Line 832: that', that);
         infowindow.setContent('');
         infowindow.marker = marker;
+        if (marker.setLike === 1 || marker.setGetLike === 1 || marker.setDislike === 1 || marker.setMatch === 1) {
 
-        marker.setIcon({
-            url: iconsh[[marker.type]].icon,
-            scaledSize: new google.maps.Size(40, 40)
-        });
-
+        } else {
+            marker.setIcon({
+                url: iconsh[[marker.type]].icon,
+                scaledSize: new google.maps.Size(40, 40)
+            });
+        }
 
         // infowindow.addListener('closeclick', function () {
         //     infowindow.marker = null;
@@ -930,7 +1002,7 @@ function showListings() {
             markers[e].setMap(null);
         }
         if ((markers[e].type == 'party' && party === 1)) {
-            markers[e].setMap(null);
+            markers[e].setMap(map);
         }
 
 
