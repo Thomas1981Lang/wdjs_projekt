@@ -993,6 +993,15 @@ input[type="radio"] {
     margin-top: 30px;
     padding: 10px;
     width: 210px;
+    cursor: pointer;
+
+}
+
+.infobuttons #abschicken:disabled {
+    border: 1px solid #999999;
+    background-color: #999999;
+    color: #555555;
+    cursor: default;
 }
 
 .info_like_choose {

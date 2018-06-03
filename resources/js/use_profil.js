@@ -172,8 +172,7 @@ var saveFakeGPS = function () {
                 console.log(response, 'saveerror');
             }
         }
-    })
-    ;
+    });
 };
 
 /****************************************************
@@ -183,7 +182,6 @@ var saveFakeGPS = function () {
  *
  *
  ***************************************************/
-
 
 
 /****************************************************
@@ -198,13 +196,13 @@ $(document).ready(function () {
 
     $("#userpic").on('change', function () {
         var id = localStorage.getItem('id');
-        console.log('Line 160: id', id );
+        console.log('Line 160: id', id);
         var fd = new FormData();
         var files = $('#userpic')[0].files[0];
         fd.append('idvalue', id);
         fd.append('file', files);
 
-        console.log('Line 166: fd', fd );
+        console.log('Line 166: fd', fd);
 
         $.ajax({
             url: 'https://www.lang-thomas.at/resources/php/profil_upload.php',
@@ -215,7 +213,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response != 0) {
                     $(".profil_image").css("background-image", "url('" + response + "'");
-                    console.log('Line 175: response', response );
+                    console.log('Line 175: response', response);
                 } else {
                     alert('file not uploaded');
                 }
@@ -232,8 +230,6 @@ $(document).ready(function () {
  *
  *
  ***************************************************/
-
-
 
 
 /****************************************************
