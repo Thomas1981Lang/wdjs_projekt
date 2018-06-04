@@ -730,6 +730,7 @@ function initMap() {
                                 markers[i].setMatch = 1;
                                 markers[i].setGetLike = 0;
                                 markers[i].setDislike = 0;
+                                markers[i].setMe = 1;
 
                             }
 
@@ -740,6 +741,7 @@ function initMap() {
                                 markers[i].setMatch = 1;
                                 markers[i].setGetLike = 0;
                                 markers[i].setDislike = 0;
+                                markers[i].setMe = 2;
 
                             }
 
@@ -750,6 +752,7 @@ function initMap() {
                                 markers[i].setMatch = 0;
                                 markers[i].setGetLike = 1;
                                 markers[i].setDislike = 0;
+                                markers[i].setMe = 2;
 
                             }
 
@@ -809,19 +812,13 @@ function populateInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
         if (that != 0) {
             that.close();
-            // that.marker.setIcon({
-            //     url: icons[[that.marker.type]].icon,
-            //     scaledSize: new google.maps.Size(40, 40)
-            // });
-
         } else {
             that = 0;
-            console.log('Line 738: else');
         }
+
         that = infowindow;
 
 
-        console.log('Line 832: that', that);
         infowindow.setContent('');
         infowindow.marker = marker;
         if (marker.setLike === 1 || marker.setGetLike === 1 || marker.setDislike === 1 || marker.setMatch === 1) {
@@ -839,64 +836,154 @@ function populateInfoWindow(marker, infowindow) {
 
         if (marker.type == 'men' || marker.type == 'women') {
 
+            var infoGeschlecht;
+            var infoOrientierung;
+            switch (marker.geschlecht) {
+                case 'female':
+                    infoGeschlecht = 'Frau';
+                    break;
+                case 'male':
+                    infoGeschlecht = 'Mann';
+                    break;
+            }
+
+
+            switch (marker.orientierung) {
+                case 'female':
+                    infoOrientierung = 'Frauen';
+                    break;
+                case 'male':
+                    infoOrientierung = 'Männer';
+                    break;
+                case 'bi':
+                    infoOrientierung = 'Frauen und Männer';
+                    break;
+            }
+
+            //    marker.setMatch === 1
             if (marker.setLike == 1) {
                 infowindow.setContent(
                     `<div class="info_window">
+                        
                         <h2 class="info_title">${marker.title}</h2>
                         
                         <div class="info_content">
                             <div class="info_pic">
-                            <img src="${marker.userpic}" alt="${marker.title}">
+                                <img src="${marker.userpic}" alt="${marker.title}">
+                            </div>       
+                        </div>
+                        
+                        <div class="info_box">
+                            <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
+                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+                        </div>
+                        
+                        <div class="match_hinweis">
+                        Du würdest ${marker.vorname} gerne kennen lernen.
+                        </div>                            
+                       
+                    </div>`);
+            } else if (marker.setGetLike === 1) {
+
+                infowindow.setContent(
+                    `<div class="info_window">
+                        
+                        <h2 class="info_title">${marker.title}</h2>
+                        
+                        <div class="info_content">
+                            
+                            <div class="info_pic">
+                                <img src="${marker.userpic}" alt="${marker.title}">
                             </div>
                             
-                            <div class="streetview_hinweis">
-                            ${marker.vorname} würde sich freuen dich gerne kennnen lernen.
-                            </div>
                         </div>
-                            <div class="info_box">
-                                <h3 class="info_box-title">Information über ${marker.title}</h3>
-                                <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
-                                <p class="info_box_content">Geschlecht: ${marker.geschlecht}</p>
-                                <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
-                            </div>
-                                               
+
+                        <div class="info_box">
+
+                            <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
+                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+
+                        </div>
+
+                        <div class="match_hinweis">
+                            
+                            ${marker.vorname} findet dich interessant. Was haltest du davon?
+                       
+                        </div>
+
+                        <div class="infobuttons">
+                            <button id="info_like" data-db="${marker.db_id}">Kennenlernen</button>
+                            <button id="info_dislike" data-db="${marker.db_id}">Entfernen</button>
+                            <button id="choose" disabled>Ja</button>
+                        </div>
+                        
                         
                 </div>`);
-                console.log('Line 796: marker.setLike', marker.setLike);
-            } else {
+
+            } else if (marker.setMatch === 1) {
+                infowindow.setContent(
+                    `<div class="info_window">
+                        
+                        <h2 class="info_title">${marker.title}</h2>
+                        
+                        <div class="info_content">
+                            <div class="info_pic">
+                                <img src="${marker.userpic}" alt="${marker.title}">
+                            </div>       
+                        </div>
+                        
+                        <div class="info_box">
+                            <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
+                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+                        </div>
+                        
+                        <div class="match_hinweis">
+                        Ihr findet einander interessant. Trefft euch doch und lernt einander besser kennen.
+                        </div>                            
+                       
+                       <div class="infobuttons">
+                            <button id="info_dislike" data-db="${marker.db_id}">Entfernen</button>
+                            <button id="choose" disabled>Ja</button>
+                        </div>
+                       
+                       
+                    </div>`);
+            } else if (marker.setLike !== 1 && marker.setGetLike !== 1 && marker.setMatch !== 1 && marker.setDislike !== 1) {
 
                 infowindow.setContent(
                     `<div class="info_window">
                         <h2 class="info_title">${marker.title}</h2>
                         
                         <div class="info_content">
+                            
                             <div class="info_pic">
-                            <img src="${marker.userpic}" alt="${marker.title}">
+                                <img src="${marker.userpic}" alt="${marker.title}">
                             </div>
                             
-                            <div class="streetview_hinweis">
-                            ${marker.vorname} würde sich freuen dich gerne kennnen lernen.
-                            </div>
                         </div>
-                            <div class="info_box">
-                                <h3 class="info_box-title">Information über ${marker.title}</h3>
-                                <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
-                                <p class="info_box_content">Geschlecht: ${marker.geschlecht}</p>
-                                <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
-                            </div>
+                        
+                        <div class="info_box">
+                            <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">Geschlecht: ${marker.geschlecht}</p>
+                            <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
+                        </div>
+                        
                         <div class="infobuttons">
                             <button id="info_like" data-db="${marker.db_id}">Kennenlernen</button>
                             <button id="info_dislike" data-db="${marker.db_id}">Entfernen</button>
                             <button id="abschicken" disabled>Ja</button>
                         </div>
-                        
-                        
+                           
                 </div>`);
             }
-
-            infowindow.open(map, marker);
         } else {
-
 
             var streetViewService = new google.maps.StreetViewService();
             var radius = 150;
@@ -908,23 +995,27 @@ function populateInfoWindow(marker, infowindow) {
                     var nearStreetViewLocation = data.location.latLng;
                     var heading = google.maps.geometry.spherical.computeHeading(
                         nearStreetViewLocation, marker.position);
+
                     infowindow.setContent(
                         `<div class="info_window">
-                        <h2 class="info_title">${marker.title}</h2>
-                        <div class="info_content">
-                            <div class="streetview">
-                            <div id="pano"></div>
-                            <div class="streetview_hinweis">
-                            Streetview zeigt ein Panorama im Umkreis von 150m der Koordinaten.
-                            Es kann durch fehlende Daten passieren, dass das gezeigte Bildmaterial nicht dem gewünschten Gebäude entspricht.  
+                        
+                            <h2 class="info_title">${marker.title}</h2>
+                            
+                            <div class="info_content">
+                                <div class="streetview">
+                                    <div id="pano"></div>
+                                    <div class="streetview_hinweis">
+                                        Streetview zeigt ein Panorama im Umkreis von 150m der Koordinaten. Es kann durch fehlende Daten passieren, dass das gezeigte Bildmaterial nicht dem gewünschten Gebäude entspricht.  
+                                    </div>
+                                </div>
+                                
+                                <div class="info_box">
+                                    <h3 class="info_box-title">Information über ${marker.title}</h3>
+                                    <p class="info_box_content">${marker.content}</p>
+                                </div>
                             </div>
-                            </div>
-                            <div class="info_box"">
-                                <h3 class="info_box-title">Information über ${marker.title}</h3>
-                                <p class="info_box_content">${marker.content}</p>
-                            </div>
-                        </div>
-                    </div>`);
+                        </div>`);
+
                     var panoramaOptions = {
                         position: nearStreetViewLocation,
                         pov: {
@@ -945,9 +1036,9 @@ function populateInfoWindow(marker, infowindow) {
             // 50 meters of the markers position
             streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
             // Open the infowindow on the correct marker.
-            infowindow.open(map, marker);
 
         }
+        infowindow.open(map, marker);
 
     }
 
@@ -967,8 +1058,8 @@ function populateInfoWindow(marker, infowindow) {
     });
 
 
-}
 
+}
 
 function showListings() {
 
@@ -1093,14 +1184,16 @@ var infowindowMatch = function () {
 
 
     var info_like_click = function () {
+
         if (dislike === 1) {
-            console.log('Line 989: this', this);
             $('#info_dislike')
                 .removeClass('info_dislike_choose');
         }
         $('#info_like')
             .addClass('info_like_choose');
         $('#abschicken').prop('disabled', false);
+        $('#choose').prop('disabled', false);
+
         like = 1;
         dislike = 0;
     };
@@ -1109,13 +1202,13 @@ var infowindowMatch = function () {
     var info_dislike_click = function () {
 
         if (like === 1) {
-            console.log('Line 989: this', this);
             $('#info_like')
                 .removeClass('info_like_choose');
         }
         $('#info_dislike')
             .addClass('info_dislike_choose');
         $('#abschicken').prop('disabled', false);
+        $('#choose').prop('disabled', false);
 
         like = 0;
         dislike = 1;
@@ -1123,8 +1216,9 @@ var infowindowMatch = function () {
     };
 
 
-    var info_abschicken = function () {
+    var info_like_abschicken = function () {
         that.close();
+        if (that.marker.setLike !== 1 && that.marker.setGetLike !== 1) {
         if (like == 1) {
             that.marker.setLike = 1;
             that.marker.setIcon({
@@ -1135,10 +1229,8 @@ var infowindowMatch = function () {
         if (dislike == 1) {
             that.marker.setDislike = 1;
             markers[that.marker.id].setMap(null);
-
         }
 
-        console.log('Line 1029: that.marker.db_id', that.marker.db_id);
         $.ajax({
             method: 'POST',
             url: 'https://www.lang-thomas.at/resources/php/mapdata_liketodb.php',
@@ -1160,55 +1252,89 @@ var infowindowMatch = function () {
         ;
         that.marker = null;
         that = 0;
-
+        }
 
     };
 
 
     var info_match_click = function () {
         that.close();
-        if (like == 1) {
-            that.marker.setMatch = 1;
-            that.marker.setIcon({
-                url: icons[[that.marker.type]].match.icon,
-                scaledSize: new google.maps.Size(40, 40)
-            });
-        }
-        if (dislike == 1) {
-            that.marker.setDislike = 1;
-            markers[that.marker.id].setMap(null);
-        }
-
-        console.log('Line 1029: that.marker.db_id', that.marker.db_id);
-        $.ajax({
-            method: 'POST',
-            url: 'https://www.lang-thomas.at/resources/php/mapdata_matchtodb.php',
-            crossDomain: true,
-            data: {
-                id: localStorage.getItem('id'),
-                like: like,
-                dislike: dislike,
-                fk_id: that.marker.db_id
-            },
-            success: function (response) {
-                if (response !== "Error") {
-                    console.log(response, 'saveNOerror');
-                } else {
-                    console.log(response, 'saveerror');
-                }
+        if (that.marker.setGetLike === 1) {
+            if (like == 1) {
+                that.marker.setMatch = 1;
+                that.marker.setIcon({
+                    url: icons[[that.marker.type]].match.icon,
+                    scaledSize: new google.maps.Size(40, 40)
+                });
             }
-        })
-        ;
-        that.marker = null;
-        that = 0;
+            if (dislike == 1) {
+                that.marker.setDislike = 1;
+                markers[that.marker.id].setMap(null);
+            }
+console.log('Line 1262: ich bin hier' );
 
+            $.ajax({
+                method: 'POST',
+                url: 'https://www.lang-thomas.at/resources/php/mapdata_matchtodb.php',
+                crossDomain: true,
+                data: {
+                    id: localStorage.getItem('id'),
+                    like: like,
+                    dislike: dislike,
+                    fk_id: that.marker.db_id
+                },
+                success: function (response) {
+                    if (response !== "Error") {
+                        console.log(response, 'saveNOerror');
+                    } else {
+                        console.log(response, 'saveerror');
+                    }
+                }
+            })
+            ;
+            that.marker = null;
+            that = 0;
+
+        }
+
+        if (that.marker.setMatch === 1) {
+
+            if (dislike == 1) {
+                that.marker.setDislike = 1;
+                markers[that.marker.id].setMap(null);
+            }
+
+            $.ajax({
+                method: 'POST',
+                url: 'https://www.lang-thomas.at/resources/php/mapdata_matchtodb.php',
+                crossDomain: true,
+                data: {
+                    id: localStorage.getItem('id'),
+                    like: like,
+                    dislike: dislike,
+                    fk_id: that.marker.db_id,
+                    me: that.marker.setMe
+                },
+                success: function (response) {
+                    if (response !== "Error") {
+                        console.log(response, 'saveNOerror');
+                    } else {
+                        console.log(response, 'saveerror');
+                    }
+                }
+            })
+            ;
+            that.marker = null;
+            that = 0;
+
+        }
 
     };
 
 
     $(document).on('click', '#info_like', info_like_click);
     $(document).on('click', '#info_dislike', info_dislike_click);
-    $(document).on('click', '#abschicken', info_abschicken);
+    $(document).on('click', '#abschicken', info_like_abschicken);
     $(document).on('click', '#choose', info_match_click)
 };
 

@@ -984,7 +984,7 @@ input[type="radio"] {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+.infobuttons #choose,
 .infobuttons #abschicken,
 .infobuttons #info_like,
 .infobuttons #info_dislike {
