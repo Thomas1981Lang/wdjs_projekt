@@ -1,4 +1,6 @@
 .idea/
 resources/img/man/
 resources/img/woman/
+resources/upload/man/
+resources/upload/woman/
 mysql_remote.php

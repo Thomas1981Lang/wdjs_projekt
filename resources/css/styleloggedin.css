@@ -927,7 +927,12 @@ input[type="radio"] {
 }
 
 .info_box-title {
+    text-align: center;
     padding: 20px 0 10px;
+}
+
+.info_box_content {
+    font-size: 1.1rem;
 }
 
 #map_wrapper {
@@ -1174,4 +1179,25 @@ display: flex !important;
 ************************************************/
 
 
+.testinfowindow {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 130px;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 999;
+    background-color: rgba(85, 0, 0, 0.9);
 
+}
+
+.test_note {
+    background-color: #ebebeb;
+    box-sizing: border-box;
+    width: 400px;
+    padding: 30px;
+    max-height: 100vh;
+    overflow-y: auto;
+}

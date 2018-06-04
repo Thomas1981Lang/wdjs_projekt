@@ -152,7 +152,7 @@ var setMenuPoints = function () {
                             }
                             break;
                         case 'bi':
-                            if ((markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) || (markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi'))) {
+                            if ((markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) || (markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi'))) {
                                 markers[q].setMap(map);
                             }
                             break;
@@ -534,12 +534,13 @@ function startPosition(position) {
 
 
     if (fakeGPS === 0) {
+
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: position.coords.latitude, lng: position.coords.longitude},
             zoom: zoom,                 // Definiert den Zoom-Level der Karte
             minZoom: zoom,
             maxZoom: zoom,
-            // gestureHandling: 'cooperative',
+            gestureHandling: 'greedy',
             styles: styles,             // Definiert das Kartenstyling
             // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
             mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
@@ -559,13 +560,52 @@ function startPosition(position) {
         });
 
 
+        var updaterealgps = function (position) {
+            $.ajax({
+                url: 'https://www.lang-thomas.at/resources/php/mapdata_gpsupdate.php',
+                method: 'POST',
+                data: {
+                    id: localStorage.getItem('id'),
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                },
+                success: function (response) {
+                    if (response !== "Error") {
+                        console.log('Line 577: saved');
+                    } else {
+                        console.log(response, 'setoffnoterror');
+
+                    }
+                }
+            });
+
+
+            myself.setPosition({
+                lat: position.coords.latitude, lng: position.coords.longitude
+            });
+            console.log('Line 588: myself.setPosition', myself.setPosition);
+        };
+
+        function error(err) {
+            console.log('ERROR(' + err.code + '): ' + err.message);
+        }
+
+        options = {
+            enableHighAccuracy: false,
+            maximumAge: 10000
+        };
+
+
+        navigator.geolocation.watchPosition(updaterealgps, error, options);
+
+
     } else {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: fakeGPSlat, lng: fakeGPSlng},
             zoom: zoom,                 // Definiert den Zoom-Level der Karte
             minZoom: zoom,
             maxZoom: zoom,
-            // gestureHandling: 'cooperative',
+            gestureHandling: 'greedy',
             styles: styles,             // Definiert das Kartenstyling
             // scrollwheel: false,      // Deaktivert das Scrollrad - um Zoomen zu verhindern
             mapTypeControl: false,      // Deaktiviert die verschiedenen Karten Typen
@@ -816,6 +856,8 @@ function populateInfoWindow(marker, infowindow) {
             that = 0;
         }
 
+        $('.testinfowindow').show();
+
         that = infowindow;
 
 
@@ -838,6 +880,8 @@ function populateInfoWindow(marker, infowindow) {
 
             var infoGeschlecht;
             var infoOrientierung;
+            console.log('Line 886: marker.geschlecht', marker.geschlecht);
+            console.log('Line 887: marker.orientierung', marker.orientierung);
             switch (marker.geschlecht) {
                 case 'female':
                     infoGeschlecht = 'Frau';
@@ -860,6 +904,15 @@ function populateInfoWindow(marker, infowindow) {
                     break;
             }
 
+            var datedb = marker.geburtsdatum;
+            var j = datedb.slice(0, 4);
+            console.log(j);
+            var m = datedb.slice(5, 7);
+            console.log(m);
+            var d = datedb.slice(8, 10);
+            console.log(d);
+            var dateconv = (d + '.' + m + '.' + j);
+
             //    marker.setMatch === 1
             if (marker.setLike == 1) {
                 infowindow.setContent(
@@ -875,7 +928,9 @@ function populateInfoWindow(marker, infowindow) {
                         
                         <div class="info_box">
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
-                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">Geburtsdatum:</p>
+                            <p class="info_box_content">${dateconv}</p>
+                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
                             <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
                             <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
                         </div>
@@ -903,7 +958,7 @@ function populateInfoWindow(marker, infowindow) {
                         <div class="info_box">
 
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
-                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">${dateconv}</p>
                             <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
                             <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
 
@@ -938,7 +993,7 @@ function populateInfoWindow(marker, infowindow) {
                         
                         <div class="info_box">
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
-                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
+                            <p class="info_box_content">${dateconv}</p>
                             <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
                             <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
                         </div>
@@ -970,9 +1025,9 @@ function populateInfoWindow(marker, infowindow) {
                         
                         <div class="info_box">
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
-                            <p class="info_box_content">Geburtsdatum: ${marker.geburtsdatum}</p>
-                            <p class="info_box_content">Geschlecht: ${marker.geschlecht}</p>
-                            <p class="info_box_content">Sucht nach: ${marker.orientierung}</p>
+                            <p class="info_box_content">${dateconv}</p>
+                           <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
+                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
                         </div>
                         
                         <div class="infobuttons">
@@ -1058,7 +1113,6 @@ function populateInfoWindow(marker, infowindow) {
     });
 
 
-
 }
 
 function showListings() {
@@ -1118,7 +1172,8 @@ function showListings() {
                         break;
 
                     case 'bi':
-                        if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
+                        console.log('case bi');
+                        if ((markers[e].type == 'women' && (markers[e].orientierung == 'male' || markers[e].orientierung == 'bi')) || (markers[e].type == 'men' && (markers[e].orientierung == 'male' || markers[e].orientierung == 'bi'))) {
                             markers[e].setMap(map);
                         }
                         break;
@@ -1131,23 +1186,16 @@ function showListings() {
                     case 'male':
                         if (markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) {
                             markers[e].setMap(map);
-
-                        } else {
-                            markers[e].setMap(null);
                         }
                         break;
                     case 'female':
                         if (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) {
                             markers[e].setMap(map);
-                        } else {
-                            markers[e].setMap(null);
                         }
                         break;
                     case 'bi':
                         if ((markers[e].type == 'men' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi')) || (markers[e].type == 'women' && (markers[e].orientierung == 'female' || markers[e].orientierung == 'bi'))) {
                             markers[e].setMap(map);
-                        } else {
-                            markers[e].setMap(null);
                         }
                         break;
                 }
@@ -1219,51 +1267,10 @@ var infowindowMatch = function () {
     var info_like_abschicken = function () {
         that.close();
         if (that.marker.setLike !== 1 && that.marker.setGetLike !== 1) {
-        if (like == 1) {
-            that.marker.setLike = 1;
-            that.marker.setIcon({
-                url: icons[[that.marker.type]].like.icon,
-                scaledSize: new google.maps.Size(40, 40)
-            });
-        }
-        if (dislike == 1) {
-            that.marker.setDislike = 1;
-            markers[that.marker.id].setMap(null);
-        }
-
-        $.ajax({
-            method: 'POST',
-            url: 'https://www.lang-thomas.at/resources/php/mapdata_liketodb.php',
-            crossDomain: true,
-            data: {
-                id: localStorage.getItem('id'),
-                like: like,
-                dislike: dislike,
-                fk_id: that.marker.db_id
-            },
-            success: function (response) {
-                if (response !== "Error") {
-                    console.log(response, 'saveNOerror');
-                } else {
-                    console.log(response, 'saveerror');
-                }
-            }
-        })
-        ;
-        that.marker = null;
-        that = 0;
-        }
-
-    };
-
-
-    var info_match_click = function () {
-        that.close();
-        if (that.marker.setGetLike === 1) {
             if (like == 1) {
-                that.marker.setMatch = 1;
+                that.marker.setLike = 1;
                 that.marker.setIcon({
-                    url: icons[[that.marker.type]].match.icon,
+                    url: icons[[that.marker.type]].like.icon,
                     scaledSize: new google.maps.Size(40, 40)
                 });
             }
@@ -1271,11 +1278,10 @@ var infowindowMatch = function () {
                 that.marker.setDislike = 1;
                 markers[that.marker.id].setMap(null);
             }
-console.log('Line 1262: ich bin hier' );
 
             $.ajax({
                 method: 'POST',
-                url: 'https://www.lang-thomas.at/resources/php/mapdata_matchtodb.php',
+                url: 'https://www.lang-thomas.at/resources/php/mapdata_liketodb.php',
                 crossDomain: true,
                 data: {
                     id: localStorage.getItem('id'),
@@ -1294,10 +1300,47 @@ console.log('Line 1262: ich bin hier' );
             ;
             that.marker = null;
             that = 0;
-
         }
 
-        if (that.marker.setMatch === 1) {
+    };
+
+
+    var info_match_click = function () {
+        that.close();
+        if (that.marker.setGetLike === 1) {
+            if (like == 1) {
+                that.marker.setMatch = 1;
+                that.marker.setGetLike = 0;
+                that.marker.setIcon({
+                    url: icons[[that.marker.type]].match.icon,
+                    scaledSize: new google.maps.Size(40, 40)
+                });
+            }
+            if (dislike == 1) {
+                that.marker.setDislike = 1;
+                markers[that.marker.id].setMap(null);
+            }
+
+            $.ajax({
+                method: 'POST',
+                url: 'https://www.lang-thomas.at/resources/php/mapdata_matchtodb.php',
+                crossDomain: true,
+                data: {
+                    id: localStorage.getItem('id'),
+                    like: like,
+                    dislike: dislike,
+                    fk_id: that.marker.db_id
+                },
+                success: function (response) {
+                    if (response !== "Error") {
+                        console.log(response, 'saveNOerror');
+                    } else {
+                        console.log(response, 'saveerror');
+                    }
+                }
+            });
+
+        } else if (that.marker.setMatch === 1) {
 
             if (dislike == 1) {
                 that.marker.setDislike = 1;
@@ -1322,12 +1365,11 @@ console.log('Line 1262: ich bin hier' );
                         console.log(response, 'saveerror');
                     }
                 }
-            })
-            ;
-            that.marker = null;
-            that = 0;
+            });
 
         }
+        that.marker = null;
+        that = 0;
 
     };
 
@@ -1338,7 +1380,9 @@ console.log('Line 1262: ich bin hier' );
     $(document).on('click', '#choose', info_match_click)
 };
 
-
+$(document).on('click', '.test', function () {
+    $('.testinfowindow').css({'display': 'none'});
+});
 infowindowMatch();
 /****************************************************
  *
