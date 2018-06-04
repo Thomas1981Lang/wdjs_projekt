@@ -19,10 +19,23 @@ $lng = $_POST['lng'];
 $type = $_POST['type'];
 
 
-$sql = "INSERT INTO `data` (`username`, `vorname`, `nachname`, `email`, `geburtsdatum`, `geschlecht`, `orientierung`, `password`, `picuser`, `picuserbackground`, `lat`, `lng`, `type`) VALUES ('$username', '$vorname', '$nachname', '$email', '$geburtsdatum', '$geschlecht', '$orientierung', '$password', '$picuser', '$picuserbackground', '$lat', '$lng', '$type' )";
-if ($conn->query($sql) === TRUE) {
-    echo "data inserted";
-} else {
-    echo "Error";
+$sqlabfrage = "SELECT id FROM data WHERE username = '" . $username . "' OR email = '" . $email . "'";
+
+$result = $conn->query($sqlabfrage);
+
+/* determine number of rows result set */
+$row = $result -> fetch_assoc();
+
+$row_cnt = $result->num_rows;
+
+if ($row_cnt === 0) {
+
+    $sql = "INSERT INTO `data` (`username`, `vorname`, `nachname`, `email`, `geburtsdatum`, `geschlecht`, `orientierung`, `password`, `picuser`, `picuserbackground`, `lat`, `lng`, `type`) VALUES ('$username', '$vorname', '$nachname', '$email', '$geburtsdatum', '$geschlecht', '$orientierung', '$password', '$picuser', '$picuserbackground', '$lat', '$lng', '$type' )";
+    if ($conn->query($sql) === TRUE) {
+        echo "data inserted";
+    } else {
+        echo "Error";
+    }
+
 }
 ?>

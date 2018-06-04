@@ -16,6 +16,9 @@ console.log('Line 16: vor ajax' );
     $.ajax({
         method: 'POST',
         url: 'https://www.lang-thomas.at/resources/php/login.php',
+        beforeSend: function() {
+            $('.login').prop('disabled', true);
+        },
         crossDomain: true,
         data: {
             username: username,
@@ -39,7 +42,7 @@ console.log('Line 16: vor ajax' );
                 localStorage.setItem("singles", parseData.singles);
                 localStorage.setItem("session", "1");
 
-
+                $('.login').prop('disabled', false);
                 if (parseData.picuser * 1 === 0 ) {
                     window.location.href = "profil.html";
                 } else {
@@ -48,6 +51,7 @@ console.log('Line 16: vor ajax' );
             } else {
                 console.log(data);
                 $(".error").show();
+                $('.login').prop('disabled', false);
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
