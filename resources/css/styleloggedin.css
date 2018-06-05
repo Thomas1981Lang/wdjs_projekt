@@ -61,7 +61,7 @@ main {
     min-height: calc(100vh - 60px);
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 705px) {
 
     main {
         min-height: calc(100vh - 150px);
@@ -159,7 +159,6 @@ main {
     padding: 0 23px;
 }
 
-
 /********* mobile nav background ****/
 .mobile_nav_background {
     top: 130px;
@@ -192,7 +191,6 @@ main {
     border: none;
 }
 
-
 .mobile_nav_wrapper {
     z-index: 99;
     top: 130px;
@@ -207,7 +205,6 @@ main {
     transform: translate(-300px, 0);
     transition: transform 0.3s ease;
 }
-
 
 .mobile_nav_wrapper.open {
     -webkit-transform: translate(0, 0);
@@ -224,7 +221,6 @@ main {
     margin: 16px 0;
     box-shadow: 0 2px 3px white, -1px -2px 3px white;
 }
-
 
 .mobile_nav_wrapper ul li a {
     display: flex;
@@ -264,20 +260,6 @@ ul li a.mobile_active {
     color: #141414;
     text-decoration: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media only screen and (max-width: 1200px) {
 
@@ -370,7 +352,7 @@ ul li a.mobile_active {
     }
 
     .title {
-        padding: 0;
+        padding: 0 0 0 20px;
         font-size: 2.2em;
     }
 
@@ -381,8 +363,6 @@ ul li a.mobile_active {
     .nav_desktop {
         display: none;
     }
-
-
 
     .mobile_login_background {
         top: 80px;
@@ -407,8 +387,6 @@ ul li a.mobile_active {
 
     /********* mobile nav background ****/
     /********* mobile nav außen ****/
-
-
     .mobile_login {
         cursor: pointer;
         display: flex;
@@ -422,8 +400,6 @@ ul li a.mobile_active {
 
     /********* mobile nav außen ****/
     /********* mobile wrapper ebene ****/
-
-
     .mobile_login_wrapper {
         z-index: 99;
         top: 80px;
@@ -505,15 +481,16 @@ ul li a.mobile_active {
         color: #141414;
         text-decoration: none;
     }
+
     .mobile_nav_background {
-        top: 100px;
-        height: calc(80vh - 100px);
+        top: 80px;
+        height: calc(100vh - 80px);
 
     }
 
     .mobile_nav_wrapper {
-        top: 100px;
-        height: calc(80vh - 100px);
+        top: 80px;
+        height: calc(100vh - 80px);
     }
 }
 
@@ -556,25 +533,30 @@ footer a {
     color: #ebebeb;
 }
 
-/*@media only screen and (max-width: 600px) {*/
+@media only screen and (max-width: 705px) {
 
-    /*footer {*/
-        /*display: flex;*/
-        /*align-items: center;*/
-        /*height: 150px;*/
+    footer {
+        display: flex;
+        align-items: center;
+        height: 150px;
+    }
+
+    /*.profil_footer {*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*height: 184px;*/
     /*}*/
+    .imnuda {
 
-    /*.imnuda {*/
+        display: flex;
+        flex-direction: column;
+    }
 
-        /*display: flex;*/
-        /*flex-direction: column;*/
-    /*}*/
+    .imnuda span {
+        padding: 10px 10px 10px 0;
+    }
 
-    /*.imnuda span {*/
-        /*padding: 10px;*/
-    /*}*/
-
-/*}*/
+}
 
 /************************************************
 ****************                    *************
@@ -671,14 +653,6 @@ footer a {
 
 }
 
-@media only screen and (max-width: 970px) {
-
-    .hero_mobile {
-        margin-top: 80px;
-    }
-
-}
-
 @media only screen and (max-width: 690px) {
 
     .hero_block {
@@ -710,7 +684,7 @@ footer a {
 @media only screen and (max-width: 600px) {
 
     /*.hero {*/
-        /*min-height: calc(100vh - 150px);*/
+    /*min-height: calc(100vh - 150px);*/
     /*}*/
 
 }
@@ -915,8 +889,6 @@ input[type="radio"] {
 ****************                    *************
 ************************************************/
 
-
-
 /************************************************
 ****************       MAIN        **************
 **************  MAP PEEK - SECTION START  ************
@@ -937,7 +909,7 @@ input[type="radio"] {
 }
 
 #map_wrapper {
-    height: calc(100vh - 190px);
+    height: calc(100vh - 130px);
     width: 100%;
 
 }
@@ -945,7 +917,7 @@ input[type="radio"] {
 .card {
     position: absolute;
     top: 130px;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 130px);
     width: 100%;
 }
 
@@ -959,10 +931,6 @@ input[type="radio"] {
     width: 210px;
     height: 250px;
 }
-
-
-
-
 
 .info_window {
     width: 210px;
@@ -990,6 +958,7 @@ input[type="radio"] {
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
 .infobuttons #choose,
 .infobuttons #abschicken,
 .infobuttons #info_like,
@@ -1013,30 +982,30 @@ input[type="radio"] {
 .info_like_choose {
     background-color: green;
 }
+
 .info_dislike_choose {
     background-color: red;
 }
 
-
-
 .gm-style-iw {
-display: flex !important;
+    display: flex !important;
     justify-content: center;
 }
 
 @media only screen and (max-width: 970px) {
     .card {
         top: 100px;
-        height: calc(100vh - 160px);
+        height: calc(100vh - 100px);
     }
 }
 
 @media only screen and (max-width: 830px) {
     .card {
         top: 80px;
-        height: calc(100vh - 140px);
+        height: calc(100vh - 80px);
     }
 }
+
 /************************************************
 ****************       MAIN        **************
 **************  MAP PEEK - SECTION END  *********
@@ -1103,10 +1072,15 @@ display: flex !important;
     font-weight: bold;
 }
 
-.profil_data_wrapper{
+.profil_data_wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
     background-color: #ebebeb;
-    padding: 60px 30px 120px 30px;
+    padding: 60px 30px 0 30px;
     text-align: left;
+    min-height: calc(100vh - 460px - 130px);
 }
 
 .profil_data_wrapper p {
@@ -1121,20 +1095,33 @@ display: flex !important;
     font-weight: normal;
 }
 
+.fakeGPS_wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 120px;
+    height: 70px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
 .fakeGPS {
-    padding-top: 120px;
+    width: 373px;
+
 }
 
 .fakeGPSCords {
     display: none;
+    vertical-align: bottom;
+    padding-right: 50px;
 }
 
 .fakeGPSCords p {
     padding-bottom: 10px;
     display: flex;
-    font-size: 1.4rem;
+    align-items: center;
+    font-size: 1.3rem;
     font-weight: normal;
+
 }
 
 .fakeGPSCords p span {
@@ -1153,27 +1140,319 @@ display: flex !important;
 
 .profil_delete_note {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: baseline;
+
 }
 
-.profil_delete_note .profil_beschriftung{
+.profil_delete_note .profil_beschriftung {
     font-weight: normal;
-    padding-top: 150px;
+    padding-top: 10px;
     font-size: 1.5rem;
     width: 180px;
 }
-
 
 .profil_delete_button {
     padding: 20px;
 }
 
+.fakeGPS span {
+    font-size: 1.3rem;
+    font-weight: normal;
+}
 
+.fakeGPSCords span {
+    font-size: 1.3rem;
+    font-weight: normal;
+}
+
+@media only screen and (max-width: 970px) {
+    .profil {
+        padding-top: 100px;
+    }
+
+    .profil_data_wrapper {
+        min-height: calc(100vh - 460px - 100px);
+    }
+}
+
+@media only screen and (max-width: 830px) {
+    .profil {
+        padding-top: 80px;
+    }
+
+    .profil_data_wrapper {
+        min-height: calc(100vh - 460px - 80px);
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .fakeGPS_wrapper {
+        margin-bottom: 0;
+        height: 230px;
+    }
+
+    .fakeGPS {
+        width: 440px;
+    }
+}
+
+@media only screen and (max-width: 725px) {
+
+    .profil_data_wrapper {
+        padding: 20px 20px 0 20px;
+
+    }
+
+    .profil_data_wrapper p {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+
+}
+
+@media only screen and (max-width: 705px) {
+    .profil_delete_note {
+        padding: 30px 0 0 0;
+    }
+
+    .fakeGPS_wrapper {
+        margin-bottom: 140px;
+        height: 140px;
+    }
+
+    .profil_data_wrapper {
+        padding: 20px 20px 0 20px;
+    }
+
+    .profil_image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .profil_fullname {
+        padding: 0 0 10px 20px;
+        font-size: 2rem;
+        color: #ebebeb;
+        text-shadow: 0 0 6px #141414;
+        font-weight: bold;
+    }
+
+    .profil_hero {
+        display: flex;
+        justify-content: center;
+        padding: 0 0 10px;
+    }
+
+    .profil_data_wrapper {
+        min-height: calc(100vh - 480px - 150px);
+    }
+}
+
+@media only screen and (max-width: 550px) {
+
+    .profil_flex_wrapper p span {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+
+    .profil_flex_wrapper p .profil_beschriftung {
+        display: inline-block;
+        width: 140px;
+        font-weight: normal;
+    }
+    .profil_flex_wrapper p  {
+        padding:0;
+    }
+    .fakeGPS_wrapper {
+        margin-bottom: 0;
+        height: 230px;
+    }
+
+    .fakeGPS {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .fakeGPS {
+        width: 100%;
+
+    }
+
+    .fakeGPSCords {
+        padding-right: 0;
+    }
+
+    .profil_flex_wrapper p {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #gender {
+        width: 190px;
+
+    }
+
+    #geburtsdatum {
+        width: 190px;
+
+    }
+
+    #like_gender {
+        width: 190px;
+
+    }
+
+}
+
+
+
+@media only screen and (max-width: 375px) {
+    .profil_flex_wrapper p {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .profil_flex_wrapper p .profil_beschriftung {
+        display: inline-block;
+        width: 280px;
+        font-weight: normal;
+    }
+
+
+
+    .fakeGPS_wrapper {
+        margin-bottom: 160px;
+        height: 160px;
+    }
+
+    .fakeGPSCords p input {
+        width: 120px;
+    }
+
+    .profil_delete_note .profil_beschriftung {
+        font-weight: normal;
+        padding-top: 10px;
+        font-size: 1.5rem;
+        width: 120px;
+    }
+
+    .profil_delete_button {
+        padding: 20px;
+    }
+
+}
+
+
+@media only screen and (max-width: 350px) {
+
+    .profil_flex_wrapper p .profil_beschriftung {
+        display: inline-block;
+        width: 260px;
+        font-weight: normal;
+    }
+
+
+
+
+
+}
 
 /************************************************
 ****************       MAIN        **************
-**************  PROFIL - SECTION START  *********
+**************  PROFIL - SECTION ENDE  *********
 ****************                    *************
 ************************************************/
 
+/************************************************
+****************       MAIN        **************
+**************  TREFFER - SECTION START  *********
+****************                    *************
+************************************************/
+
+
+.treffer {
+    background-color: black;
+    padding-top: 130px;
+    text-align: center;
+}
+
+.treffer_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1024px;
+    background-color: black;
+    height: calc(100vh - 130px - 60px);
+    color:white;
+
+}
+
+.treffer_user {
+    margin: 20px 0;
+    background-color: #2c2c2c;
+    display:flex;
+    flex-direction: column;
+    min-height: 300px;
+    border: 1px solid #ebebeb;
+    justify-content: space-between;
+}
+
+.treffer_name {
+    padding: 10px 0;
+    background-color: #550000;
+}
+
+.treffer_flex_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.treffer_image {
+    background-color: #ebebeb;
+    min-width: 200px;
+    min-height: 200px;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 50%;
+    border: solid 5px #ebebeb;
+    box-shadow: 0 0 5px #141414;
+    margin: 0 20px 0 20px;
+}
+
+.treffer_info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+}
+
+.treffer_info p {
+    padding: 10px 20px;
+}
+
+.treffer_info p span {
+
+}
+
+.treffer_dislike_footer {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #550000;
+}
+
+#treffer_dislike {
+
+}
+
+/************************************************
+****************       MAIN        **************
+**************  TREFFER - SECTION ENDE  *********
+****************                    *************
+************************************************/

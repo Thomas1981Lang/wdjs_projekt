@@ -19,20 +19,7 @@
 
 <body>
 <header class="header_nav">
-    <nav class="mobile_nav">
 
-        <div class="mobile_nav_wrapper">
-            <ul>
-                <li><a>Gutes Essen</a></li>
-                <li><a>Tolle Partys</a></li>
-                <li><a>Gute Drinks</a></li>
-                <li><a>Single-Magnet</a></li>
-                <li><a>Singles</a></li>
-            </ul>
-        </div>
-        <div class="mobile_nav_background">
-        </div>
-    </nav>
 
 
     <div class="logo">
@@ -41,9 +28,9 @@
     </div>
 
     <nav class="nav_desktop">
-        <span><a href="finden.html" >Finden</a></span>
+        <span><a href="finden.html">Finden</a></span>
         <span><a href="treffer.html" class="active">Treffer</a></span>
-        <span><a href="profil.html" >Profil</a></span>
+        <span><a href="profil.html">Profil</a></span>
         <span><a href="index.html" class="abmelden">Abmelden</a></span>
     </nav>
 
@@ -51,7 +38,7 @@
     <nav class="mobile_login">
         <div class="mobile_login_wrapper">
             <ul>
-                <li><a href="finden.html" >Finden</a></li>
+                <li><a href="finden.html">Finden</a></li>
                 <li><a href="treffer.html">Treffer</a></li>
                 <li><a href="profil.html" class="mobile_active">Profil</a></li>
                 <li><a href="index.html" class="abmelden">Abmelden</a></li>
@@ -63,10 +50,40 @@
 </header>
 
 
-<main class="">
+<main class="treffer">
+    <section class="treffer_wrapper">
+        <div class="treffer_user">
+            <div class="treffer_name">
+                <h2 >NAME der Person</h2>
+            </div>
+            <div class="treffer_flex_wrapper">
+                <div class="treffer_image"></div>
+                <div class="treffer_info">
+                    <p>
+                        <span class="treffer_bezeichnung">Geburtsdatum: </span>
+                        <span class="treffer_geburtsdatum">asdfadfafda afsdf dfa</span>
+                    </p>
+
+                    <p>
+                        <span class="treffer_bezeichnung">Geschlecht: </span>
+                        <span class="treffer_gender">afasdf</span>
+                    </p>
+
+                    <p>
+                        <span class="treffer_bezeichnung">Sucht nach: </span>
+                        <span class="treffer_like_gender">asdfasdf fddsfgsdfg</span>
+                    </p>
+                </div>
+            </div>
+            <div class="treffer_dislike_footer">
+                <p>
+                    <button id="treffer_dislike">Entfernen</button>
+                </p>
+            </div>
+        </div>
 
 
-
+    </section>
 </main>
 
 
@@ -82,7 +99,14 @@
 </footer>
 
 
-<script src="resources/js/singles.js"></script>
+<script src="resources/js/use_general.js"></script>
+<script src="resources/js/use_treffer.js"></script>
+<script src="resources/js/loggedout.js"></script>
+<script>
+
+        fillMatchData();
+
+</script>
 
 </body>
 </html>
