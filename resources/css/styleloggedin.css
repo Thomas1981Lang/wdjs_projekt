@@ -185,8 +185,8 @@ main {
     display: flex;
     flex-direction: row;
     margin: 0 10px;
-    min-width: 45px;
-    min-height: 45px;
+    min-width: 40px;
+    min-height: 40px;
     background: #ffffff url("../img/loupe.svg") no-repeat;
     border: none;
 }
@@ -392,9 +392,9 @@ ul li a.mobile_active {
         display: flex;
         flex-direction: row;
         margin: 0 10px;
-        min-width: 45px;
-        min-height: 45px;
-        background: #ebebeb url("../img/keyhole.svg") no-repeat;
+        min-width: 43px;
+        min-height: 43px;
+        background: #ebebeb url("../img/user.svg") no-repeat;
         border: none;
     }
 
@@ -879,39 +879,50 @@ input[type="radio"] {
 
 /************************************************
 ****************       MAIN        **************
-**************  SIGN IN - SECTION START  ********
-****************                    *************
-************************************************/
-
-/************************************************
-****************       MAIN        **************
-**************  SIGN IN - SECTION END  **********
-****************                    *************
-************************************************/
-
-/************************************************
-****************       MAIN        **************
 **************  MAP PEEK - SECTION START  ************
 ****************                    *************
 ************************************************/
+.info_window {
+    width: 200px;
+}
+
 .info_title {
     padding: 10px;
     text-align: center;
 }
 
+.info_pic img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
 .info_box-title {
     text-align: center;
-    padding: 20px 0 10px;
+    padding: 20px 0 20px;
 }
 
 .info_box_content {
     font-size: 1.1rem;
+    font-weight: normal;
+    padding: 3px 0 10px;
+}
+
+.info_box_desc {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0;
+}
+
+.match_hinweis {
+    padding: 10px 0 15px;
+    font-size: 1.2rem;
 }
 
 #map_wrapper {
     height: calc(100vh - 130px);
     width: 100%;
-
 }
 
 .card {
@@ -932,10 +943,6 @@ input[type="radio"] {
     height: 250px;
 }
 
-.info_window {
-    width: 210px;
-}
-
 .gm-style div a,
 .gm-style button,
 .gm-fullscreen-control,
@@ -946,11 +953,9 @@ input[type="radio"] {
     display: none !important;
 }
 
-.info_pic img {
-    border-radius: 50%;
-    width: 210px;
-    height: 210px;
-    text-align: center;
+.gm-style-iw {
+    display: flex !important;
+    justify-content: center;
 }
 
 .infobuttons {
@@ -965,11 +970,10 @@ input[type="radio"] {
 .infobuttons #info_dislike {
     display: flex !important;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 10px;
     width: 210px;
     cursor: pointer;
-
 }
 
 .infobuttons #abschicken:disabled {
@@ -985,11 +989,6 @@ input[type="radio"] {
 
 .info_dislike_choose {
     background-color: red;
-}
-
-.gm-style-iw {
-    display: flex !important;
-    justify-content: center;
 }
 
 @media only screen and (max-width: 970px) {
@@ -1263,9 +1262,11 @@ input[type="radio"] {
         width: 140px;
         font-weight: normal;
     }
-    .profil_flex_wrapper p  {
-        padding:0;
+
+    .profil_flex_wrapper p {
+        padding: 0;
     }
+
     .fakeGPS_wrapper {
         margin-bottom: 0;
         height: 230px;
@@ -1308,8 +1309,6 @@ input[type="radio"] {
 
 }
 
-
-
 @media only screen and (max-width: 375px) {
     .profil_flex_wrapper p {
         display: flex;
@@ -1321,8 +1320,6 @@ input[type="radio"] {
         width: 280px;
         font-weight: normal;
     }
-
-
 
     .fakeGPS_wrapper {
         margin-bottom: 160px;
@@ -1346,7 +1343,6 @@ input[type="radio"] {
 
 }
 
-
 @media only screen and (max-width: 350px) {
 
     .profil_flex_wrapper p .profil_beschriftung {
@@ -1354,10 +1350,6 @@ input[type="radio"] {
         width: 260px;
         font-weight: normal;
     }
-
-
-
-
 
 }
 
@@ -1373,7 +1365,6 @@ input[type="radio"] {
 ****************                    *************
 ************************************************/
 
-
 .treffer {
     background-color: black;
     padding-top: 130px;
@@ -1386,15 +1377,15 @@ input[type="radio"] {
     margin: 0 auto;
     max-width: 1024px;
     background-color: black;
-    height: calc(100vh - 130px - 60px);
-    color:white;
+    min-height: calc(100vh - 130px - 60px);
+    color: white;
 
 }
 
 .treffer_user {
     margin: 20px 0;
     background-color: #2c2c2c;
-    display:flex;
+    display: flex;
     flex-direction: column;
     min-height: 300px;
     border: 1px solid #ebebeb;
@@ -1447,10 +1438,99 @@ input[type="radio"] {
     background-color: #550000;
 }
 
-#treffer_dislike {
+
+.treffer_dislike {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 970px) {
+    .treffer {
+        padding-top: 100px;
+    }
+
+    .treffer_wrapper {
+        min-height: calc(100vh - 100px - 60px);
+    }
+
 
 }
 
+
+@media only screen and (max-width: 830px) {
+    .treffer {
+        padding-top: 80px;
+    }
+
+    .treffer_wrapper {
+        min-height: calc(100vh - 80px - 60px);
+    }
+
+
+}
+
+
+@media only screen and (max-width: 705px) {
+    .treffer {
+        padding-top: 80px;
+    }
+
+    .treffer_wrapper {
+        min-height: calc(100vh - 80px - 150px);
+    }
+
+
+}
+
+
+@media only screen and (max-width: 705px) {
+
+    .treffer_bezeichnung {
+        padding-bottom: 6px;
+    }
+
+    .treffer_info p span {
+        display: table;
+    }
+
+}
+
+@media only screen and (max-width:550px) {
+
+    .treffer_info {
+        align-items: center;
+    }
+
+    .treffer_flex_wrapper {
+        justify-content: center;
+    }
+
+    .treffer_info p {
+        width: 300px;
+flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width:350px) {
+
+    .treffer_info {
+        align-items: center;
+    }
+
+    .treffer_flex_wrapper {
+        justify-content: center;
+    }
+
+    .treffer_info p {
+        width: 250px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 /************************************************
 ****************       MAIN        **************
 **************  TREFFER - SECTION ENDE  *********

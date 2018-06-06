@@ -142,17 +142,17 @@ var setMenuPoints = function () {
                 if (geschlecht === 'male') {
                     switch (orientierung) {
                         case 'female':
-                            if (markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) {
+                            if (markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi') && markers[q].setDislike != 1) {
                                 markers[q].setMap(map);
                             }
                             break;
                         case 'male':
-                            if (markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) {
+                            if (markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi') && markers[q].setDislike != 1) {
                                 markers[q].setMap(map);
                             }
                             break;
                         case 'bi':
-                            if ((markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')) || (markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi'))) {
+                            if ((markers[q].type == 'women' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')&& markers[q].setDislike != 1) || (markers[q].type == 'men' && (markers[q].orientierung == 'male' || markers[q].orientierung == 'bi')&& markers[q].setDislike != 1))  {
                                 markers[q].setMap(map);
                             }
                             break;
@@ -163,17 +163,17 @@ var setMenuPoints = function () {
                 if (geschlecht === 'female') {
                     switch (orientierung) {
                         case 'male':
-                            if (markers[q].type == 'men' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')) {
+                            if (markers[q].type == 'men' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi') && markers[q].setDislike != 1) {
                                 markers[q].setMap(map);
                             }
                             break;
                         case 'female':
-                            if (markers[q].type == 'women' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')) {
+                            if (markers[q].type == 'women' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi') && markers[q].setDislike != 1) {
                                 markers[q].setMap(map);
                             }
                             break;
                         case 'bi':
-                            if ((markers[q].type == 'men' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')) || (markers[q].type == 'women' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi'))) {
+                            if ((markers[q].type == 'men' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi') && markers[q].setDislike != 1) || (markers[q].type == 'women' && (markers[q].orientierung == 'female' || markers[q].orientierung == 'bi')&& markers[q].setDislike != 1)) {
                                 markers[q].setMap(map);
                             }
                             break;
@@ -928,15 +928,16 @@ function populateInfoWindow(marker, infowindow) {
                         
                         <div class="info_box">
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
-                            <p class="info_box_content">Geburtsdatum:</p>
+                            <p class="info_box_content info_box_desc">Geburtsdatum:</p>
                             <p class="info_box_content">${dateconv}</p>
-                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
-                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
-                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+                            <p class="info_box_content info_box_desc">Geschlecht: </p>
+                            <p class="info_box_content">${infoGeschlecht}</p>
+                            <p class="info_box_content info_box_desc">Sucht nach: </p>
+                            <p class="info_box_content">${infoOrientierung}</p>
                         </div>
                         
                         <div class="match_hinweis">
-                        Du würdest ${marker.vorname} gerne kennen lernen.
+                        <p>Du würdest ${marker.vorname} gerne kennen lernen.</p>
                         </div>                            
                        
                     </div>`);
@@ -958,9 +959,12 @@ function populateInfoWindow(marker, infowindow) {
                         <div class="info_box">
 
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content info_box_desc">Geburtsdatum:</p>
                             <p class="info_box_content">${dateconv}</p>
-                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
-                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+                            <p class="info_box_content info_box_desc">Geschlecht: </p>
+                            <p class="info_box_content">${infoGeschlecht}</p>
+                            <p class="info_box_content info_box_desc">Sucht nach: </p>
+                            <p class="info_box_content">${infoOrientierung}</p>
 
                         </div>
 
@@ -993,9 +997,12 @@ function populateInfoWindow(marker, infowindow) {
                         
                         <div class="info_box">
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content info_box_desc">Geburtsdatum:</p>
                             <p class="info_box_content">${dateconv}</p>
-                            <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
-                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+                            <p class="info_box_content info_box_desc">Geschlecht: </p>
+                            <p class="info_box_content">${infoGeschlecht}</p>
+                            <p class="info_box_content info_box_desc">Sucht nach: </p>
+                            <p class="info_box_content">${infoOrientierung}</p>
                         </div>
                         
                         <div class="match_hinweis">
@@ -1025,9 +1032,12 @@ function populateInfoWindow(marker, infowindow) {
                         
                         <div class="info_box">
                             <h3 class="info_box-title">Information über ${marker.title}</h3>
+                            <p class="info_box_content info_box_desc">Geburtsdatum:</p>
                             <p class="info_box_content">${dateconv}</p>
-                           <p class="info_box_content">Geschlecht: ${infoGeschlecht}</p>
-                            <p class="info_box_content">Sucht nach: ${infoOrientierung}</p>
+                            <p class="info_box_content info_box_desc">Geschlecht: </p>
+                            <p class="info_box_content">${infoGeschlecht}</p>
+                            <p class="info_box_content info_box_desc">Sucht nach: </p>
+                            <p class="info_box_content">${infoOrientierung}</p>
                         </div>
                         
                         <div class="infobuttons">

@@ -376,8 +376,8 @@ main {
         display: flex;
         flex-direction: row;
         margin: 0 10px;
-        min-width: 45px;
-        min-height: 45px;
+        min-width: 43px;
+        min-height: 43px;
         background: #ebebeb url("../img/menu.svg") no-repeat;
         border: none;
     }
@@ -387,8 +387,8 @@ main {
         display: flex;
         flex-direction: row;
         margin: 0 10px;
-        min-width: 45px;
-        min-height: 45px;
+        min-width: 43px;
+        min-height: 43px;
         background: #ebebeb url("../img/keyhole.svg") no-repeat;
         border: none;
     }
