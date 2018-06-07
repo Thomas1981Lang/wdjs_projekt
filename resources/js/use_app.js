@@ -24,16 +24,26 @@ $('.theatralikOff').on('click', function () {
 
 
 
-
-
 const canvas = document.getElementById("canvas");   // Erzeugt ein canvas Objekt vom HTML canvas Element
 const ctx = canvas.getContext("2d");                // Erzeugt ein 2d Zeichnen Object für das canvas Objekt
 let radius = canvas.height / 2;                     // Berechnet aus der Hälfte der Höhe des Canvas den Radius
 ctx.translate(radius, radius);                      // Setzt den Ausgangspunkt für die Befehle in die Mitte des Canvas
 radius = radius * 0.90;                             // Reduziert den Radius um 10% um das später Ziffernblatt und Rahmen vollständig im Canvas darzustellen
-setInterval(drawClock, 1000);                       // Ruft die drawClock-Funktion jede 1000ms auf
+
+/**
+ *  Ruft die drawClock-Funktion jede 1000ms auf
+ *  
+ *  @event setInterval
+ */
+setInterval(drawClock, 1000);
 
 
+/**
+ * Erzeugt das Ziffernblat
+ *
+ * @param ctx
+ * @param radius
+ */
 function drawFace(ctx, radius) {
     var grad;
     ctx.beginPath();                                // Startet das Zeichnet einen Kreis
@@ -53,6 +63,13 @@ function drawFace(ctx, radius) {
     ctx.fill();                                     // Und füllt ihn aus
 }
 
+
+/**
+ * Erzeugt die Nummern am Ziffernblatt
+ *
+ * @param ctx
+ * @param radius
+ */
 function drawNumbers(ctx, radius) {
     var ang;
     var num;
@@ -72,6 +89,16 @@ function drawNumbers(ctx, radius) {
     }
 }
 
+
+/**
+ * Erzeugt die Zeiger der Uhr
+ *
+ * @param ctx
+ * @param pos
+ * @param length
+ * @param width
+ * @param color
+ */
 function drawHand(ctx, pos, length, width, color) {        // Erzeugt die Zeiger
     ctx.strokeStyle = color;
     ctx.beginPath();                                // Beginnt das Zeichnen
@@ -84,6 +111,13 @@ function drawHand(ctx, pos, length, width, color) {        // Erzeugt die Zeiger
     ctx.rotate(-pos);
 }
 
+
+/**
+ * Stellt die Uhrzeit mit der drawHand-Funktion dar.
+ *
+ * @param ctx
+ * @param radius
+ */
 function drawTime(ctx, radius){
     let now = new Date();                           // Erzeugt das Date Objekt
     let hour = now.getHours();                      // Holt sich davon die Stunden
@@ -107,7 +141,7 @@ function drawTime(ctx, radius){
 /**
  *  Ruft die Funktionen für Ziffernblatt, Nummerierung des Ziffernblattes und die Zeit-Darstellung auf.
  *  Und übergibt die Werte für ctx und radius als Parameter an die Funktionen.
- *  Spielt Musik aus dem Audio HTML Element
+ *  Spielt Musik aus dem Audio HTML Element ab
  */
 function drawClock() {
     drawFace(ctx, radius);
