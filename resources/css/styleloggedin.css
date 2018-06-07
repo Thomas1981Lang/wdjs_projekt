@@ -394,7 +394,7 @@ ul li a.mobile_active {
         margin: 0 10px;
         min-width: 43px;
         min-height: 43px;
-        background: #ebebeb url("../img/user.svg") no-repeat;
+        background: #ebebeb url("../img/menu.svg") no-repeat;
         border: none;
     }
 
@@ -1017,351 +1017,199 @@ input[type="radio"] {
 ****************                    *************
 ************************************************/
 
+
+/*@media only screen and (max-width: 970px) {*/
 /*.profil {*/
-    /*background-color: black;*/
-    /*padding-top: 130px;*/
-    /*text-align: center;*/
-/*}*/
-
-/*.profil_wrapper {*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*margin: 0 auto;*/
-    /*max-width: 1024px;*/
-/*}*/
-
-/*.profil_header {*/
-    /*width: 100%;*/
-    /*min-height: 400px;*/
-    /*background-image: url("../img/andrew-welch-229148-unsplash.jpg");*/
-    /*background-color: black;*/
-    /*background-position: center center;*/
-    /*background-size: cover;*/
-    /*display: flex;*/
-    /*align-items: flex-end;*/
-
-/*}*/
-
-/*.profil_hero {*/
-    /*display: flex;*/
-    /*align-items: flex-end;*/
-    /*flex-wrap: wrap;*/
-/*}*/
-
-/*.profil_image_wrapper {*/
-    /*padding: 10px 0 10px 10px;*/
-/*}*/
-
-/*.profil_image {*/
-    /*background-color: #ebebeb;*/
-    /*width: 300px;*/
-    /*height: 300px;*/
-    /*background-position: center center;*/
-    /*background-size: cover;*/
-    /*border-radius: 50%;*/
-    /*border: solid 5px #ebebeb;*/
-    /*box-shadow: 0 0 5px #141414;*/
-/*}*/
-
-/*.profil_fullname {*/
-    /*padding: 0 0 10px 20px;*/
-    /*font-size: 2.4rem;*/
-    /*color: #ebebeb;*/
-    /*text-shadow: 0 0 6px #141414;*/
-    /*font-weight: bold;*/
+/*padding-top: 100px;*/
 /*}*/
 
 /*.profil_data_wrapper {*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-    /*flex-direction: column;*/
-    /*align-items: stretch;*/
-    /*background-color: #ebebeb;*/
-    /*padding: 60px 30px 0 30px;*/
-    /*text-align: left;*/
-    /*min-height: calc(100vh - 460px - 130px);*/
+/*min-height: calc(100vh - 460px - 100px);*/
 /*}*/
-
-/*.profil_data_wrapper p {*/
-    /*font-size: 2rem;*/
-    /*font-weight: bold;*/
-    /*padding-bottom: 20px;*/
-/*}*/
-
-/*.profil_beschriftung {*/
-    /*display: inline-block;*/
-    /*width: 250px;*/
-    /*font-weight: normal;*/
-/*}*/
-
-/*.fakeGPS_wrapper {*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*margin-bottom: 120px;*/
-    /*height: 70px;*/
-    /*justify-content: space-between;*/
-    /*flex-wrap: wrap;*/
-/*}*/
-
-/*.fakeGPS {*/
-    /*width: 373px;*/
-
-/*}*/
-
-/*.fakeGPSCords {*/
-    /*display: none;*/
-    /*vertical-align: bottom;*/
-    /*padding-right: 50px;*/
-/*}*/
-
-/*.fakeGPSCords p {*/
-    /*padding-bottom: 10px;*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*font-size: 1.3rem;*/
-    /*font-weight: normal;*/
-
-/*}*/
-
-/*.fakeGPSCords p span {*/
-    /*width: 100px;*/
-/*}*/
-
-/*.fakeGPS span {*/
-    /*width: 96px;*/
-    /*padding-bottom: 10px;*/
-/*}*/
-
-/*.fakeGPS button {*/
-    /*padding: 0;*/
-    /*margin: 0;*/
-/*}*/
-
-/*.profil_delete_note {*/
-    /*display: flex;*/
-    /*justify-content: left;*/
-    /*align-items: baseline;*/
-
-/*}*/
-
-/*.profil_delete_note .profil_beschriftung {*/
-    /*font-weight: normal;*/
-    /*padding-top: 10px;*/
-    /*font-size: 1.5rem;*/
-    /*width: 180px;*/
-/*}*/
-
-/*.profil_delete_button {*/
-    /*padding: 20px;*/
-/*}*/
-
-/*.fakeGPS span {*/
-    /*font-size: 1.3rem;*/
-    /*font-weight: normal;*/
-/*}*/
-
-/*.fakeGPSCords span {*/
-    /*font-size: 1.3rem;*/
-    /*font-weight: normal;*/
-/*}*/
-
-/*@media only screen and (max-width: 970px) {*/
-    /*.profil {*/
-        /*padding-top: 100px;*/
-    /*}*/
-
-    /*.profil_data_wrapper {*/
-        /*min-height: calc(100vh - 460px - 100px);*/
-    /*}*/
 /*}*/
 
 /*@media only screen and (max-width: 830px) {*/
-    /*.profil {*/
-        /*padding-top: 80px;*/
-    /*}*/
+/*.profil {*/
+/*padding-top: 80px;*/
+/*}*/
 
-    /*.profil_data_wrapper {*/
-        /*min-height: calc(100vh - 460px - 80px);*/
-    /*}*/
+/*.profil_data_wrapper {*/
+/*min-height: calc(100vh - 460px - 80px);*/
+/*}*/
 /*}*/
 
 /*@media only screen and (max-width: 770px) {*/
-    /*.fakeGPS_wrapper {*/
-        /*margin-bottom: 0;*/
-        /*height: 230px;*/
-    /*}*/
+/*.fakeGPS_wrapper {*/
+/*margin-bottom: 0;*/
+/*height: 230px;*/
+/*}*/
 
-    /*.fakeGPS {*/
-        /*width: 440px;*/
-    /*}*/
+/*.fakeGPS {*/
+/*width: 440px;*/
+/*}*/
 /*}*/
 
 /*@media only screen and (max-width: 725px) {*/
 
-    /*.profil_data_wrapper {*/
-        /*padding: 20px 20px 0 20px;*/
+/*.profil_data_wrapper {*/
+/*padding: 20px 20px 0 20px;*/
 
-    /*}*/
+/*}*/
 
-    /*.profil_data_wrapper p {*/
-        /*font-size: 1.5rem;*/
-        /*font-weight: bold;*/
-        /*padding-bottom: 20px;*/
-    /*}*/
+/*.profil_data_wrapper p {*/
+/*font-size: 1.5rem;*/
+/*font-weight: bold;*/
+/*padding-bottom: 20px;*/
+/*}*/
 
 /*}*/
 
 /*@media only screen and (max-width: 705px) {*/
-    /*.profil_delete_note {*/
-        /*padding: 30px 0 0 0;*/
-    /*}*/
+/*.profil_delete_note {*/
+/*padding: 30px 0 0 0;*/
+/*}*/
 
-    /*.fakeGPS_wrapper {*/
-        /*margin-bottom: 140px;*/
-        /*height: 140px;*/
-    /*}*/
+/*.fakeGPS_wrapper {*/
+/*margin-bottom: 140px;*/
+/*height: 140px;*/
+/*}*/
 
-    /*.profil_data_wrapper {*/
-        /*padding: 20px 20px 0 20px;*/
-    /*}*/
+/*.profil_data_wrapper {*/
+/*padding: 20px 20px 0 20px;*/
+/*}*/
 
-    /*.profil_image {*/
-        /*width: 250px;*/
-        /*height: 250px;*/
-    /*}*/
+/*.profil_image {*/
+/*width: 250px;*/
+/*height: 250px;*/
+/*}*/
 
-    /*.profil_fullname {*/
-        /*padding: 0 0 10px 20px;*/
-        /*font-size: 2rem;*/
-        /*color: #ebebeb;*/
-        /*text-shadow: 0 0 6px #141414;*/
-        /*font-weight: bold;*/
-    /*}*/
+/*.profil_fullname {*/
+/*padding: 0 0 10px 20px;*/
+/*font-size: 2rem;*/
+/*color: #ebebeb;*/
+/*text-shadow: 0 0 6px #141414;*/
+/*font-weight: bold;*/
+/*}*/
 
-    /*.profil_hero {*/
-        /*display: flex;*/
-        /*justify-content: center;*/
-        /*padding: 0 0 10px;*/
-    /*}*/
+/*.profil_hero {*/
+/*display: flex;*/
+/*justify-content: center;*/
+/*padding: 0 0 10px;*/
+/*}*/
 
-    /*.profil_data_wrapper {*/
-        /*min-height: calc(100vh - 480px - 150px);*/
-    /*}*/
+/*.profil_data_wrapper {*/
+/*min-height: calc(100vh - 480px - 150px);*/
+/*}*/
 /*}*/
 
 /*@media only screen and (max-width: 550px) {*/
 
-    /*.profil_flex_wrapper p span {*/
-        /*font-size: 1.2rem;*/
-        /*font-weight: bold;*/
-        /*padding-bottom: 20px;*/
-    /*}*/
+/*.profil_flex_wrapper p span {*/
+/*font-size: 1.2rem;*/
+/*font-weight: bold;*/
+/*padding-bottom: 20px;*/
+/*}*/
 
-    /*.profil_flex_wrapper p .profil_beschriftung {*/
-        /*display: inline-block;*/
-        /*width: 140px;*/
-        /*font-weight: normal;*/
-    /*}*/
+/*.profil_flex_wrapper p .profil_beschriftung {*/
+/*display: inline-block;*/
+/*width: 140px;*/
+/*font-weight: normal;*/
+/*}*/
 
-    /*.profil_flex_wrapper p {*/
-        /*padding: 0;*/
-    /*}*/
+/*.profil_flex_wrapper p {*/
+/*padding: 0;*/
+/*}*/
 
-    /*.fakeGPS_wrapper {*/
-        /*margin-bottom: 0;*/
-        /*height: 230px;*/
-    /*}*/
+/*.fakeGPS_wrapper {*/
+/*margin-bottom: 0;*/
+/*height: 230px;*/
+/*}*/
 
-    /*.fakeGPS {*/
-        /*width: 300px;*/
-    /*}*/
+/*.fakeGPS {*/
+/*width: 300px;*/
+/*}*/
 /*}*/
 
 /*@media only screen and (max-width: 430px) {*/
-    /*.fakeGPS {*/
-        /*width: 100%;*/
+/*.fakeGPS {*/
+/*width: 100%;*/
 
-    /*}*/
+/*}*/
 
-    /*.fakeGPSCords {*/
-        /*padding-right: 0;*/
-    /*}*/
+/*.fakeGPSCords {*/
+/*padding-right: 0;*/
+/*}*/
 
-    /*.profil_flex_wrapper p {*/
-        /*display: flex;*/
-        /*flex-wrap: wrap;*/
-    /*}*/
+/*.profil_flex_wrapper p {*/
+/*display: flex;*/
+/*flex-wrap: wrap;*/
+/*}*/
 
-    /*#gender {*/
-        /*width: 190px;*/
+/*#gender {*/
+/*width: 190px;*/
 
-    /*}*/
+/*}*/
 
-    /*#geburtsdatum {*/
-        /*width: 190px;*/
+/*#geburtsdatum {*/
+/*width: 190px;*/
 
-    /*}*/
+/*}*/
 
-    /*#like_gender {*/
-        /*width: 190px;*/
+/*#like_gender {*/
+/*width: 190px;*/
 
-    /*}*/
+/*}*/
 
 /*}*/
 
 /*@media only screen and (max-width: 375px) {*/
-    /*.profil_flex_wrapper p {*/
-        /*display: flex;*/
-        /*flex-wrap: wrap;*/
-    /*}*/
+/*.profil_flex_wrapper p {*/
+/*display: flex;*/
+/*flex-wrap: wrap;*/
+/*}*/
 
-    /*.profil_flex_wrapper p .profil_beschriftung {*/
-        /*display: inline-block;*/
-        /*width: 280px;*/
-        /*font-weight: normal;*/
-    /*}*/
+/*.profil_flex_wrapper p .profil_beschriftung {*/
+/*display: inline-block;*/
+/*width: 280px;*/
+/*font-weight: normal;*/
+/*}*/
 
-    /*.fakeGPS_wrapper {*/
-        /*margin-bottom: 160px;*/
-        /*height: 160px;*/
-    /*}*/
+/*.fakeGPS_wrapper {*/
+/*margin-bottom: 160px;*/
+/*height: 160px;*/
+/*}*/
 
-    /*.fakeGPSCords p input {*/
-        /*width: 120px;*/
-    /*}*/
+/*.fakeGPSCords p input {*/
+/*width: 120px;*/
+/*}*/
 
-    /*.profil_delete_note .profil_beschriftung {*/
-        /*font-weight: normal;*/
-        /*padding-top: 10px;*/
-        /*font-size: 1.5rem;*/
-        /*width: 120px;*/
-    /*}*/
+/*.profil_delete_note .profil_beschriftung {*/
+/*font-weight: normal;*/
+/*padding-top: 10px;*/
+/*font-size: 1.5rem;*/
+/*width: 120px;*/
+/*}*/
 
-    /*.profil_delete_button {*/
-        /*padding: 20px;*/
-    /*}*/
+/*.profil_delete_button {*/
+/*padding: 20px;*/
+/*}*/
 
 /*}*/
 
 /*@media only screen and (max-width: 350px) {*/
 
-    /*.profil_flex_wrapper p .profil_beschriftung {*/
-        /*display: inline-block;*/
-        /*width: 260px;*/
-        /*font-weight: normal;*/
-    /*}*/
+/*.profil_flex_wrapper p .profil_beschriftung {*/
+/*display: inline-block;*/
+/*width: 260px;*/
+/*font-weight: normal;*/
+/*}*/
 
 /*}*/
 
-
-
-
-
-
 .profil {
-background-color: black;
-padding-top: 130px;
-text-align: center;
+    background-color: black;
+    padding-top: 130px;
+    text-align: center;
 }
 
 .profil_wrapper {
@@ -1375,45 +1223,47 @@ text-align: center;
 }
 
 .profil_header {
-width: 100%;
-min-height: 400px;
-background-image: url("../img/andrew-welch-229148-unsplash.jpg");
-background-color: black;
-background-position: center center;
-background-size: cover;
-display: flex;
-align-items: flex-end;
+    width: 100%;
+    min-height: 400px;
+    background-image: url("../img/andrew-welch-229148-unsplash.jpg");
+    background-color: black;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
 
 }
 
 .profil_hero {
-display: flex;
-align-items: flex-end;
-flex-wrap: wrap;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .profil_image_wrapper {
-padding: 10px 0 10px 10px;
+    padding: 10px 0 10px 10px;
 }
 
 .profil_image {
-background-color: #ebebeb;
-width: 300px;
-height: 300px;
-background-position: center center;
-background-size: cover;
-border-radius: 50%;
-border: solid 5px #ebebeb;
-box-shadow: 0 0 5px #141414;
+    background-color: #ebebeb;
+    width: 300px;
+    height: 300px;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 50%;
+    border: solid 5px #ebebeb;
+    box-shadow: 0 0 5px #141414;
 }
 
 .profil_fullname {
-padding: 0 0 10px 20px;
-font-size: 2.4rem;
-color: #ebebeb;
-text-shadow: 0 0 6px #141414;
-font-weight: bold;
+    padding: 0 0 10px 20px;
+    font-size: 2.4rem;
+    color: #ebebeb;
+    text-shadow: 0 0 6px #141414;
+    font-weight: bold;
+
 }
+
 
 .profil_data_wrapper {
     display: flex;
@@ -1428,6 +1278,9 @@ font-weight: bold;
 }
 
 .profil_banner_other {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     height: 50px;
     background-color: #ebebeb;
 }
@@ -1443,9 +1296,123 @@ font-weight: bold;
     text-align: left;
 }
 
+.profil_delete {
+    color: #000000;
+}
+
+.profil_delete_button {
+    padding: 2px 10px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.profil_beschriftung {
+    padding: 0 10px 0 20px
+
+}
+
+.fakeGPS_wrapper {
+    margin: 100px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.fakeGPS {
+    width: 140px;
+}
+
+.fakeGPS_beschriftung {
+    display: flex;
+    width: 100px;
+    padding: 10px 0;
+}
+
+.fakeGPSCords p input {
+    width: 120px;
+}
+
+.fakeGPS_save {
+    margin-top: 25px;
+}
+
+@media only screen and (max-width: 970px) {
+    .profil {
+        padding-top: 100px;
+    }
+
+    .profil_wrapper {
+        min-height: calc(100vh - 100px - 60px);
+    }
+}
 
 
+@media only screen and (max-width: 830px) {
+    .profil {
+        padding-top: 80px;
+    }
 
+    .profil_wrapper {
+        min-height: calc(100vh - 80px - 60px);
+    }
+}
+
+@media only screen and (max-width: 705px) {
+
+    .profil_wrapper {
+        min-height: calc(100vh - 80px - 150px);
+    }
+}
+
+@media only screen and (max-width: 670px) {
+    .profil_hero {
+        display: flex;
+        justify-content: center;
+    }
+
+    .profil_image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .profil_fullname {
+        width: 450px;
+        padding: 5px 0 10px;
+    }
+}
+
+
+@media only screen and (max-width: 520px) {
+
+    .profil_fullname {
+        width: 350px;
+        font-size: 1.5rem;
+    }
+
+}
+
+@media only screen and (max-width: 400px) {
+
+    .profil_fullname {
+        width: 270px;
+    }
+
+}
+
+@media only screen and (max-width: 350px) {
+
+    .profil_user p span{
+        display: table;
+        padding: 7px 0 0 20px;
+    }
+
+    .profil_beschriftung {
+        padding: 30px
+    }
+
+}
 
 /************************************************
 ****************       MAIN        **************
@@ -1532,7 +1499,6 @@ font-weight: bold;
     background-color: #550000;
 }
 
-
 .treffer_dislike {
     cursor: pointer;
 }
@@ -1546,9 +1512,7 @@ font-weight: bold;
         min-height: calc(100vh - 100px - 60px);
     }
 
-
 }
-
 
 @media only screen and (max-width: 830px) {
     .treffer {
@@ -1559,9 +1523,7 @@ font-weight: bold;
         min-height: calc(100vh - 80px - 60px);
     }
 
-
 }
-
 
 @media only screen and (max-width: 705px) {
     .treffer {
@@ -1572,9 +1534,7 @@ font-weight: bold;
         min-height: calc(100vh - 80px - 150px);
     }
 
-
 }
-
 
 @media only screen and (max-width: 705px) {
 
@@ -1588,7 +1548,7 @@ font-weight: bold;
 
 }
 
-@media only screen and (max-width:550px) {
+@media only screen and (max-width: 550px) {
 
     .treffer_info {
         align-items: center;
@@ -1600,14 +1560,14 @@ font-weight: bold;
 
     .treffer_info p {
         width: 300px;
-flex-direction: column;
+        flex-direction: column;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 }
 
-@media only screen and (max-width:350px) {
+@media only screen and (max-width: 350px) {
 
     .treffer_info {
         align-items: center;
@@ -1625,6 +1585,7 @@ flex-direction: column;
         align-items: center;
     }
 }
+
 /************************************************
 ****************       MAIN        **************
 **************  TREFFER - SECTION ENDE  *********

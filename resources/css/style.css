@@ -752,7 +752,7 @@ footer a {
 }
 
 .app video {
-    padding: 40px;
+    padding: 40px 0;
 }
 
 .app_pic {
@@ -770,6 +770,14 @@ footer a {
     width: 40px;
 }
 
+.buttonsDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    padding: 10px
+}
+
 @media only screen and (max-width: 750px) {
 
     .app_pic {
@@ -778,7 +786,25 @@ footer a {
 
 }
 
+@media only screen and (max-width: 970px) {
+
+    .app {
+        padding-top: 160px;
+    }
+
+}
+
+@media only screen and (max-width: 830px) {
+
+    .app {
+        padding-top: 130px;
+    }
+
+}
+
+
 @media only screen and (max-width: 484px) {
+
 
     .app video {
         box-sizing: border-box;
@@ -932,18 +958,6 @@ input[type="radio"] {
 ****************       MAIN        **************
 **************  LOGIN - SECTION END  ************
 ****************                   **************
-************************************************/
-
-/************************************************
-****************       MAIN        **************
-**************  SIGN IN - SECTION START  ********
-****************                    *************
-************************************************/
-
-/************************************************
-****************       MAIN        **************
-**************  SIGN IN - SECTION END  **********
-****************                    *************
 ************************************************/
 
 

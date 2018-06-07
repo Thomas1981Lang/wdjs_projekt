@@ -23,7 +23,7 @@
 
         <div class="mobile_nav_wrapper">
             <ul>
-                <li><a href="index.html" >Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="app.html" class="mobile_active">App</a></li>
             </ul>
         </div>
@@ -38,7 +38,7 @@
     </div>
 
     <nav class="nav_desktop">
-        <span><a href="index.html" >Home</a></span>
+        <span><a href="index.html">Home</a></span>
         <span><a href="app.html" class="active">App</a></span>
         <span><a href="signin.html">Sign In</a></span>
         <span><a href="login.html">Login</a></span>
@@ -66,15 +66,34 @@
         <a href="#">Download Singles to Go (Coming soon&excl;)</a>
     </section>
     <!--    MAIN Section    -->
-    <video autoplay loop muted preload="metadata">
-        <source src="resources/videos/singletogo.mp4" type="video/mp4">
+    <video autoplay loop muted preload="metadata" poster="resources/img/video-fallback.jpg">
+        <!--<source src="resources/videos/singletogo.mp4" type="video/mp4">-->
+
     </video>
 
 
     <h2>Dein eigener Reiseführer zu den heißesten Abenteuern</h2>
-    <p class="app_text">Singles to Go erinnert sich an Plätze und Singles die du magst und schlägt dir neue 'Points of Interest' in deiner Nähe vor.</p>
+    <p class="app_text">Singles to Go erinnert sich an Plätze und Singles die du magst und schlägt dir neue 'Points of
+        Interest' in deiner Nähe vor.</p>
 
-    <p><img class="app_pic" src="resources/img/aranxa-esteve-130749-unsplash.jpg" alt="Picture of a tent in the Desert"></p>
+    <h2>Das Leben ist zu kurz um Alleine zu sein!</h2>
+
+    <div class="clockButtons">
+        <canvas id="canvas" width="280" height="280">
+        </canvas>
+        <div class="buttonsDiv">
+            <button class="theatralikOn" type="button">mehr Theatralik</button>
+            <button class="theatralikOff" type="button">genug Theatralik</button>
+        </div>
+    </div>
+    <audio id="audio">
+        <source src="resources/audio/silence.mp3" type="audio/mpeg">
+    </audio>
+
+    <p class="app_text">Nutze deine Zeit die du hast, um neue Menschen kennen zu lernen.</p>
+
+    <p><img class="app_pic" src="resources/img/aranxa-esteve-130749-unsplash.jpg" alt="Picture of a tent in the Desert">
+    </p>
 
     <p><img class="app_symbole" src="resources/img/phone.png" alt="Smartphone Icon"></p>
 
@@ -85,7 +104,9 @@
 </main>
 
 <footer>
-    <p><a href="https://github.com/Thomas1981Lang" target="_blank">&copy; 2018<script>new Date().getFullYear()>2018&&document.write("-"+new Date().getFullYear());</script> TL</a></p>
+    <p><a href="https://github.com/Thomas1981Lang" target="_blank">&copy; 2018
+        <script>new Date().getFullYear() > 2018 && document.write("-" + new Date().getFullYear());</script>
+        TL</a></p>
     <p class="imnuda">
         <span><a href="#">Impressum</a></span>
         <span><a href="#">Nutzungsbedingung</a></span>
@@ -94,5 +115,6 @@
 
 <script src="resources/js/use_general.js"></script>
 <script src="resources/js/loggedin.js"></script>
+<script src="resources/js/use_app.js"></script>
 </body>
 </html>
