@@ -1,3 +1,6 @@
+var that = 0;
+
+
 /****************************************************
  *
  *
@@ -6,14 +9,13 @@
  *
  ***************************************************/
 
-var that = 0;
 
 /****************************************************
  * SITE: finden.html - START
  ***************************************************/
 
 /**
- *
+ * Holt die Benötigten Variablen aus dem localStorage und vergleicht die Werte um je nach Wahrheitswert die einzelnen Menüpunkte und die entsprechenden Icons auf der Karte ein bzw. aus zu blenden.
  */
 var setMenuPoints = function () {
 
@@ -27,6 +29,7 @@ var setMenuPoints = function () {
 
     /*
     *   EAT
+    *   ändert mit Hilfe von jQuery die Menü Klasse und setzt die Marker je nach Wahrheitswert auf die Karte
     */
     if (eat !== 1) {
         $('.eat').removeClass('mobile_active');
@@ -60,6 +63,7 @@ var setMenuPoints = function () {
 
     /*
     *   DRINK
+    *   ändert mit Hilfe von jQuery die Menü Klasse und setzt die Marker je nach Wahrheitswert auf die Karte
     */
     if (drink !== 1) {
         $('.drink').removeClass('mobile_active');
@@ -90,6 +94,7 @@ var setMenuPoints = function () {
 
     /*
     *   PARTY
+    *   ändert mit Hilfe von jQuery die Menü Klasse und setzt die Marker je nach Wahrheitswert auf die Karte
     */
     if (party !== 1) {
         $('.party').removeClass('mobile_active');
@@ -119,6 +124,7 @@ var setMenuPoints = function () {
 
     /*
     *   SINGLES
+    *   ändert mit Hilfe von jQuery die Menü Klasse und setzt die Marker je nach Wahrheitswert auf die Karte
     */
     if (singles !== 1) {
         $('.singles').removeClass('mobile_active');
@@ -186,6 +192,11 @@ var setMenuPoints = function () {
 };
 
 
+/**
+ * Speichert mit Hilfe von einem AJAX-REQUEST je nach PARAMETER eine 1 bei dem jeweiligen DB-Eintrag und setzt den Menüpunkt damit auf eingeblendet
+ *
+ * @param nav
+ */
 var setNavOn = function (nav) {
     $('.' + nav).addClass('mobile_active');
     $.ajax({
@@ -206,6 +217,12 @@ var setNavOn = function (nav) {
     });
 };
 
+
+/**
+ * Speichert mit Hilfe von einem AJAX-REQUEST je nach PARAMETER eine 0 bei dem jeweiligen DB-Eintrag und setzt den Menüpunkt damit auf eingeblendet
+ *
+ * @param nav
+ */
 var setNavOff = function (nav) {
     $('.' + nav).removeClass('mobile_active');
     $.ajax({
@@ -261,10 +278,10 @@ var gps = 0;
 
 
 //Zoom-level der Google-Map
-var zoom = 13.5;
+var zoom = 14.5;
 
 
-// Erzeugt mir einen leeren Array für die später aufgelisteten Marker.
+// Erzeugt einen leeren Array für die später aufgelisteten Marker.
 var markers = [];
 
 
@@ -501,13 +518,15 @@ var styles = [
 
 
 /****************************************************
- * Globale Variablen Google Maps - START
+ * Globale Functionen Google Maps - START
  ***************************************************/
 
 
 /**
  *  Fragt die Geolocation vom User ab.
- *  Bei Erfolg - wird eine Google Map mit aktuellen Koordinaten erzeugt
+ *  Bei Erfolg - Überprüfung ob FakeGPS eingeschaltet ist oder nicht.
+ *  Wenn deaktiviert - wird eine Google Map mit aktuellen Koordinaten erzeugt.
+ *  Wenn aktiviert - werden die Fake Daten genommen.
  *  Bei Error - Callbackfunktion mit default Werten für Wien.
  *
  *  @param function startPosition
@@ -527,7 +546,6 @@ function getStartMap() {
  * @void
  */
 function startPosition(position) {
-    // Konstruktor erzeugt eine neue Map
     var fakeGPS = localStorage.getItem('fakeGPS') * 1;
     var fakeGPSlat = localStorage.getItem('lat') * 1;
     var fakeGPSlng = localStorage.getItem('lng') * 1;
@@ -535,6 +553,7 @@ function startPosition(position) {
 
     if (fakeGPS === 0) {
 
+        // Konstruktor erzeugt eine neue Map
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: position.coords.latitude, lng: position.coords.longitude},
             zoom: zoom,                 // Definiert den Zoom-Level der Karte
@@ -559,7 +578,10 @@ function startPosition(position) {
             animation: google.maps.Animation.DROP
         });
 
-
+        /**
+         * Speichert in DB die aktuelle Position des Users und setzt die neue Position des Users auf der Karte.
+         * @param position
+         */
         var updaterealgps = function (position) {
             $.ajax({
                 url: 'https://www.lang-thomas.at/resources/php/mapdata_gpsupdate.php',
@@ -571,10 +593,9 @@ function startPosition(position) {
                 },
                 success: function (response) {
                     if (response !== "Error") {
-                        console.log('Line 577: saved');
+                        console.log('saved');
                     } else {
-                        console.log(response, 'setoffnoterror');
-
+                        console.log(response, 'error');
                     }
                 }
             });
@@ -583,13 +604,20 @@ function startPosition(position) {
             myself.setPosition({
                 lat: position.coords.latitude, lng: position.coords.longitude
             });
-            console.log('Line 588: myself.setPosition', myself.setPosition);
+
         };
 
+        /**
+         * Callbackfunktion für navigator.geolocation im Falle eines Errors erhaltet man Fehlermeldung in Console
+         * @param err
+         */
         function error(err) {
             console.log('ERROR(' + err.code + '): ' + err.message);
         }
 
+        /**
+         * Optionen für navigator.geolocation.
+         */
         options = {
             enableHighAccuracy: false,
             maximumAge: 10000
@@ -600,6 +628,11 @@ function startPosition(position) {
 
 
     } else {
+
+        /**
+         * Erzeugt eine neue Karte mit den FakeGPS Daten inlusive Marker des Users im Zentrum
+         * @type {google.maps.Map}
+         */
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: fakeGPSlat, lng: fakeGPSlng},
             zoom: zoom,                 // Definiert den Zoom-Level der Karte
@@ -633,16 +666,11 @@ function startPosition(position) {
 }
 
 
-// var getNewPosition = setInterval(function(){
-//     console.log('test');
-//     watchGPSPosition();
-// },5000);
-
 
 /**
- * Erzeugt eine Google Map mit default Werten für Wien
+ * Erzeugt eine Google Map mit default Werten für Wien ohne USER-Marker
  *
- * @void
+ * @returns void
  */
 function defaultPosition() {
     // Konstruktor erzeugt eine neue Map
@@ -664,9 +692,10 @@ function defaultPosition() {
 /**
  * Wird als Callback-Funktion aufgerufen, wenn die Google-API bereit ist.
  * Initialisiert die Google Maps
- * Erzeugt die Marker
+ * Erzeugt die Marker je nach Wahrheitswert und schiebt sie in den markers-Arrray.
+ * Überprüft anschließend anhand der match-db-Daten die Match-Logik und setzt die entsprechenden Marker je nach Wahrheitswert auf die Karte.
  *
- * @void
+ * @returns void
  */
 function initMap() {
     var largeInfowindow = new google.maps.InfoWindow();
@@ -700,6 +729,11 @@ function initMap() {
                         var vorname = parseData[i].vorname;
                         var nachname = parseData[i].nachname;
 
+
+                        /**
+                         * Abfrage ob Marker.type EAT, DRINK oder PARTY ist.
+                         * Wenn ja werden die Marker in den Informationen im Markers-Array gespeichert.
+                         */
                         if (parseData[i].type === 'eat' || parseData[i].type === 'drink' || parseData[i].type === 'party') {
 
                             var title = parseData[i].title;
@@ -721,6 +755,11 @@ function initMap() {
                             });
                         }
 
+
+                        /**
+                         * Abfrage ob Marker.type EAT, DRINK oder PARTY ist.
+                         * Wenn ja werden die Marker in den Informationen im markers-Array gespeichert.
+                         */
                         if (parseData[i].type === 'women' || parseData[i].type === 'men') {
 
                             marker = new google.maps.Marker({
@@ -750,8 +789,10 @@ function initMap() {
                         markers.push(marker);
 
 
-                        // Erzeugt einen Marker pro Location.
 
+                        /**Erzeugt einen Marker pro Location.
+                         * Je nach wahreitswert werden unterschiedliche Daten den Marker zuseätzlich zu gewiesen.
+                         */
                         for (var j = 0; j < parseDataMatch.length; j++) {
 
                             //Ich like
@@ -813,23 +854,25 @@ function initMap() {
                         }
 
 
-                        // Erzeugt einen onclick-Event um den bei jeden Marker ein infowindow öffnen zu können.
+                        /**
+                         * Erzeugt einen onclick-Event um bei jeden Marker ein infowindow öffnen zu können.
+                         * Dazu wird die Funktion populateInfoWindow aufgerufen
+                         *
+                         * @function populateInfoWindow
+                         * @param this
+                         * @param largeInfowindow
+                         * @event marker.addListener click
+                         */
                         marker.addListener('click', function () {
-                            console.log('Line 698: this', this);
-                            // marker.setIcon({
-                            //     url: icons[[marker.type]].icon,
-                            //     scaledSize: new google.maps.Size(40, 40)
-                            // });
-
 
                             populateInfoWindow(this, largeInfowindow);
-
 
                         });
 
 
                     }
 
+                    // Setzt die Marker je nach Wahrheitswert auf die Karte
                     showListings();
 
                 }  // success match daten
@@ -850,19 +893,27 @@ function initMap() {
 function populateInfoWindow(marker, infowindow) {
     // Überprüft ob das infowindow nicht bereits bei dem Marker geöffnet wurde.
     if (infowindow.marker != marker) {
+
+        //Falls alter Marker noch im Speicher wird er geschlossen und auf 0 gesetzt.
         if (that != 0) {
             that.close();
         } else {
             that = 0;
         }
 
-        $('.testinfowindow').show();
 
+        /**
+         * speichter den Inhalt vom infowindow in einer globalen Variable um später darauf zu greifen zu können
+         */
         that = infowindow;
 
 
         infowindow.setContent('');
         infowindow.marker = marker;
+
+        // Überprüft ob eine Art von Like vorhanden ist.
+        // Falls TRUE behalten die Icons ihre definierte Farbe bzw. Bild
+        // Falls FALSE handelt es sich um Location Marker, welche ihre Farbe beim Markieren ändern sollen
         if (marker.setLike === 1 || marker.setGetLike === 1 || marker.setDislike === 1 || marker.setMatch === 1) {
 
         } else {
@@ -872,10 +923,9 @@ function populateInfoWindow(marker, infowindow) {
             });
         }
 
-        // infowindow.addListener('closeclick', function () {
-        //     infowindow.marker = null;
-        // });
 
+        // Überprüft ob es sich um Marker des Types men oder women handelt
+        // Falls TRUE wird der Marker Content vorbereitet auf die entsprechende Ausgabe.
         if (marker.type == 'men' || marker.type == 'women') {
 
             var infoGeschlecht;
@@ -891,7 +941,7 @@ function populateInfoWindow(marker, infowindow) {
                     break;
             }
 
-
+            // Übersetzt die Orientierung des Users
             switch (marker.orientierung) {
                 case 'female':
                     infoOrientierung = 'Frauen';
@@ -904,6 +954,7 @@ function populateInfoWindow(marker, infowindow) {
                     break;
             }
 
+            // Konvertiert den Datumsstring aus der Datenbank in das Ausgabeformat TT.MM.JJJJ
             var datedb = marker.geburtsdatum;
             var j = datedb.slice(0, 4);
             console.log(j);
@@ -913,7 +964,7 @@ function populateInfoWindow(marker, infowindow) {
             console.log(d);
             var dateconv = (d + '.' + m + '.' + j);
 
-            //    marker.setMatch === 1
+            //   Content für Infowindow wenn marker.setLike === 1
             if (marker.setLike == 1) {
                 infowindow.setContent(
                     `<div class="info_window">
@@ -941,6 +992,8 @@ function populateInfoWindow(marker, infowindow) {
                         </div>                            
                        
                     </div>`);
+
+                //   Content für Infowindow wenn marker.setGetLike === 1
             } else if (marker.setGetLike === 1) {
 
                 infowindow.setContent(
@@ -982,7 +1035,7 @@ function populateInfoWindow(marker, infowindow) {
                         
                         
                 </div>`);
-
+                //   Content für Infowindow wenn marker.setMatch === 1
             } else if (marker.setMatch === 1) {
                 infowindow.setContent(
                     `<div class="info_window">
@@ -1016,6 +1069,7 @@ function populateInfoWindow(marker, infowindow) {
                        
                        
                     </div>`);
+                //   Content für Infowindow wenn noch kein Like oder Match vorhanden ist
             } else if (marker.setLike !== 1 && marker.setGetLike !== 1 && marker.setMatch !== 1 && marker.setDislike !== 1) {
 
                 infowindow.setContent(
@@ -1048,19 +1102,22 @@ function populateInfoWindow(marker, infowindow) {
                            
                 </div>`);
             }
+            //   Content für Infowindow wenn es sich um eine Location handelt
         } else {
-
+            /**
+             * Erzeugt einen StreetViewService um StreetView in den Infowindow einblenden zu können
+             * @type {google.maps.StreetViewService}
+             */
             var streetViewService = new google.maps.StreetViewService();
             var radius = 150;
-            // In case the status is OK, which means the pano was found, compute the
-            // position of the streetview image, then calculate the heading, then get a
-            // panorama from that and set the options
+            // Wenn der Status OK ist, was bedeutet das Panorama wurde gefunden, wird die Position des StreetView-Bildes berechnet und das Panorama ausgegeben
             function getStreetView(data, status) {
                 if (status == google.maps.StreetViewStatus.OK) {
                     var nearStreetViewLocation = data.location.latLng;
                     var heading = google.maps.geometry.spherical.computeHeading(
                         nearStreetViewLocation, marker.position);
 
+                    //   Content für Infowindow wenn es sich um eine Location handelt
                     infowindow.setContent(
                         `<div class="info_window">
                         
@@ -1081,41 +1138,54 @@ function populateInfoWindow(marker, infowindow) {
                             </div>
                         </div>`);
 
+                    // Optionen für Panorama. Position und Ausrichtung (pitch ist der Winkel)
                     var panoramaOptions = {
                         position: nearStreetViewLocation,
                         pov: {
                             heading: heading,
-                            pitch: 30
+                            pitch: 25
                         }
                     };
+
                     var panorama = new google.maps.StreetViewPanorama(
                         document.getElementById('pano'), panoramaOptions);
                 } else {
-                    infowindow.setContent('<div>' + marker.title + '</div>' +
-                        '<div>No Street View Found</div>');
+                    infowindow.setContent(`<div class="info_window">
+                        
+                            <h2 class="info_title">${marker.title}</h2>
+                            
+                            <div class="info_content">
+                                                                
+                                <div class="info_box">
+                                    <h3 class="info_box-title">Information über ${marker.title}</h3>
+                                    <p class="info_box_content">${marker.content}</p>
+                                </div>
+                            </div>
+                        </div>`);
                 }
             }
 
 
-            // Use streetview service to get the closest streetview image within
-            // 50 meters of the markers position
+            // Ruft den StreetViewService auf um das nächstgelegenen StreetView-Panorama, im Radius von 150m (siehe Variable radius weiter oben) um den Marker zu erhalten.
             streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-            // Open the infowindow on the correct marker.
 
         }
+            // Öffnet das infowindow an der richtigen Postition.
         infowindow.open(map, marker);
 
     }
 
 
     // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
+    //Beim Klick auf das X rechts oben im InfoWindow
     infowindow.addListener('closeclick', function () {
         infowindow.close();
         infowindow.marker = null;
         that = 0;
     });
 
-
+    // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
+    //Beim Klick auf einen Punkt auf der Karte.
     google.maps.event.addListener(map, "click", function (event) {
         infowindow.close();
         infowindow.marker = null;
@@ -1125,6 +1195,10 @@ function populateInfoWindow(marker, infowindow) {
 
 }
 
+
+/**
+ * Liest die localStorage Variablen der Nav-Punkte ab und je nach Wahrheitswert werden die Marker geschlossen oder die richtigen wieder geöffnet.
+ */
 function showListings() {
 
     var eat = localStorage.getItem('eat') * 1;
@@ -1137,6 +1211,9 @@ function showListings() {
     for (var e = 0; e < markers.length; e++) {
 
 
+
+        // EAT
+
         if (markers[e].type == 'eat' && eat === 0) {
             markers[e].setMap(null);
         }
@@ -1144,6 +1221,8 @@ function showListings() {
             markers[e].setMap(map);
         }
 
+
+        // DRINK
 
         if ((markers[e].type == 'drink' && drink === 0)) {
             markers[e].setMap(null);
@@ -1153,6 +1232,8 @@ function showListings() {
         }
 
 
+        // PARTY
+
         if ((markers[e].type == 'party' && party === 0)) {
             markers[e].setMap(null);
         }
@@ -1161,12 +1242,17 @@ function showListings() {
         }
 
 
+        // Singles - Logik
+        // Überprüft ob markers.typ mänlich oder weiblich ist und ob das Icon angezeigt werden soll
+        // NEIN
         if ((singles === 0 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
             markers[e].setMap(null);
         }
 
+        // JA
         if ((singles === 1 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
 
+            // Icon-Anzeige-Logik Mann
             if (geschlecht === 'male') {
                 switch (orientierung) {
                     case 'female':
@@ -1191,6 +1277,8 @@ function showListings() {
 
             }
 
+
+            // Icon-Anzeige-Logik Mann
             if (geschlecht === 'female') {
                 switch (orientierung) {
                     case 'male':
@@ -1238,9 +1326,16 @@ function showListings() {
 var like = 0;
 var dislike = 0;
 
+
+/**
+ * Erzeugt die Funktionen und Event-Listener für die Knopfe im Infowindow und Datenbank einträge per AJAX-REQUEST
+ */
 var infowindowMatch = function () {
 
 
+    /**
+     * Überprüft ob der andere Knopf bereits gedrückt wurde, wenn ja entfernt er die CSS Klasse beim bereits gedrückten Knopf und setzt die CSS Klasse beim neuen Knopf und wechselt die Variable-Werte.
+     */
     var info_like_click = function () {
 
         if (dislike === 1) {
@@ -1257,6 +1352,9 @@ var infowindowMatch = function () {
     };
 
 
+    /**
+     * Überprüft ob der andere Knopf bereits gedrückt wurde, wenn ja entfernt er die CSS Klasse beim bereits gedrückten Knopf und setzt die CSS Klasse beim neuen Knopf und wechselt die Variable-Werte.
+     */
     var info_dislike_click = function () {
 
         if (like === 1) {
@@ -1273,7 +1371,11 @@ var infowindowMatch = function () {
 
     };
 
-
+    /**
+     * Überprüft ob die Marker noch kein Like besitzen.
+     * Falls TRUE setzt er ein setLike auf 1 und verändert die Farbe des Marker bzw bei einem Dislike löscht er die Marker Position mit setMap(null).
+     * Danach übergibt er die Werte mittels AJAX-REQUEST an die Datenbank und schließt den Marker in jedem Fall.
+     */
     var info_like_abschicken = function () {
         that.close();
         if (that.marker.setLike !== 1 && that.marker.setGetLike !== 1) {
@@ -1314,7 +1416,10 @@ var infowindowMatch = function () {
 
     };
 
-
+    /**
+     * Überprüft ob die Marker ein setGetLike oder ein setLike haben und setzt den Marker auf Match und ändert die Art des Icons bzw. bei einem Dislike löscht er die Marker Position mit setMap(null).
+     * Danach übergibt er die Werte mittels AJAX-REQUEST an die Datenbank und schließt den Marker in jedem Fall.
+     */
     var info_match_click = function () {
         that.close();
         if (that.marker.setGetLike === 1) {
@@ -1383,16 +1488,39 @@ var infowindowMatch = function () {
 
     };
 
-
+    /**
+     * Ruft beim Klick auf den Button die Funktion info_like_click auf.
+     *
+     * @event #info_like on click
+     */
     $(document).on('click', '#info_like', info_like_click);
+
+    /**
+     * Ruft beim Klick auf den Button die Funktion info_dislike_click auf.
+     *
+     * @event #info_dislike on click
+     */
     $(document).on('click', '#info_dislike', info_dislike_click);
+
+    /**
+     * Ruft beim Klick auf den Button die Funktion info_like_abschicken auf.
+     *
+     * @event #abschicken on click
+     */
     $(document).on('click', '#abschicken', info_like_abschicken);
+
+    /**
+     * Ruft beim Klick auf den Button die Funktion info_match_click auf.
+     *
+     * @event #choose on click
+     */
     $(document).on('click', '#choose', info_match_click)
 };
 
-$(document).on('click', '.test', function () {
-    $('.testinfowindow').css({'display': 'none'});
-});
+
+// $(document).on('click', '.test', function () {
+//     $('.testinfowindow').css({'display': 'none'});
+// });
 infowindowMatch();
 /****************************************************
  *

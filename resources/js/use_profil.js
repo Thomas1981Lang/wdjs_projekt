@@ -5,7 +5,10 @@
  *
  *
  ***************************************************/
-
+/**
+ * Profil Daten abfragen per AJAX-REQUEST und ausgabe der Daten.
+ *
+ */
 var fillProfilData = function () {
 
         $.ajax({
@@ -37,9 +40,20 @@ var fillProfilData = function () {
                             $('input[name="lat"]').val(parseData.lat);
                             $('input[name="lng"]').val(parseData.lng);
                         }
+
                         $('.fakeGPS_button').prop('disabled', false);
 
+
+                        /**
+                         * Holen des localStorage Wertes für fakeGPS.
+                         * Überprüfen ob der Wert 1 ist.
+                         * Falls TRUE wird die Funktion setFakeGPSOff() aufgerufen.
+                         * Falls FALSE wird die Funktion sestFakeGPSOn() aufgerugen.
+                         *
+                         * @event .fakeGPS_button on click
+                         */
                         $('.fakeGPS_button').on('click', function () {
+
                             $('.fakeGPS_button').prop('disabled', true);
                             var fakeGPSStatus = localStorage.getItem('fakeGPS') * 1;
                             console.log(localStorage, 'local');
@@ -48,8 +62,15 @@ var fillProfilData = function () {
                             } else {
                                 setFakeGPSOn()
                             }
+
                         });
 
+
+                        /**
+                         * Ruft die Funktion saveFakeGPSOff() auf.
+                         *
+                         * @event .fakeGPS_save on click
+                         */
                         $('.fakeGPS_save').on('click', function () {
 
                             saveFakeGPS();
@@ -58,6 +79,8 @@ var fillProfilData = function () {
 
                     }
 
+
+                    //Wandelt das erhaltene Datum im Format JJJJ-MM-TT in TT-MM-JJJJ um und gibt den neuen String im VIEW aus.
                     var datedb = parseData.geburtsdatum;
                     var j = datedb.slice(0, 4);
                     console.log(j);
@@ -67,10 +90,10 @@ var fillProfilData = function () {
                     console.log(d);
                     var dateconv = (d + '.' + m + '.' + j);
 
-
                     $('#geburtsdatum').html(dateconv);
 
 
+                    //Wandelt die erhaltenen Daten female oder male in Frau oder Mann um und gibt den neuen String im VIEW aus.
                     switch (parseData.geschlecht) {
                         case 'female':
                             $('#gender').html('Frau');
@@ -81,6 +104,8 @@ var fillProfilData = function () {
                     }
 
 
+
+                    //Wandelt den erhaltenen Daten-String female, male oder bi aus in Frauen, Männer oder Fauen und Männer um um und gibt den neuen String im VIEW aus.
                     switch (parseData.orientierung) {
                         case 'female':
                             $('#like_gender').html('Frauen');
@@ -92,17 +117,16 @@ var fillProfilData = function () {
                             $('#like_gender').html('Frauen und Männer');
                             break;
                     }
-
-
                 }
             }
-        )
-        ;
+        );
+    };
 
 
-    }
-;
-
+/**
+ * Funktion zum Absenden eines AJAX-REQUEST, welcher den Wert fakeGPS im localStorage mit 1 speichert und die Elemente für FakeGPS im VIEW einschaltet.
+ *
+ */
 var setFakeGPSOn = function () {
     $.ajax({
         method: 'POST',
@@ -113,7 +137,6 @@ var setFakeGPSOn = function () {
         success: function (response) {
             if (response !== "Error") {
                 localStorage.setItem('fakeGPS', 1);
-                console.log(response, 'setonnoterror');
                 $('.fakeGPSCords').show();
                 $('.fakeGPS_button').html('AKTIVIERT');
                 $('.fakeGPS_button').prop('disabled', false);
@@ -126,6 +149,11 @@ var setFakeGPSOn = function () {
     });
 };
 
+
+/**
+ * Funktion zum Absenden eines AJAX-REQUEST, welcher den Wert fakeGPS im localStorage mit 0 speichert und die Elemente für FakeGPS im VIEW ausschaltet.
+ *
+ */
 var setFakeGPSOff = function () {
     $.ajax({
         method: 'POST',
@@ -142,13 +170,16 @@ var setFakeGPSOff = function () {
                 $('.fakeGPS_button').prop('disabled', false);
             } else {
                 console.log(response, 'setoffnoterror');
-
             }
         }
     });
 };
 
-
+/**
+ * Funktion zum Absenden eines AJAX-REQUEST. Holt sich mittels jQuery die Werte für lat und lng aus den Input-Feldern und speichert die Daten in der Datenbank.
+ * Wenn erfolgreich werden die Werte ebenfalls im localStorage gespeichtert.
+ * Ajax-REQUEST um FakeGPS Koordinaten zu speichern
+ */
 var saveFakeGPS = function () {
     var lat = $('input[name="lat"]').val();
     var lng = $('input[name="lng"]').val();
@@ -194,15 +225,21 @@ var saveFakeGPS = function () {
 
 $(document).ready(function () {
 
+
+    /**
+     * Dateiabfrage mit hilfe von jQuery und dem FormData-Objektes.
+     * Speichert die Datei am Server und speichert den Pfad zur Datei in der Datenbank ab und weißt sie dabei dem richtigen User mit der aus dem localStorage ermittelten id zu.
+     * Gibt die hochgeladene Datei anschließend mit jQuery im VIEW aus.
+     *
+     * @event #userpic onclick
+     */
     $("#userpic").on('change', function () {
         var id = localStorage.getItem('id');
-        console.log('Line 160: id', id);
         var fd = new FormData();
         var files = $('#userpic')[0].files[0];
         fd.append('idvalue', id);
         fd.append('file', files);
 
-        console.log('Line 166: fd', fd);
 
         $.ajax({
             url: 'https://www.lang-thomas.at/resources/php/profil_upload.php',
@@ -239,7 +276,10 @@ $(document).ready(function () {
  *
  *
  ***************************************************/
-
+/**
+ * Löscht anhand der im localStorage gespeicherten ID und AJAX-REQUEST den USER aus der Datenbank.
+ * Bei Erfolg wird der localStorage gelöscht und mit setItem wieder mit accepted: 1 gefüllt um das erneute Anzeigen der Datenverwendungsnotiz zu unterbinden.
+ */
 var deleteProfilData = function () {
 
 
@@ -261,7 +301,6 @@ var deleteProfilData = function () {
                     localStorage.clear();
                     localStorage.setItem("accepted", 1);
                     window.location.href = "index.html";
-                    console.log(localStorage, 'local');
                 }
             }
         });

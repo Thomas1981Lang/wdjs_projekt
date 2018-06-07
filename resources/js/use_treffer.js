@@ -6,6 +6,18 @@
  *
  ***************************************************/
 
+/**
+ * Erzeugt das Konstruktor Objekt Match mit seinen Eigenschaften id, vorname, nachname, geburstdatum, gender, genderLike, url.
+ *
+ * @param id
+ * @param vorname
+ * @param nachname
+ * @param geburtsdatum
+ * @param gender
+ * @param genderLike
+ * @param url
+ * @constructor
+ */
 var Match = function (id, vorname, nachname, geburtsdatum, gender, genderLike, url) {
     this.id = id;
     this.vorname = vorname;
@@ -17,6 +29,12 @@ var Match = function (id, vorname, nachname, geburtsdatum, gender, genderLike, u
     this.vollername = `${this.vorname} ${this.nachname}`;
 };
 
+
+/**
+ * Fügt dem Match Konstruktor eine Geburtstagsdatumskonvertierer-Methode hinzu. Ändert das übergeben Datum von JJJJ-MM-TT auf TT-MM-JJJJ
+ *
+ * @returns {string|*}
+ */
 Match.prototype.datumcov = function () {
     this.j = this.geburtsdatum.slice(0, 4);
     console.log(this.j);
@@ -28,6 +46,11 @@ Match.prototype.datumcov = function () {
     return this.newDateString;
 };
 
+/**
+ * Fügt dem Match Konstruktor eine Übersetzungs-Methode hinzu.
+ *
+ * @returns {string}
+ */
 Match.prototype.ownGender = function () {
     switch (this.gender) {
         case 'female':
@@ -40,7 +63,11 @@ Match.prototype.ownGender = function () {
     return this.geschlecht;
 };
 
-
+/**
+ * Fügt dem Match Konstruktor eine weitere Übersetzungs-Methode hinzu.
+ *
+ * @returns {string}
+ */
 Match.prototype.likeGender = function () {
     switch (this.genderLike) {
         case 'female':
@@ -56,11 +83,14 @@ Match.prototype.likeGender = function () {
     return this.fremdGeschlecht;
 };
 
-Match.prototype.ausgabe = function () {
 
-};
-
-
+/**
+ * Startet eine Ajax abfrage.
+ * Bei Erfolg wird bei leerem Array 'Noch kein Treffer vorhanden' ausgegeben.
+ * Wenn im Array Daten vorhanden sind werden die Daten mittels for in-Schleife und Match-Object in einem String gespeichert und mit Hilfe von jQuery im DOM einfügen.
+ *
+ * @returns void
+ */
 var fillMatchData = function () {
 
     $.ajax({
@@ -79,8 +109,6 @@ var fillMatchData = function () {
                         '<h2>Noch kein Treffer vorhanden</h2>' +
                         '</div></div>');
                 } else {
-
-
                     for (var i = 0 in parseData) {
                         var id = parseData[i].id;
                         var vorname = parseData[i].vorname;
@@ -90,8 +118,14 @@ var fillMatchData = function () {
                         var genderLike = parseData[i].orientierung;
                         var url = parseData[i].picuserpfad;
 
-console.log('Line 93: genderLike', genderLike );
+                        console.log('Line 93: genderLike', genderLike);
                         var name = 'user' + i;
+
+
+                        /**
+                         * Erzeugt in einer for in-Schleife neue Match Objekte, welche in einem String verwendet werden.
+                         * @type {Match}
+                         */
                         name = new Match(id, vorname, nachname, geburtsdatum, gender, genderLike, url);
 
                         var div = $('<div class="treffer_user">').html(`
@@ -125,6 +159,12 @@ console.log('Line 93: genderLike', genderLike );
                         </div>
                     `);
 
+
+                        /**
+                         * Auf Knopfdruck Ajax-Request um Match in DB und Ausgabe im DOM zu entfernen.
+                         *
+                         * @event .treffer_dislike on click
+                         */
                         $(document).on('click', '.treffer_dislike', function () {
                             var that = $(this);
                             var fk_id = $(this).data('db');
@@ -137,35 +177,24 @@ console.log('Line 93: genderLike', genderLike );
                                 },
                                 success: function (data) {
                                     if (data !== "Error") {
-                                        // var parseData = JSON.parse(data);
-                                        // console.log(parseData, 'parse');
                                         console.log('Line 141: this', that);
                                         $(that).closest('.treffer_user').remove();
-                                        // fk_id.parent().css({'background-color': 'green'});
                                     } else {
                                         console.log(data, 'parse');
                                     }
                                 }
-
                             });
                         });
-                        
+
+                        /**
+                         *  in den DOM einfügen
+                         */
                         div.appendTo('.treffer_wrapper');
-
-
                     }
                 }
             } else {
                 console.log('Line 83: data error', data);
             }
-
-
         }
-
-
     });
-
-
-
-
 };

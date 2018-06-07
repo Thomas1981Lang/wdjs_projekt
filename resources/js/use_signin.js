@@ -7,7 +7,20 @@
  ***************************************************/
 
 
-
+/**
+ * Mittels jQuery werden die eingegebenen Daten vom User beim klick auf den Button aus dem Formular abgefragt und überprüft ob alle Daten eingeben wurden.
+ * Wenn Daten fehlen wir eine Fehlermeldung mit Hilfe von jQuery ausgegeben.
+ *
+ * Vor dem Senden der Daten wird der Login-Button deaktivert um ein erneutes Klicken zu verhindern.
+ * Beim Erhalt der Daten vom Server, egal ob Success oder Error wird der Login-Button wieder aktiviert.
+ *
+ * Daten werden mit AJAX-REQUEST an die Datenbank geschickt und dort werde Username und Email mit den Einträgen in der DB vergliechen.
+ * Falls einer von Beiden schon in der DB vorhanden ist, wird ein Fehler mit Hilfe von jQuery ausgegeben.
+ *
+ * Wenn keine Übereinstimmung vorhanden ist, werden die Daten in der DB verarbeitet und bei Erfolg wird der USER auf das login.html umgeleitet.
+ *
+ * @event #login onclick
+ */
 $(".signIn").on('click', function (event) {
     event.preventDefault();
 
@@ -27,21 +40,7 @@ $(".signIn").on('click', function (event) {
     var isCheckedLike = $('input[name="gender"]').is(':checked');
 
 
-
-//     console.log('Line 28: username', username );
-// console.log('Line 29: vorname', vorname );
-// console.log('Line 30: nachname', nachname );
-// console.log('Line 31: email', email );
-// console.log('Line 32: geburtsdatum', geburtsdatum );
-// console.log('Line 33: geschlecht', geschlecht );
-// console.log('Line 34: orientierung', orientierung );
-// console.log('Line 35: password', password );
-// console.log('Line 36: checkbox', checkbox );
-
-
-
-
-
+    //Übergibt je nach erhaltenen String, den geänderten String an die Variable type weiter.
     if (geschlecht === 'male') {
         var type = 'men';
     }
@@ -50,6 +49,7 @@ $(".signIn").on('click', function (event) {
     }
 
 
+     // Abfrage ob alle Felder ausgefüllt sind - wenn TRUE dann AJAX-REQUEST um Daten zu speichern
     if(username != '' && vorname!= '' &&
        nachname != '' && email != '' &&
        geburtsdatum != '' && isCheckedGender &&
@@ -77,7 +77,6 @@ $(".signIn").on('click', function (event) {
             },
             success: function (data) {
                 if (data !== "data inserted") {
-
                     $('.signIn').prop('disabled', false);
                     $('.error').html('Username oder Email bereits vorhanden.').show();
                     console.log('fehler' );
