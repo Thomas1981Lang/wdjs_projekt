@@ -7,7 +7,7 @@
  ***************************************************/
 
 /**
- * Erzeugt das Konstruktor Objekt Match mit seinen Eigenschaften id, vorname, nachname, geburstdatum, gender, genderLike, url.
+ * Erzeugt das Konstruktor-Objekt Match mit seinen Eigenschaften id, vorname, nachname, geburstdatum, gender, genderLike, url.
  *
  * @param id
  * @param vorname
@@ -31,7 +31,7 @@ var Match = function (id, vorname, nachname, geburtsdatum, gender, genderLike, u
 
 
 /**
- * Fügt dem Match Konstruktor eine Geburtstagsdatumskonvertierer-Methode hinzu. Ändert das übergeben Datum von JJJJ-MM-TT auf TT-MM-JJJJ
+ * Fügt dem Match Konstruktor eine Geburtstagsdatumskonvertierermethode hinzu. Ändert das übergebene Datum von JJJJ-MM-TT auf TT-MM-JJJJ
  *
  * @returns {string|*}
  */
@@ -85,9 +85,9 @@ Match.prototype.likeGender = function () {
 
 
 /**
- * Startet eine Ajax abfrage.
+ * Startet eine Ajax-Abfrage.
  * Bei Erfolg wird bei leerem Array 'Noch kein Treffer vorhanden' ausgegeben.
- * Wenn im Array Daten vorhanden sind werden die Daten mittels for in-Schleife und Match-Object in einem String gespeichert und mit Hilfe von jQuery im DOM einfügen.
+ * Wenn im Array Daten vorhanden sind, werden die Daten mittels for in-Schleife und Match-Object in einem String gespeichert und mit Hilfe von jQuery im DOM eingefügt.
  *
  * @returns void
  */

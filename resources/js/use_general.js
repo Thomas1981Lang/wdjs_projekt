@@ -47,7 +47,7 @@ $('.accept_button').on('click', function () {
 
 
 /**
- * Wenn Button betätigt wird - wird der User Umgeleitet auf www.google.at.
+ * Wenn Button betätigt wird - wird der User umgeleitet auf www.google.at.
  *
  * @event .deny_button onclick
  */
@@ -119,7 +119,7 @@ $(".abmelden").on('click', function () {
 
 
 /**
- *  Bei Icon klick öffnet sich das Menü bzw. beim Klick auf das Eltern Element (Icon) oder die Kind Elemente schließt sich das Menü wieder
+ *  Bei Icon-Klick öffnet sich das Menü bzw. beim Klick auf das Eltern-Element (Icon) oder die Kind-Elemente schließt sich das Menü wieder
  *   .stopPropagation verhindert das Event Bubbling dem DOM hinauf [so dass das Eltern-Elemente vom Eltern-Element(Icon) das Event mitbekommen]
  *
  *   @event .mobile_nav onclick
@@ -148,7 +148,7 @@ $('.mobile_nav').on('click', function (event) {
 
 
 /**
- *  Bei Icon klick öffnet sich das Menü bzw. beim Klick auf das Eltern Element (Icon) oder die Kind Elemente schließt sich das Menü wieder
+ *  Bei Icon-Klick öffnet sich das Menü bzw. beim Klick auf das Eltern-Element (Icon) oder die Kind-Elemente schließt sich das Menü wieder
  *   .stopPropagation verhindert das Event Bubbling dem DOM hinauf [so dass das Eltern-Elemente vom Eltern-Element(Icon) das Event mitbekommen]
  *
  *   @event .mobile_nav onclick
@@ -193,7 +193,7 @@ $('.mobile_login').on('click', function (event) {
  ***************************************************/
 
 /**
- * Überprüft ob der User die Seite über localhost besucht, wenn TRUE passiert nichts.
+ * Überprüft ob der User die Seite über localhost besucht, wenn TRUE, passiert nichts.
  * Falls FALSE wird überprüft ob nicht https:// verwendet wird.
  *      Falls TRUE wird das Protokoll von http:// auf https:// geändert.
  *

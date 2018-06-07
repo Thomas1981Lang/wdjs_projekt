@@ -8,14 +8,14 @@
 
 
 /**
- * Mittels jQuery werden die eingegebenen Daten vom User beim klick auf den Button aus dem Formular abgefragt und überprüft ob alle Daten eingeben wurden.
- * Wenn Daten fehlen wir eine Fehlermeldung mit Hilfe von jQuery ausgegeben.
+ * Mittels jQuery werden die eingegebenen Daten vom User beim Klick auf den Button aus dem Formular abgefragt und überprüft ob alle Daten eingegeben wurden.
+ * Wenn Daten fehlen wird eine Fehlermeldung mit Hilfe von jQuery ausgegeben.
  *
  * Vor dem Senden der Daten wird der Login-Button deaktivert um ein erneutes Klicken zu verhindern.
  * Beim Erhalt der Daten vom Server, egal ob Success oder Error wird der Login-Button wieder aktiviert.
  *
- * Daten werden mit AJAX-REQUEST an die Datenbank geschickt und dort werde Username und Email mit den Einträgen in der DB vergliechen.
- * Falls einer von Beiden schon in der DB vorhanden ist, wird ein Fehler mit Hilfe von jQuery ausgegeben.
+ * Daten werden mit AJAX-REQUEST an die Datenbank geschickt und dort werden Username und Email mit den Einträgen in der DB verglichen.
+ * Falls einer von beiden schon in der DB vorhanden ist, wird ein Fehler mit Hilfe von jQuery ausgegeben.
  *
  * Wenn keine Übereinstimmung vorhanden ist, werden die Daten in der DB verarbeitet und bei Erfolg wird der USER auf das login.html umgeleitet.
  *
@@ -40,7 +40,7 @@ $(".signIn").on('click', function (event) {
     var isCheckedLike = $('input[name="gender"]').is(':checked');
 
 
-    //Übergibt je nach erhaltenen String, den geänderten String an die Variable type weiter.
+    //Übergibt je nach erhaltenem String, den geänderten String an die Variable type weiter.
     if (geschlecht === 'male') {
         var type = 'men';
     }

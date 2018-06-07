@@ -15,7 +15,7 @@ var that = 0;
  ***************************************************/
 
 /**
- * Holt die Benötigten Variablen aus dem localStorage und vergleicht die Werte um je nach Wahrheitswert die einzelnen Menüpunkte und die entsprechenden Icons auf der Karte ein bzw. aus zu blenden.
+ * Holt die Benötigten Variablen aus dem localStorage und vergleicht die Werte um je nach Wahrheitswert die einzelnen Menüpunkte und die entsprechenden Icons auf der Karte ein- bzw. auszublenden.
  */
 var setMenuPoints = function () {
 
@@ -692,7 +692,7 @@ function defaultPosition() {
 /**
  * Wird als Callback-Funktion aufgerufen, wenn die Google-API bereit ist.
  * Initialisiert die Google Maps
- * Erzeugt die Marker je nach Wahrheitswert und schiebt sie in den markers-Arrray.
+ * Erzeugt die Marker je nach Wahrheitswert und schiebt sie in den markers-Array.
  * Überprüft anschließend anhand der match-db-Daten die Match-Logik und setzt die entsprechenden Marker je nach Wahrheitswert auf die Karte.
  *
  * @returns void
@@ -721,7 +721,7 @@ function initMap() {
                 success: function (responsematch) {
                     var parseDataMatch = JSON.parse(responsematch);
 
-                    // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim initialiesieren zu erzeugen
+                    // In der for-Schleife wird der locations-Array verwendet, um einen Array von Markern beim Initialisieren zu erzeugen
                     for (var i = 0; i < parseData.length; i++) {
                         // Bekommt die Position vom locations-Array.
                         var latcords = parseData[i].lat * 1;
@@ -791,7 +791,7 @@ function initMap() {
 
 
                         /**Erzeugt einen Marker pro Location.
-                         * Je nach wahreitswert werden unterschiedliche Daten den Marker zuseätzlich zu gewiesen.
+                         * Je nach Wahreitswert werden unterschiedliche Daten den Marker zusätzlich zugewiesen.
                          */
                         for (var j = 0; j < parseDataMatch.length; j++) {
 
@@ -855,7 +855,7 @@ function initMap() {
 
 
                         /**
-                         * Erzeugt einen onclick-Event um bei jeden Marker ein infowindow öffnen zu können.
+                         * Erzeugt einen onclick-Event um bei jedem Marker ein infowindow öffnen zu können.
                          * Dazu wird die Funktion populateInfoWindow aufgerufen
                          *
                          * @function populateInfoWindow
@@ -903,7 +903,7 @@ function populateInfoWindow(marker, infowindow) {
 
 
         /**
-         * speichter den Inhalt vom infowindow in einer globalen Variable um später darauf zu greifen zu können
+         * speichert den Inhalt vom infowindow in einer globalen Variable um später darauf zugreifen zu können
          */
         that = infowindow;
 
@@ -1110,7 +1110,7 @@ function populateInfoWindow(marker, infowindow) {
              */
             var streetViewService = new google.maps.StreetViewService();
             var radius = 150;
-            // Wenn der Status OK ist, was bedeutet das Panorama wurde gefunden, wird die Position des StreetView-Bildes berechnet und das Panorama ausgegeben
+            // Wenn der Status OK ist, was bedeutet, das Panorama wurde gefunden, wird die Position des StreetView-Bildes berechnet und das Panorama ausgegeben
             function getStreetView(data, status) {
                 if (status == google.maps.StreetViewStatus.OK) {
                     var nearStreetViewLocation = data.location.latLng;
@@ -1170,13 +1170,13 @@ function populateInfoWindow(marker, infowindow) {
             streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
 
         }
-            // Öffnet das infowindow an der richtigen Postition.
+            // Öffnet das infowindow an der richtigen Position.
         infowindow.open(map, marker);
 
     }
 
 
-    // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
+    // Stellt sicher, dass die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
     //Beim Klick auf das X rechts oben im InfoWindow
     infowindow.addListener('closeclick', function () {
         infowindow.close();
@@ -1184,7 +1184,7 @@ function populateInfoWindow(marker, infowindow) {
         that = 0;
     });
 
-    // Stellt sicher das die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
+    // Stellt sicher, dass die Marker Eigenschaft gelöscht wird, wenn das infowindow geschlossen wird.
     //Beim Klick auf einen Punkt auf der Karte.
     google.maps.event.addListener(map, "click", function (event) {
         infowindow.close();
@@ -1243,7 +1243,7 @@ function showListings() {
 
 
         // Singles - Logik
-        // Überprüft ob markers.typ mänlich oder weiblich ist und ob das Icon angezeigt werden soll
+        // Überprüft ob markers.typ männlich oder weiblich ist und ob das Icon angezeigt werden soll
         // NEIN
         if ((singles === 0 && (markers[e].type == 'men' || markers[e].type == 'women'))) {
             markers[e].setMap(null);
@@ -1328,13 +1328,13 @@ var dislike = 0;
 
 
 /**
- * Erzeugt die Funktionen und Event-Listener für die Knopfe im Infowindow und Datenbank einträge per AJAX-REQUEST
+ * Erzeugt die Funktionen und Event-Listener für die Knöpfe im Infowindow und Datenbankeinträge per AJAX-REQUEST
  */
 var infowindowMatch = function () {
 
 
     /**
-     * Überprüft ob der andere Knopf bereits gedrückt wurde, wenn ja entfernt er die CSS Klasse beim bereits gedrückten Knopf und setzt die CSS Klasse beim neuen Knopf und wechselt die Variable-Werte.
+     * Überprüft ob der andere Knopf bereits gedrückt wurde, wenn ja, entfernt er die CSS Klasse beim bereits gedrückten Knopf und setzt die CSS Klasse beim neuen Knopf und wechselt die Variable-Werte.
      */
     var info_like_click = function () {
 

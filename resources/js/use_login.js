@@ -7,8 +7,8 @@
  ***************************************************/
 
 /**
- * Mittels jQuery werden username und password beim klick auf Button auf Formular abgefragt.
- * Beide Daten werden mit AJAX-REQUEST an die Datenbank geschickt und dort mit den Einträgen in der DB vergliechen.
+ * Mittels jQuery werden username und password beim Klick auf Button auf Formular abgefragt.
+ * Beide Daten werden mit AJAX-REQUEST an die Datenbank geschickt und dort mit den Einträgen in der DB verglichen.
  *
  * Vorm Senden der Daten wird der Login-Button deaktivert um ein erneutes Klicken zu verhindern.
  * Beim Erhalt der Daten vom Server, egal ob Success oder Error wird der Login-Button wieder aktiviert.

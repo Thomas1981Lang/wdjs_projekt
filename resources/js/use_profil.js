@@ -6,7 +6,7 @@
  *
  ***************************************************/
 /**
- * Profil Daten abfragen per AJAX-REQUEST und ausgabe der Daten.
+ * Profil Daten abfragen per AJAX-REQUEST und Ausgabe der Daten.
  *
  */
 var fillProfilData = function () {
@@ -48,7 +48,7 @@ var fillProfilData = function () {
                          * Holen des localStorage Wertes für fakeGPS.
                          * Überprüfen ob der Wert 1 ist.
                          * Falls TRUE wird die Funktion setFakeGPSOff() aufgerufen.
-                         * Falls FALSE wird die Funktion sestFakeGPSOn() aufgerugen.
+                         * Falls FALSE wird die Funktion sestFakeGPSOn() aufgerufen.
                          *
                          * @event .fakeGPS_button on click
                          */
@@ -105,7 +105,7 @@ var fillProfilData = function () {
 
 
 
-                    //Wandelt den erhaltenen Daten-String female, male oder bi aus in Frauen, Männer oder Fauen und Männer um um und gibt den neuen String im VIEW aus.
+                    //Wandelt den erhaltenen Daten-String female, male oder bi in Frauen, Männer oder Fauen und Männer um und gibt den neuen String im VIEW aus.
                     switch (parseData.orientierung) {
                         case 'female':
                             $('#like_gender').html('Frauen');
@@ -177,7 +177,7 @@ var setFakeGPSOff = function () {
 
 /**
  * Funktion zum Absenden eines AJAX-REQUEST. Holt sich mittels jQuery die Werte für lat und lng aus den Input-Feldern und speichert die Daten in der Datenbank.
- * Wenn erfolgreich werden die Werte ebenfalls im localStorage gespeichtert.
+ * Wenn erfolgreich, werden die Werte ebenfalls im localStorage gespeichtert.
  * Ajax-REQUEST um FakeGPS Koordinaten zu speichern
  */
 var saveFakeGPS = function () {
@@ -228,7 +228,7 @@ $(document).ready(function () {
 
     /**
      * Dateiabfrage mit hilfe von jQuery und dem FormData-Objektes.
-     * Speichert die Datei am Server und speichert den Pfad zur Datei in der Datenbank ab und weißt sie dabei dem richtigen User mit der aus dem localStorage ermittelten id zu.
+     * Speichert die Datei am Server und speichert den Pfad zur Datei in der Datenbank ab und weist sie dabei dem richtigen User mit der aus dem localStorage ermittelten id zu.
      * Gibt die hochgeladene Datei anschließend mit jQuery im VIEW aus.
      *
      * @event #userpic onclick
